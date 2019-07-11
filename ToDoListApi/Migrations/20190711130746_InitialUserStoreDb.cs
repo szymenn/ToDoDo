@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace ToDoListApi.Migrations.UserStoreDb
+namespace ToDoListApi.Migrations
 {
     public partial class InitialUserStoreDb : Migration
     {

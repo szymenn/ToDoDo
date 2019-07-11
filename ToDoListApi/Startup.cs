@@ -1,13 +1,17 @@
-﻿using AutoMapper;
+﻿using System.Text;
+using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using ToDoListApi.Data;
 using ToDoListApi.Entities;
 using ToDoListApi.Helpers;
+using ToDoListApi.Models;
 using ToDoListApi.Services;
 
 [assembly: ApiController]
@@ -29,7 +33,6 @@ namespace ToDoListApi
             services.AddDbContext<ToDoDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString(Constants.ToDoDbConnectionString)));
 
-            services.AddScoped<IToDoService, ToDoService>();
 
             var mappingConfig = new MapperConfiguration(config =>
             {
@@ -39,10 +42,35 @@ namespace ToDoListApi
             var mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
 
+           
+            
             services.AddDbContext<UserStoreDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString(Constants.UserStoreConnectionString)));
-
+            services.AddIdentityCore<AppUser>()
+                .AddEntityFrameworkStores<UserStoreDbContext>();
+            
+            services.Configure<TokenManagement>(Configuration.GetSection(Constants.TokenManagement));
+            var token = Configuration.GetSection(Constants.TokenManagement).Get<TokenManagement>();
+            var secret = Encoding.ASCII.GetBytes(token.Secret);
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(secret),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+            });
+            
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IToDoService, ToDoService>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -57,6 +85,7 @@ namespace ToDoListApi
             }
 
             app.UseHttpsRedirection();
+            app.UseAuthentication();
             app.UseMvc();
         }
     }
