@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using ToDoListApi.Data;
 using ToDoListApi.Entities;
+using ToDoListApi.Extensions;
 using ToDoListApi.Helpers;
 using ToDoListApi.Models;
 using ToDoListApi.Services;
@@ -84,6 +85,7 @@ namespace ToDoListApi
                 app.UseHsts();
             }
 
+            app.UseCustomExceptionHandler();
             app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseMvc();

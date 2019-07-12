@@ -12,6 +12,8 @@ namespace ToDoListApi.Helpers
         public const string UserNotFound = "User with specified username does not exist";
         public const string UserAlreadyExists = "User with specified username already exists";
         public const string IncorrectPassword = "Password is incorrect";
-        public const string RegistrationError = "An error occured during registration";
+        public const string RegistrationError = "An error occurred during registration";
+        public const string InternalServerError = "Internal Server error";
+        public const string InternalServerErrorDetail = "An unexpected error occurred";
     }
 }
