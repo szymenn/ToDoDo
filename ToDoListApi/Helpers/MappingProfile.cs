@@ -8,8 +8,8 @@ namespace ToDoListApi.Helpers
     {
         public MappingProfile()
         {
-            CreateMap<ToDoDto, ToDo>();
-            CreateMap<ToDo, ToDoDto>();
+            CreateMap<ToDoBindingModel, ToDo>();
+            CreateMap<ToDo, ToDoViewModel>();
         }
     }
 }
