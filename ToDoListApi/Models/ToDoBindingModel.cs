@@ -2,10 +2,9 @@ using System;
 
 namespace ToDoListApi.Models
 {
-    public class ToDoViewModel
+    public class ToDoBindingModel
     {
         public string Task { get; set; }
         public DateTime Date { get; set; }
-        public Guid Id { get; set; }
     }
 }
