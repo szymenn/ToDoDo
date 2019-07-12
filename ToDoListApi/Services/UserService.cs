@@ -10,6 +10,8 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using ToDoListApi.Entities;
+using ToDoListApi.Exceptions;
+using ToDoListApi.Helpers;
 using ToDoListApi.Models;
 
 namespace ToDoListApi.Services
@@ -38,7 +40,7 @@ namespace ToDoListApi.Services
         {
             if (AlreadyExists(userModel.UserName))
             {
-                throw new Exception("User with that username already exists");
+                throw new ResourceAlreadyExistsException(Constants.UserAlreadyExists);
             }
 
             var user = new AppUser {UserName = userModel.UserName};
@@ -47,20 +49,20 @@ namespace ToDoListApi.Services
             {
                 return GenerateToken(user.UserName);
             }
-            throw new Exception("Registration error");
+            throw new RegistrationException(Constants.RegistrationError);
         }
 
         private async Task<AppUser> GetUser(UserBindingModel userModel)
         {
             if (!AlreadyExists(userModel.UserName))
             {
-                throw new Exception("There's no such user");
+                throw new ResourceNotFoundException(Constants.UserNotFound);
             }
             
             var user = _userManager.Users.FirstOrDefault(p => p.UserName == userModel.UserName);
             if (!await _userManager.CheckPasswordAsync(user, userModel.Password))
             {
-                throw new Exception("Password is incorrect");
+                throw new PasswordValidationException(Constants.IncorrectPassword);
             }
 
             return user;

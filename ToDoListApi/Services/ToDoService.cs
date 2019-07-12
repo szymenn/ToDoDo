@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using ToDoListApi.Data;
 using ToDoListApi.Entities;
+using ToDoListApi.Exceptions;
+using ToDoListApi.Helpers;
 
 namespace ToDoListApi.Services
 {
@@ -34,7 +36,7 @@ namespace ToDoListApi.Services
             var toDo = _context.ToDos.FirstOrDefault(p => p.Id == toDoId && p.UserId == userId);
             if (toDo == null)
             {
-                throw new Exception("ToDo with that id does not exist");
+               throw new ResourceNotFoundException(Constants.ToDoNotFound);
             }
             _context.ToDos.Remove(toDo);
             _context.SaveChanges();
@@ -42,15 +44,16 @@ namespace ToDoListApi.Services
             return GetAll(userId);
         }
 
-        public ToDo UpdateToDo(ToDo toDoUpdate, Guid userId)
+        public ToDo UpdateToDo(ToDo toDoUpdate, Guid toDoId, Guid userId)
         {
-            var toDo = _context.ToDos.FirstOrDefault(p => p.Id == toDoUpdate.Id && p.UserId == userId);
+            var toDo = _context.ToDos.FirstOrDefault(p => p.Id == toDoId && p.UserId == userId);
             if (toDo == null)
             {
-                throw new Exception("Todo with that id does not exist");
+                throw new ResourceNotFoundException(Constants.ToDoNotFound);
             }
 
             toDo.Task = toDoUpdate.Task;
+            toDo.Date = toDoUpdate.Date;
             _context.SaveChanges();
             return toDo;
         }
