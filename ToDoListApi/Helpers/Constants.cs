@@ -15,5 +15,6 @@ namespace ToDoListApi.Helpers
         public const string RegistrationError = "An error occurred during registration";
         public const string InternalServerError = "Internal Server error";
         public const string InternalServerErrorDetail = "An unexpected error occurred";
+        public const string AllowSpecificOrigins = "_allowSpecificOrigins";
     }
 }

@@ -33,7 +33,8 @@ namespace ToDoListApi.Services
         public async Task<string> Login(UserBindingModel userModel)
         {
             var user = await GetUser(userModel);
-            return GenerateToken(user.UserName);
+
+            return GenerateToken(user.UserName, Guid.Parse(user.Id));
         }
 
         public async Task<string> Register(UserBindingModel userModel)
@@ -47,7 +48,7 @@ namespace ToDoListApi.Services
             var result = await _userManager.CreateAsync(user, userModel.Password);
             if (result.Succeeded)
             {
-                return GenerateToken(user.UserName);
+                return GenerateToken(user.UserName, Guid.Parse(user.Id));
             }
             throw new RegistrationException(Constants.RegistrationError);
         }
@@ -74,13 +75,13 @@ namespace ToDoListApi.Services
             return user != null;
         }
         
-        private string GenerateToken(string userName)
+        private string GenerateToken(string userName, Guid userId)
         {
             var claim = new[]
             {
                 new Claim(ClaimTypes.Name, userName),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(ClaimTypes.NameIdentifier, Guid.NewGuid().ToString()), 
+                new Claim(ClaimTypes.NameIdentifier, userId.ToString())
             };
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_tokenManagement.Secret));
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);

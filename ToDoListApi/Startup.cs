@@ -29,6 +29,7 @@ namespace ToDoListApi
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddDbContext<ToDoDbContext>(options =>
@@ -69,7 +70,8 @@ namespace ToDoListApi
                     ValidateAudience = false
                 };
             });
-            
+
+          
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IToDoService, ToDoService>();
         }
@@ -87,6 +89,11 @@ namespace ToDoListApi
 
             app.UseCustomExceptionHandler();
             app.UseHttpsRedirection();
+            app.UseCors(config =>
+            {
+                config.WithOrigins("http://localhost:3000")
+                    .AllowAnyMethod(); 
+            });
             app.UseAuthentication();
             app.UseMvc();
         }
