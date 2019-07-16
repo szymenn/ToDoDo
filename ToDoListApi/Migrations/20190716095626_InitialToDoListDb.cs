@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace ToDoListApi.Migrations.ToDoDb
+namespace ToDoListApi.Migrations
 {
     public partial class InitialToDoListDb : Migration
     {

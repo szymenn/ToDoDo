@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ToDoListApi.Data;
 
-namespace ToDoListApi.Migrations
+namespace ToDoListApi.Migrations.UserStoreDb
 {
     [DbContext(typeof(UserStoreDbContext))]
     partial class UserStoreDbContextModelSnapshot : ModelSnapshot

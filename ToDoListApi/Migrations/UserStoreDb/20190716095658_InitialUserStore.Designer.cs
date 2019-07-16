@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ToDoListApi.Data;
 
-namespace ToDoListApi.Migrations
+namespace ToDoListApi.Migrations.UserStoreDb
 {
     [DbContext(typeof(UserStoreDbContext))]
-    [Migration("20190711130746_InitialUserStoreDb")]
-    partial class InitialUserStoreDb
+    [Migration("20190716095658_InitialUserStore")]
+    partial class InitialUserStore
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
