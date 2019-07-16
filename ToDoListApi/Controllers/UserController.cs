@@ -1,5 +1,8 @@
+using System;
 using System.Net;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using ToDoListApi.Models;
 using ToDoListApi.Services;
@@ -10,10 +13,12 @@ namespace ToDoListApi.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
+        private IMapper _mapper;
 
-        public UserController(IUserService userService)
+        public UserController(IUserService userService, IMapper mapper)
         {
             _userService = userService;
+            _mapper = mapper;
         }
 
         [HttpPost("login")]
@@ -37,6 +42,16 @@ namespace ToDoListApi.Controllers
                 Token = token
             });
         }
+
+        [HttpGet]
+        public IActionResult GetUser()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = _userService.GetUser(userId);
+            var userModel = _mapper.Map<UserViewModel>(user);
+            return Ok(userModel);
+        }
+        
             
     }
 }

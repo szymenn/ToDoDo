@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using ToDoListApi.Entities;
 using ToDoListApi.Models;
 
 namespace ToDoListApi.Services
@@ -7,5 +8,6 @@ namespace ToDoListApi.Services
     {
         Task<string> Login(UserBindingModel userModel);
         Task<string> Register(UserBindingModel userModel);
+        AppUser GetUser(string userId);
     }
 }

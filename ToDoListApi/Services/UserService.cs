@@ -1,6 +1,7 @@
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Security.Claims;
 using System.Text;
 using System.Threading;
@@ -53,6 +54,17 @@ namespace ToDoListApi.Services
             throw new RegistrationException(Constants.RegistrationError);
         }
 
+        public AppUser GetUser(string userId)
+        {
+            var user = _userManager.Users.FirstOrDefault(p => p.Id == userId);
+            if (user == null)
+            {
+                throw new ResourceNotFoundException(Constants.UserNotFound);
+            }
+
+            return user;
+        }
+
         private async Task<AppUser> GetUser(UserBindingModel userModel)
         {
             if (!AlreadyExists(userModel.UserName))
@@ -68,6 +80,7 @@ namespace ToDoListApi.Services
 
             return user;
         }
+
 
         private bool AlreadyExists(string userName)
         {

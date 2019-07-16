@@ -10,6 +10,7 @@ namespace ToDoListApi.Helpers
         {
             CreateMap<ToDoBindingModel, ToDo>();
             CreateMap<ToDo, ToDoViewModel>();
+            CreateMap<AppUser, UserViewModel>();
         }
     }
 }
