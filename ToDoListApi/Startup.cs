@@ -88,12 +88,15 @@ namespace ToDoListApi
             }
 
             app.UseCustomExceptionHandler();
-            app.UseHttpsRedirection();
             app.UseCors(config =>
             {
-                config.WithOrigins("http://localhost:3000")
-                    .AllowAnyMethod(); 
+                config.AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .SetIsOriginAllowed((host) => true)
+                    .AllowCredentials();
             });
+            app.UseHttpsRedirection();
+
             app.UseAuthentication();
             app.UseMvc();
         }
