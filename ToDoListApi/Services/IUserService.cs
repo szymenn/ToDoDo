@@ -6,8 +6,8 @@ namespace ToDoListApi.Services
 {
     public interface IUserService
     {
-        Task<string> Login(UserBindingModel userModel);
-        Task<string> Register(UserBindingModel userModel);
+        Task<string> Login(LoginBindingModel userModel);
+        Task<string> Register(RegisterBindingModel userModel);
         AppUser GetUser(string userId);
     }
 }

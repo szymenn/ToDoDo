@@ -22,7 +22,7 @@ namespace ToDoListApi.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] UserBindingModel userModel)
+        public async Task<IActionResult> Login([FromBody] LoginBindingModel userModel)
         {
             var token =  await _userService.Login(userModel);
 
@@ -33,7 +33,7 @@ namespace ToDoListApi.Controllers
         }
         
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] UserBindingModel userModel)
+        public async Task<IActionResult> Register([FromBody] RegisterBindingModel userModel)
         {
             var token =  await _userService.Register(userModel);
 

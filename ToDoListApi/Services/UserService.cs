@@ -31,14 +31,14 @@ namespace ToDoListApi.Services
             _tokenManagement = tokenManagement.Value;
         }
 
-        public async Task<string> Login(UserBindingModel userModel)
+        public async Task<string> Login(LoginBindingModel userModel)
         {
             var user = await GetUser(userModel);
 
             return GenerateToken(user.UserName, Guid.Parse(user.Id));
         }
 
-        public async Task<string> Register(UserBindingModel userModel)
+        public async Task<string> Register(RegisterBindingModel userModel)
         {
             if (AlreadyExists(userModel.UserName))
             {
@@ -65,7 +65,7 @@ namespace ToDoListApi.Services
             return user;
         }
 
-        private async Task<AppUser> GetUser(UserBindingModel userModel)
+        private async Task<AppUser> GetUser(LoginBindingModel userModel)
         {
             if (!AlreadyExists(userModel.UserName))
             {
