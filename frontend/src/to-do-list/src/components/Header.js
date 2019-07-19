@@ -9,6 +9,7 @@ class Header extends Component{
         this.handleLogin = this.handleLogin.bind(this)
         this.handleLogout = this.handleLogout.bind(this)
         this.handleRegister = this.handleRegister.bind(this)
+        this.handleHome = this.handleHome.bind(this)
     }
 
     handleLogin(){
@@ -22,6 +23,10 @@ class Header extends Component{
 
     handleRegister(){
         this.props.history.push('/Register')
+    }
+
+    handleHome(){
+        this.props.history.push('/')
     }
     render(){
         if(!localStorage.getItem('id_token')){
@@ -43,7 +48,12 @@ class Header extends Component{
             <div>
                 <Navbar>
                     ToDoList App
-                    <Button color='primary' onClick={this.handleLogout}>Log out</Button>
+                <Nav className="ml-auto">
+                    <NavItem>
+                        <Button color='primary' onClick={this.handleHome}>Home</Button>{' '}
+                        <Button color='primary' onClick={this.handleLogout}>Log out</Button>
+                    </NavItem>
+                </Nav>
                 </Navbar>
             </div>
         )

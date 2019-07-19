@@ -3,7 +3,6 @@ import {Form, FormGroup, Input, Label, Badge} from 'reactstrap'
 import Header from './Header';
 import axios from 'axios';
 import {withRouter} from 'react-router-dom';
-import API from './utils/API';
  
 
 class AuthenticatedComponent extends Component{

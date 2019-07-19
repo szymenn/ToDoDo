@@ -2,8 +2,10 @@ import React, {Component} from 'react'
 import {Table, Button, Jumbotron} from 'reactstrap'
 import axios from 'axios';
 import {withRouter} from 'react-router-dom';
+import ResultTodos from './ResultTodos';
+import ResultNotAuth from './ResultNotAuth';
 
- class ToDoTable extends Component{
+class ToDoTable extends Component{
     constructor(props){
         super(props)
         this.state ={
@@ -12,6 +14,8 @@ import {withRouter} from 'react-router-dom';
         }
         this.handleLogIn = this.handleLogIn.bind(this)
         this.handleRegister = this.handleRegister.bind(this)
+        this.handleAdd = this.handleAdd.bind(this)
+        this.handleDelete = this.handleDelete.bind(this)
     }
     
     handleLogIn() {
@@ -24,7 +28,7 @@ import {withRouter} from 'react-router-dom';
 
     handleDelete(e){
         const jwt = localStorage.getItem('id_token')
-        axios.delete(`https://localhost:44364/todo/${e}`, 
+        axios.delete(`https://localhost:5001/todo/${e}`, 
         {headers: {Authorization: `Bearer ${jwt}`}})
         .then(result => this.setState({
             todos: result.data
@@ -40,7 +44,7 @@ import {withRouter} from 'react-router-dom';
         const jwt = localStorage.getItem('id_token')
         if(jwt){
         const apiCall = axios.create({
-            baseURL: 'https://localhost:44364'
+            baseURL: 'https://localhost:5001'
         });
 
         apiCall.get('/todo', {headers: {Authorization: `Bearer ${jwt}`}})
@@ -52,55 +56,17 @@ import {withRouter} from 'react-router-dom';
         .then(result => this.setState({
             user: result.data.userName
         }))
-        }
+        } 
     }
 
     render() {
-        const {todos} = this.state
-        const resultTodos = todos.map((entry, index) => {
-            return(
-                <tbody key={index}>
-                    <tr>
-                        <td >{entry.task}</td>
-                        <td >{entry.date}</td>
-                        <th>
-                            <Button color="secondary">Edit</Button>
-                        </th>
-                        <th>
-                            <Button color="danger" onClick={(e)=>{this.handleDelete(entry.id)}}>Delete</Button>
-                        </th>
-                    </tr>
-                </tbody>
-            )
-        })
-        if(localStorage.getItem('id_token'))
+        if(localStorage.getItem('id_token')){
         return(
-            <Table>
-                <thead>
-                    <tr>
-                        <th>Task</th>
-                        <th>Date</th>
-                        <th>
-                            <Button color="success">Add new Task</Button>
-                        </th>
-                    </tr>
-                </thead>
-                {resultTodos}
-            </Table>
+            <ResultTodos todos={this.state.todos} handleDelete={this.handleDelete} handleAdd={this.handleAdd}/>
         )
-
+        }
         return(
-            <Jumbotron>
-                <h1 className="display-3">Welcome to ToDoList App</h1>
-                <p className="lead">Simple ToDoList app I made in order to learn basics of frontend web development</p>
-                <hr className="my-2" />
-                <p className="lead">               
-                    <Button color="primary" onClick={this.handleLogIn}>Log in</Button>
-                </p>
-                <p className="lead">               
-                    <Button color="success" onClick={this.handleRegister}>Register</Button>
-                </p>
-            </Jumbotron>
+           <ResultNotAuth handleLogIn={this.handleLogIn} handleRegister={this.handleRegister}/>
         )
     }
 }
