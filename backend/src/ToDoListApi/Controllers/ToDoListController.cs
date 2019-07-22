@@ -18,7 +18,7 @@ namespace ToDoListApi.Controllers
         private readonly IToDoService _toDoService;
         private readonly IMapper _mapper;
 
-        public ToDoListController(IToDoService toDoService, IMapper mapper, UserManager<AppUser> userManager)
+        public ToDoListController(IToDoService toDoService, IMapper mapper)
         {
             _toDoService = toDoService;
             _mapper = mapper;
