@@ -33,7 +33,7 @@ namespace ToDoListApi.Services
 
         public async Task<string> Login(LoginBindingModel userModel)
         {
-            var user = await GetUser(userModel);
+            var user = await LoginUser(userModel);
 
             return GenerateToken(user.UserName, Guid.Parse(user.Id));
         }
@@ -65,7 +65,7 @@ namespace ToDoListApi.Services
             return user;
         }
 
-        private async Task<AppUser> GetUser(LoginBindingModel userModel)
+        private async Task<AppUser> LoginUser(LoginBindingModel userModel)
         {
             if (!AlreadyExists(userModel.UserName))
             {

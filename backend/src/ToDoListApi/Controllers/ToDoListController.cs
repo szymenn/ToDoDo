@@ -11,7 +11,7 @@ using ToDoListApi.Services;
 
 namespace ToDoListApi.Controllers
 {
-    [Route("todo")]
+    [Route("todos")]
     [Authorize]
     public class ToDoListController : ControllerBase
     {
