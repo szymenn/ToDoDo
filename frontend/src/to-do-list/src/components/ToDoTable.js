@@ -9,7 +9,6 @@ class ToDoTable extends Component{
     constructor(props){
         super(props)
         this.state ={
-            user: undefined,
             todos: []
         }
         this.handleLogIn = this.handleLogIn.bind(this)
@@ -28,7 +27,7 @@ class ToDoTable extends Component{
 
     handleDelete(e){
         const jwt = localStorage.getItem('id_token')
-        axios.delete(`https://localhost:5001/todo/${e}`, 
+        axios.delete(`https://localhost:5001/todos/${e}`, 
         {headers: {Authorization: `Bearer ${jwt}`}})
         .then(result => this.setState({
             todos: result.data
@@ -47,15 +46,11 @@ class ToDoTable extends Component{
             baseURL: 'https://localhost:5001'
         });
 
-        apiCall.get('/todo', {headers: {Authorization: `Bearer ${jwt}`}})
+        apiCall.get('/todos', {headers: {Authorization: `Bearer ${jwt}`}})
         .then(result => this.setState({
             todos: result.data
         }))
-        
-        apiCall.get('/user', {headers: {Authorization: `Bearer ${jwt}`}})
-        .then(result => this.setState({
-            user: result.data.userName
-        }))
+       
         } 
     }
 

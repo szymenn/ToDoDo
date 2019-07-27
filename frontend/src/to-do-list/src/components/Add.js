@@ -39,7 +39,8 @@ class Add extends Component {
             task: task,
             date: date
         }
-        axios.post('https://localhost:5001/todo', data, {headers: headers})
+        
+        axios.post('https://localhost:5001/todos', data, {headers: headers})
         this.props.history.push('/')
     }
 

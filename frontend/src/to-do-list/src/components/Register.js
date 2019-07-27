@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {FormGroup, Form, Button, Badge, Label, Input, Container, Navbar} from 'reactstrap';
 import {withRouter} from 'react-router-dom';
 import axios from 'axios';
@@ -27,7 +27,7 @@ class Register extends Component{
         this.props.history.push('/')
     }
 
-    submit(e){
+    submit(e) {
         e.preventDefault();
         const apiCall = axios.create({
             baseURL: "https://localhost:5001",
@@ -54,7 +54,7 @@ class Register extends Component{
 
     render(){
         return(
-        <div>
+         <div>
             <Navbar>
                 ToDoList App
                 <Button color="primary" onClick={this.handleHome}>Home</Button>
@@ -81,9 +81,77 @@ class Register extends Component{
                 </FormGroup>
             </Form>
             </Container>
-        </div>
+        </div> 
         )
     }
 }
+
+// function Register(props){
+//     const [username, setUsername] = useState('');
+//     const [password, setPassword] = useState('');
+//     const [confirmPassword, setConfirmPassword] = useState('');
+
+//     function check () {
+//                 if (document.getElementById('password').value === document.getElementById('confirm_password').value) {
+//                     document.getElementById('message').style.color = 'green';
+//                     document.getElementById('message').innerHTML = 'matching';
+//                 } else {
+//                     document.getElementById('message').style.color = 'red';
+//                     document.getElementById('message').innerHTML = 'not matching';
+//                 }
+//     }
+            
+//     function submit(e) {
+//                         e.preventDefault();
+//                         const apiCall = axios.create({
+//                             baseURL: "https://localhost:5001",
+//                         });
+//                         apiCall.post('/user/register', {
+//                             UserName: username,
+//                             Password: password,
+//                             ConfirmPassword: confirmPassword
+//                         }).then(result => {
+//                             localStorage.setItem('id_token', result.data.token)
+//                             props.history.push('/');
+                    
+//                         });
+//     }
+
+//     function handleHome(){
+//         props.history.push('/')
+//     } 
+    
+//     return(
+//         <div>
+//             <Navbar>
+//                 ToDoList App
+//                 <Button color="primary" onClick={handleHome}>Home</Button>
+//             </Navbar>
+//             <Container>
+//             <h1><Badge color="primary">Register page</Badge></h1>
+//             <Form onSubmit={e => submit(e)}>
+//                 <FormGroup>
+//                     <Label for="username">Username</Label>
+//                     <Input type="username" name="username" id="username" placeholder="Username" onChange={e => setUsername(e)} />
+//                 </FormGroup>
+//                 <FormGroup>
+//                     <Label for="password">Password</Label>
+//                     <Input type="password" name="password" id="password" placeholder="Password" onChange={e=> setPassword(e)}  onKeyUp={check}/>
+//                 </FormGroup>
+//                 <FormGroup>
+//                     <Label for="confirm_password">Confirm password</Label>
+//                     <Input type="password" name="confirm_password" id="confirm_password" placeholder="Confirm password" onChange={e=> setConfirmPassword(e)}  onKeyUp={check}/>
+//                     <span id='message'></span>
+//                 </FormGroup>
+
+//                 <FormGroup>
+//                     <Button type="submit" color="success">Register</Button>
+//                 </FormGroup>
+//             </Form>
+//             </Container>
+//         </div>
+//     )
+// }
+
 
 export default withRouter(Register)
