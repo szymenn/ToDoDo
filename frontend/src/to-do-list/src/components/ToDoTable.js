@@ -4,13 +4,12 @@ import axios from 'axios';
 import {withRouter} from 'react-router-dom';
 import ResultTodos from './ResultTodos';
 import ResultNotAuth from './ResultNotAuth';
+import store from '../store';
+import {AddToDos} from '../actions';
 
 class ToDoTable extends Component{
     constructor(props){
         super(props)
-        this.state ={
-            todos: []
-        }
         this.handleLogIn = this.handleLogIn.bind(this)
         this.handleRegister = this.handleRegister.bind(this)
         this.handleAdd = this.handleAdd.bind(this)
@@ -40,6 +39,7 @@ class ToDoTable extends Component{
     }
 
     componentDidMount(){
+        const todos;
         const jwt = localStorage.getItem('id_token')
         if(jwt){
         const apiCall = axios.create({
@@ -47,10 +47,11 @@ class ToDoTable extends Component{
         });
 
         apiCall.get('/todos', {headers: {Authorization: `Bearer ${jwt}`}})
-        .then(result => this.setState({
+        .then(result => {
             todos: result.data
-        }))
-       
+        });
+        
+        store.dispatch()
         } 
     }
 

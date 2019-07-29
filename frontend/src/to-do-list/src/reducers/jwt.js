@@ -1,6 +1,6 @@
 import { SET_JWT } from '../constants/actionTypes';
 
-const jwt = (state = null, action) => {
+const jwt = (state = '', action) => {
     switch(action.type){
         case SET_JWT:
             return {
