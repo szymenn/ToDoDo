@@ -7,14 +7,13 @@ const todos = (state = [], action) => {
             ...state,
             {
                 id: action.id,
-                text: action.text
+                text: action.text,
+                date: action.date
             }
         ]
-        case ADD_TODOS:
-            return[
-                ...state,
-                action.todos
-            ]
+        case INITIAL_TODOS:
+            return
+                action.todos            
         default:
             return state
     }
