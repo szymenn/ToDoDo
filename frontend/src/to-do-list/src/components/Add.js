@@ -1,15 +1,20 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import axios from 'axios';
-import {withRouter} from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import TaskForm from './TaskForm';
+import { connect } from 'react-redux';
+import { UpdateToDos } from '../actions';
+
+function mapStateToProps(state) {
+    return {
+        todos: state.todos,
+        jwt: state.jwt
+    }
+}
 
 class Add extends Component {
     constructor(props){
         super(props)
-        this.state = {
-            task: undefined,
-            date: undefined
-        }
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
     }
@@ -35,20 +40,23 @@ class Add extends Component {
         const date = new Date(inputDate).toJSON()
         const task = document.getElementById('task').value
         
-        const data = {
+        const todo = {
             task: task,
             date: date
         }
-        
-        axios.post('https://localhost:5001/todos', data, {headers: headers})
+
+        axios.post('https://localhost:5001/todos', todo, {headers: headers})
+        .then(result => {
+            this.props.dispatch(UpdateToDos(result.data))
+        })
         this.props.history.push('/')
     }
 
     render(){
         return(
-           <TaskForm handleSubmit={this.handleSubmit} handleChange={this.handleChange} date={this.state.date} task={this.state.task}/>
+           <TaskForm handleSubmit={this.handleSubmit} handleChange={this.handleChange}/>
         )
     }
 }
 
-export default withRouter(Add)
+export default connect(mapStateToProps)(withRouter(Add))

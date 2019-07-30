@@ -1,7 +1,13 @@
 import React, {Component} from 'react';
 import {Navbar, Button, Nav, NavItem} from 'reactstrap';
 import {withRouter} from 'react-router-dom';
+import { connect } from 'react-redux';
 
+function mapStateToProps(state) {
+    return {
+        jwt: state.jwt
+    }
+}
 
 class Header extends Component{
     constructor(props){
@@ -29,7 +35,7 @@ class Header extends Component{
         this.props.history.push('/')
     }
     render(){
-        if(!localStorage.getItem('id_token')){
+        if(this.props.jwt === ''){
         return(
             <div>
             <Navbar>ToDoList App
@@ -60,4 +66,4 @@ class Header extends Component{
     }
 }
 
-export default withRouter(Header)
+export default connect(mapStateToProps)(withRouter(Header))

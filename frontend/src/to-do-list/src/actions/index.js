@@ -1,22 +1,19 @@
-import { SET_JWT, ADD_TODO, ADD_TODOS } from '../constants/actionTypes';
+import { SET_JWT, UPDATE_TODOS } from '../constants/actionTypes';
 
-export default function SetJwt(jwt){
+export function SetJwt(jwt){
     return {
         type: SET_JWT,
-        jwt: jwt
+        payload: {
+            jwt: jwt
+        }
     }
 } 
 
-export default function AddToDo(todo){
+export function UpdateToDos(todos){
     return {
-        type: ADD_TODO,
-        text: todo.text,
-    }
-}
-
-export default function AddToDos(todos){
-    return {
-        type: ADD_TODOS,
-        todos: todos
+        type: UPDATE_TODOS,
+        payload:{
+            todos: todos
+        }
     }
 }

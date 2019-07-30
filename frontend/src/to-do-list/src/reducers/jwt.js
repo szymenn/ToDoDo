@@ -4,7 +4,7 @@ const jwt = (state = '', action) => {
     switch(action.type){
         case SET_JWT:
             return {
-                jwt: action.jwt
+                jwt: action.payload.jwt
             }
         default: 
             return state;

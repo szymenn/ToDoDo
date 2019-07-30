@@ -1,11 +1,18 @@
-import React, {Component} from 'react'
-import {Table, Button, Jumbotron} from 'reactstrap'
+import React, { Component } from 'react'
+import { Table, Button, Jumbotron } from 'reactstrap'
 import axios from 'axios';
-import {withRouter} from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import ResultTodos from './ResultTodos';
 import ResultNotAuth from './ResultNotAuth';
-import store from '../store';
-import {AddToDos} from '../actions';
+import { connect } from 'react-redux';
+import { UpdateToDos } from '../actions/index';
+
+function mapStateToProps(state) {
+    return {
+    todos: state.todos,
+    jwt: state.jwt
+    }
+}
 
 class ToDoTable extends Component{
     constructor(props){
@@ -22,43 +29,33 @@ class ToDoTable extends Component{
 
     handleRegister(){
         this.props.history.push('/Register')
-    }
+    } 
 
     handleDelete(e){
-        const jwt = localStorage.getItem('id_token')
+        const jwt = this.props.jwt
         axios.delete(`https://localhost:5001/todos/${e}`, 
         {headers: {Authorization: `Bearer ${jwt}`}})
-        .then(result => this.setState({
-            todos: result.data
-        }))
+        .then(result => {
+            this.props.dispatch(UpdateToDos(result.data))
+        })
+
         this.props.history.push('/')
     }
-
+ 
     handleAdd(){
         this.props.history.push('/Add')
     }
 
     componentDidMount(){
-        const todos;
-        const jwt = localStorage.getItem('id_token')
-        if(jwt){
-        const apiCall = axios.create({
-            baseURL: 'https://localhost:5001'
-        });
-
-        apiCall.get('/todos', {headers: {Authorization: `Bearer ${jwt}`}})
-        .then(result => {
-            todos: result.data
-        });
-        
-        store.dispatch()
-        } 
+        const jwt = this.props.jwt
+        axios.get('https://localhost:5001/todos', {headers: {Authorization: `Bearer ${jwt}`}})
+        .then(result => this.props.dispatch(UpdateToDos(result.data)))
     }
 
     render() {
-        if(localStorage.getItem('id_token')){
+        if(this.props.jwt !== ''){
         return(
-            <ResultTodos todos={this.state.todos} handleDelete={this.handleDelete} handleAdd={this.handleAdd}/>
+            <ResultTodos todos={this.props.todos} handleDelete={this.handleDelete} handleAdd={this.handleAdd}/>
         )
         }
         return(
@@ -66,4 +63,6 @@ class ToDoTable extends Component{
         )
     }
 }
-export default withRouter(ToDoTable)
+
+
+export default connect(mapStateToProps)(withRouter(ToDoTable))

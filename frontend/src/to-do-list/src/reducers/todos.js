@@ -1,4 +1,4 @@
-import {ADD_TODO, ADD_TODOS} from '../constants/actionTypes';
+import {ADD_TODO, UPDATE_TODOS } from '../constants/actionTypes';
 
 const todos = (state = [], action) => {
     switch (action.type){
@@ -6,15 +6,14 @@ const todos = (state = [], action) => {
         return [
             ...state,
             {
-                id: action.id,
-                text: action.text,
-                date: action.date
+                text: action.payload.text,
+                date: action.payload.date,
+                id: action.payload.id
             }
         ]
-        case INITIAL_TODOS:
-            return
-                action.todos            
-        default:
+        case UPDATE_TODOS:
+            return action.payload.todos
+        default: 
             return state
     }
 }
