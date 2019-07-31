@@ -9,7 +9,7 @@ using ToDoListApi.Services;
 
 namespace ToDoListApi.Controllers
 {
-    [Route("users")]
+    [Route("user")]
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
