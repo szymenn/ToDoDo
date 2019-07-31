@@ -2,11 +2,11 @@ import React, {Component} from 'react';
 import {Navbar, Button, Nav, NavItem} from 'reactstrap';
 import {withRouter} from 'react-router-dom';
 import { connect } from 'react-redux';
+import { JWT_ID } from '../constants/jwt';
+import { Logout } from '../actions';
 
 function mapStateToProps(state) {
-    return {
-        jwt: state.jwt
-    }
+    return state;
 }
 
 class Header extends Component{
@@ -23,7 +23,6 @@ class Header extends Component{
     }
 
     handleLogout(){
-        localStorage.removeItem('id_token')
         this.props.history.push('/')
     }
 
@@ -35,7 +34,7 @@ class Header extends Component{
         this.props.history.push('/')
     }
     render(){
-        if(this.props.jwt === ''){
+        if(localStorage.getItem(JWT_ID) === null){
         return(
             <div>
             <Navbar>ToDoList App
@@ -49,7 +48,7 @@ class Header extends Component{
             </div>
         )
         }
-        
+        else{
         return(
             <div>
                 <Navbar>
@@ -57,12 +56,13 @@ class Header extends Component{
                 <Nav className="ml-auto">
                     <NavItem>
                         <Button color='primary' onClick={this.handleHome}>Home</Button>{' '}
-                        <Button color='primary' onClick={this.handleLogout}>Log out</Button>
+                        <Button color='primary' onClick={this.props.dispatch(Logout())}>Log out</Button>
                     </NavItem>
                 </Nav>
                 </Navbar>
             </div>
         )
+        }
     }
 }
 

@@ -3,3 +3,4 @@ export const SET_JWT = "SET_JWT";
 export const DELETE_TODO = "DELETE_TODO";
 export const UPDATE_TODOS = "UPDATE_TODOS";
 export const UPDATE_TODO = "UPDATE_TODO";
+export const DELETE_JWT = "DELETE_JWT";

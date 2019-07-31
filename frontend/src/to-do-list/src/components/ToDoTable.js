@@ -5,7 +5,8 @@ import { withRouter } from 'react-router-dom';
 import ResultTodos from './ResultTodos';
 import ResultNotAuth from './ResultNotAuth';
 import { connect } from 'react-redux';
-import { UpdateToDos } from '../actions/index';
+import {UpdateToDos} from '../actions/index';
+import { JWT_ID } from '../constants/jwt';
 
 function mapStateToProps(state) {
     return {
@@ -32,7 +33,8 @@ class ToDoTable extends Component{
     } 
 
     handleDelete(e){
-        const jwt = this.props.jwt
+
+        const jwt = localStorage.getItem('id_token')
         axios.delete(`https://localhost:5001/todos/${e}`, 
         {headers: {Authorization: `Bearer ${jwt}`}})
         .then(result => {
@@ -41,19 +43,19 @@ class ToDoTable extends Component{
 
         this.props.history.push('/')
     }
- 
+
     handleAdd(){
         this.props.history.push('/Add')
     }
 
     componentDidMount(){
-        const jwt = this.props.jwt
+        const jwt = localStorage.getItem('id_token')
         axios.get('https://localhost:5001/todos', {headers: {Authorization: `Bearer ${jwt}`}})
         .then(result => this.props.dispatch(UpdateToDos(result.data)))
     }
 
     render() {
-        if(this.props.jwt !== ''){
+        if(localStorage.getItem(JWT_ID) !== null){
         return(
             <ResultTodos todos={this.props.todos} handleDelete={this.handleDelete} handleAdd={this.handleAdd}/>
         )
