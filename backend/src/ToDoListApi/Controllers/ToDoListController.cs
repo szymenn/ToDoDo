@@ -1,11 +1,7 @@
 using System;
-using System.Collections.Generic;
 using System.Security.Claims;
-using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using ToDoListApi.Entities;
 using ToDoListApi.Models;
 using ToDoListApi.Services;
 

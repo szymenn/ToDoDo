@@ -1,10 +1,5 @@
-using System;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
 using ToDoListApi.Entities;
-using ToDoListApi.Exceptions;
-using ToDoListApi.Helpers;
 using ToDoListApi.Models;
 using ToDoListApi.Repositories;
 
