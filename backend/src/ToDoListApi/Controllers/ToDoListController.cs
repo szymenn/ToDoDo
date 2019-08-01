@@ -16,51 +16,42 @@ namespace ToDoListApi.Controllers
     public class ToDoListController : ControllerBase
     {
         private readonly IToDoService _toDoService;
-        private readonly IMapper _mapper;
 
-        public ToDoListController(IToDoService toDoService, IMapper mapper)
+        public ToDoListController(IToDoService toDoService)
         {
             _toDoService = toDoService;
-            _mapper = mapper;
         }
 
         [HttpGet]
         public IActionResult GetToDos()
         {
             var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            var toDos = _toDoService.GetToDos(userId);
-            var toDosViewModel = _mapper.Map<ICollection<ToDoViewModel>>(toDos);
-            return Ok(toDosViewModel);
+            var toDosModel = _toDoService.GetToDos(userId);
+            return Ok(toDosModel);
         }
 
         [HttpPost]
         public IActionResult AddToDo(ToDoBindingModel toDoModel)
         {
-            var toDo = _mapper.Map<ToDo>(toDoModel);
             var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            var toDos = _toDoService.AddToDo(toDo, userId);
-            var toDosViewModel = _mapper.Map<ICollection<ToDoViewModel>>(toDos);
-            return Ok(toDosViewModel);
+            var toDosModel = _toDoService.AddToDo(toDoModel, userId);
+            return Ok(toDosModel);
         }
 
         [HttpDelete("{id}")]
         public IActionResult DeleteToDo(Guid id)
         {
             var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            var toDos = _toDoService.DeleteToDo(id, userId);
-            var toDosViewModel = _mapper.Map<ICollection<ToDoViewModel>>(toDos);
-            return Ok(toDosViewModel);
+            var toDosModel = _toDoService.DeleteToDo(id, userId);
+            return Ok(toDosModel);
         }
         
         [HttpPut("{id}")]
         public IActionResult UpdateToDo([FromBody] ToDoBindingModel toDoModel, [FromRoute] Guid id)
         {
             var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            var toDo = _mapper.Map<ToDo>(toDoModel);
-            var updatedToDo = _toDoService.UpdateToDo(toDo, id, userId);
-            var updatedToDoModel = _mapper.Map<ToDoViewModel>(updatedToDo);
+            var updatedToDoModel = _toDoService.UpdateToDo(toDoModel, id, userId);
             return Ok(updatedToDoModel);
-            
         }
         
 

@@ -20,10 +20,9 @@ namespace ToDoListApi.Tests
         [Fact]
         public void GetToDos_ByDefault_ReturnsOkObjectResult()
         {
-            var mapperStub = new Mock<IMapper>();
             var toDoServiceStub = new Mock<IToDoService>();
             toDoServiceStub.Setup(e => e.GetToDos(It.IsAny<Guid>()))
-                .Returns(new List<ToDo>());
+                .Returns(new List<ToDoViewModel>());
 
             var user = new ClaimsPrincipal(new ClaimsIdentity(new[]
             {
@@ -31,7 +30,7 @@ namespace ToDoListApi.Tests
             }));
 
             var controller = new ToDoListController
-                (toDoServiceStub.Object, mapperStub.Object)
+                (toDoServiceStub.Object)
                 {
                     ControllerContext = new ControllerContext
                     {
@@ -50,10 +49,9 @@ namespace ToDoListApi.Tests
         [Fact]
         public void AddToDo_ByDefault_ReturnsOkObjectResult()
         {
-            var mapperStub = new Mock<IMapper>();
             var toDoServiceStub = new Mock<IToDoService>();
-            toDoServiceStub.Setup(e => e.AddToDo(It.IsAny<ToDo>(), It.IsAny<Guid>()))
-                .Returns(new List<ToDo>());
+            toDoServiceStub.Setup(e => e.AddToDo(It.IsAny<ToDoBindingModel>(), It.IsAny<Guid>()))
+                .Returns(new List<ToDoViewModel>());
             
             var user = new ClaimsPrincipal(new ClaimsIdentity(new[]
             {
@@ -61,7 +59,7 @@ namespace ToDoListApi.Tests
             }));
 
             var controller = new ToDoListController
-                (toDoServiceStub.Object, mapperStub.Object)
+                (toDoServiceStub.Object)
                 {
                     ControllerContext = new ControllerContext
                     {
@@ -80,10 +78,9 @@ namespace ToDoListApi.Tests
         [Fact]
         public void DeleteToDo_ByDefault_ReturnsOkObjectResult()
         {
-            var mapperStub = new Mock<IMapper>();
             var toDoServiceStub = new Mock<IToDoService>();
             toDoServiceStub.Setup(e => e.DeleteToDo(It.IsAny<Guid>(), It.IsAny<Guid>()))
-                .Returns(new List<ToDo>());
+                .Returns(new List<ToDoViewModel>());
             
             var user = new ClaimsPrincipal(new ClaimsIdentity(new[]
             {
@@ -91,7 +88,7 @@ namespace ToDoListApi.Tests
             }));
 
             var controller = new ToDoListController
-                (toDoServiceStub.Object, mapperStub.Object)
+                (toDoServiceStub.Object)
                 {
                     ControllerContext = new ControllerContext
                     {
@@ -110,13 +107,12 @@ namespace ToDoListApi.Tests
         [Fact]
         public void UpdateToDo_ByDefault_ReturnsOkObjectResult()
         {
-            var mapperStub = new Mock<IMapper>();
             var toDoServiceStub = new Mock<IToDoService>();
             toDoServiceStub.Setup(e => e.UpdateToDo
-                (It.IsAny<ToDo>(),
+                (It.IsAny<ToDoBindingModel>(),
                     It.IsAny<Guid>(),
                     It.IsAny<Guid>()))
-                .Returns(new ToDo());
+                .Returns(new ToDoViewModel());
             
             
             var user = new ClaimsPrincipal(new ClaimsIdentity(new[]
@@ -125,7 +121,7 @@ namespace ToDoListApi.Tests
             }));
 
             var controller = new ToDoListController
-                (toDoServiceStub.Object, mapperStub.Object)
+                (toDoServiceStub.Object)
                 {
                     ControllerContext = new ControllerContext
                     {
@@ -144,7 +140,6 @@ namespace ToDoListApi.Tests
         [Fact]
         public void DeleteToDo_WhenNotFound_ThrowsException()
         {
-            var mapperStub = new Mock<IMapper>();
             var toDoServiceStub = new Mock<IToDoService>();
             toDoServiceStub.Setup(e => e.DeleteToDo(It.IsAny<Guid>(), It.IsAny<Guid>()))
                 .Throws<ResourceNotFoundException>();
@@ -155,7 +150,7 @@ namespace ToDoListApi.Tests
             }));
 
             var controller = new ToDoListController
-                (toDoServiceStub.Object, mapperStub.Object)
+                (toDoServiceStub.Object)
                 {
                     ControllerContext = new ControllerContext
                     {
@@ -172,10 +167,9 @@ namespace ToDoListApi.Tests
         [Fact]
         public void UpdateToDo_WhenNotFound_ThrowsException()
         {
-            var mapperStub = new Mock<IMapper>();
             var toDoServiceStub = new Mock<IToDoService>();
             toDoServiceStub.Setup(e => e.UpdateToDo
-                    (It.IsAny<ToDo>(), It.IsAny<Guid>(), It.IsAny<Guid>()))
+                    (It.IsAny<ToDoBindingModel>(), It.IsAny<Guid>(), It.IsAny<Guid>()))
                 .Throws<ResourceNotFoundException>();
             
             var user = new ClaimsPrincipal(new ClaimsIdentity(new[]
@@ -184,7 +178,7 @@ namespace ToDoListApi.Tests
             }));
 
             var controller = new ToDoListController
-                (toDoServiceStub.Object, mapperStub.Object)
+                (toDoServiceStub.Object)
                 {
                     ControllerContext = new ControllerContext
                     {

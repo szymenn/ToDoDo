@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using AutoMapper;
 using ToDoListApi.Data;
 using ToDoListApi.Entities;
 using ToDoListApi.Exceptions;
 using ToDoListApi.Helpers;
+using ToDoListApi.Models;
 using ToDoListApi.Repositories;
 
 namespace ToDoListApi.Services
@@ -12,30 +14,38 @@ namespace ToDoListApi.Services
     public class ToDoService : IToDoService 
     {
         private readonly IToDoRepository _toDoRepository;
+        private readonly IMapper _mapper;
 
-        public ToDoService(IToDoRepository toDoRepository)
+        public ToDoService(IToDoRepository toDoRepository, IMapper mapper)
         {
             _toDoRepository = toDoRepository;
+            _mapper = mapper;
         }
 
-        public ICollection<ToDo> GetToDos(Guid userId)
+        public ICollection<ToDoViewModel> GetToDos(Guid userId)
         {
-            return _toDoRepository.GetToDos(userId);
+            var toDos = _toDoRepository.GetToDos(userId);
+            return _mapper.Map<ICollection<ToDoViewModel>>(toDos);
         }
 
-        public ICollection<ToDo> AddToDo(ToDo toDo, Guid userId)
+        public ICollection<ToDoViewModel> AddToDo(ToDoBindingModel toDoModel, Guid userId)
         {
-            return _toDoRepository.AddToDo(toDo, userId);
+            var toDo = _mapper.Map<ToDo>(toDoModel);
+            var toDos = _toDoRepository.AddToDo(toDo, userId);
+            return _mapper.Map<ICollection<ToDoViewModel>>(toDos);
         }
 
-        public ICollection<ToDo> DeleteToDo(Guid toDoId, Guid userId)
+        public ICollection<ToDoViewModel> DeleteToDo(Guid toDoId, Guid userId)
         {
-            return _toDoRepository.DeleteToDo(toDoId, userId);
+            var toDos = _toDoRepository.DeleteToDo(toDoId, userId);
+            return _mapper.Map<ICollection<ToDoViewModel>>(toDos);
         }
 
-        public ToDo UpdateToDo(ToDo toDoUpdate, Guid toDoId, Guid userId)
+        public ToDoViewModel UpdateToDo(ToDoBindingModel toDoUpdateModel, Guid toDoId, Guid userId)
         {
-            return _toDoRepository.UpdateToDo(toDoUpdate, toDoId, userId);
+            var toDoUpdate = _mapper.Map<ToDo>(toDoUpdateModel);
+            var toDo = _toDoRepository.UpdateToDo(toDoUpdate, toDoId, userId);
+            return _mapper.Map<ToDoViewModel>(toDo);
         }
       
     }

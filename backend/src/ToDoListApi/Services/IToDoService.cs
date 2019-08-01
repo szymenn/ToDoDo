@@ -1,14 +1,15 @@
 using System;
 using System.Collections.Generic;
 using ToDoListApi.Entities;
+using ToDoListApi.Models;
 
 namespace ToDoListApi.Services
 {
     public interface IToDoService
     {
-        ICollection<ToDo> AddToDo(ToDo toDo, Guid userId);
-        ICollection<ToDo> DeleteToDo(Guid toDoId, Guid userId);
-        ToDo UpdateToDo(ToDo toDoUpdate, Guid toDoId, Guid userId);
-        ICollection<ToDo> GetToDos(Guid userId);
+        ICollection<ToDoViewModel> AddToDo(ToDoBindingModel toDoModel, Guid userId);
+        ICollection<ToDoViewModel> DeleteToDo(Guid toDoId, Guid userId);
+        ToDoViewModel UpdateToDo(ToDoBindingModel toDoUpdateModel, Guid toDoId, Guid userId);
+        ICollection<ToDoViewModel> GetToDos(Guid userId);
     }
 }
