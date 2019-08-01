@@ -20,22 +20,22 @@ namespace ToDoListApi.Services
     public class UserService : IUserService
     {
         private readonly UserManager<AppUser> _userManager;
-        private readonly TokenManagement _tokenManagement;
+        private readonly ITokenGenerator _tokenGenerator;
 
         public UserService(
             UserManager<AppUser> userManager,
-            IOptions<TokenManagement> tokenManagement
-            )
+            ITokenGenerator tokenGenerator
+        )
         {
             _userManager = userManager;
-            _tokenManagement = tokenManagement.Value;
+            _tokenGenerator = tokenGenerator;
         }
 
         public async Task<string> Login(LoginBindingModel userModel)
         {
             var user = await LoginUser(userModel);
 
-            return GenerateToken(user.UserName, Guid.Parse(user.Id));
+            return _tokenGenerator.GenerateToken(user.UserName, Guid.Parse(user.Id));
         }
 
         public async Task<string> Register(RegisterBindingModel userModel)
@@ -49,7 +49,7 @@ namespace ToDoListApi.Services
             var result = await _userManager.CreateAsync(user, userModel.Password);
             if (result.Succeeded)
             {
-                return GenerateToken(user.UserName, Guid.Parse(user.Id));
+                return _tokenGenerator.GenerateToken(user.UserName, Guid.Parse(user.Id));
             }
             throw new RegistrationException(Constants.RegistrationError);
         }
@@ -88,27 +88,7 @@ namespace ToDoListApi.Services
             return user != null;
         }
         
-        private string GenerateToken(string userName, Guid userId)
-        {
-            var claim = new[]
-            {
-                new Claim(ClaimTypes.Name, userName),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(ClaimTypes.NameIdentifier, userId.ToString())
-            };
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_tokenManagement.Secret));
-            var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            
-            var token = new JwtSecurityToken(
-                _tokenManagement.Issuer,
-                _tokenManagement.Audience,
-                claim,
-                expires: DateTime.Now.AddMinutes(_tokenManagement.AccessExpiration),
-                signingCredentials: credentials);
-            
-            var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
-            return tokenString;
-        }
+
 
     }
 }
