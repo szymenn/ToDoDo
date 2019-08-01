@@ -5,63 +5,38 @@ using ToDoListApi.Data;
 using ToDoListApi.Entities;
 using ToDoListApi.Exceptions;
 using ToDoListApi.Helpers;
+using ToDoListApi.Repositories;
 
 namespace ToDoListApi.Services
 {
     public class ToDoService : IToDoService 
     {
-        private readonly ToDoDbContext _context;
+        private readonly IToDoRepository _toDoRepository;
 
-        public ToDoService(ToDoDbContext context)
+        public ToDoService(IToDoRepository toDoRepository)
         {
-            _context = context;
+            _toDoRepository = toDoRepository;
         }
 
         public ICollection<ToDo> GetToDos(Guid userId)
         {
-            return GetAll(userId);
+            return _toDoRepository.GetToDos(userId);
         }
 
         public ICollection<ToDo> AddToDo(ToDo toDo, Guid userId)
         {
-            toDo.UserId = userId;
-            _context.ToDos.Add(toDo);
-            _context.SaveChanges();
-
-            return GetAll(userId);
+            return _toDoRepository.AddToDo(toDo, userId);
         }
 
         public ICollection<ToDo> DeleteToDo(Guid toDoId, Guid userId)
         {
-            var toDo = _context.ToDos.FirstOrDefault(p => p.Id == toDoId && p.UserId == userId);
-            if (toDo == null)
-            {
-               throw new ResourceNotFoundException(Constants.ToDoNotFound);
-            }
-            _context.ToDos.Remove(toDo);
-            _context.SaveChanges();
-
-            return GetAll(userId);
+            return _toDoRepository.DeleteToDo(toDoId, userId);
         }
 
         public ToDo UpdateToDo(ToDo toDoUpdate, Guid toDoId, Guid userId)
         {
-            var toDo = _context.ToDos.FirstOrDefault(p => p.Id == toDoId && p.UserId == userId);
-            if (toDo == null)
-            {
-                throw new ResourceNotFoundException(Constants.ToDoNotFound);
-            }
-
-            toDo.Task = toDoUpdate.Task;
-            toDo.Date = toDoUpdate.Date;
-            _context.SaveChanges();
-            return toDo;
+            return _toDoRepository.UpdateToDo(toDoUpdate, toDoId, userId);
         }
-        
-        
-        private ICollection<ToDo> GetAll(Guid userId)
-        {
-            return _context.ToDos.Where(p => p.UserId == userId).ToList();
-        }
+      
     }
 }

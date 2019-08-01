@@ -13,6 +13,7 @@ using ToDoListApi.Entities;
 using ToDoListApi.Extensions;
 using ToDoListApi.Helpers;
 using ToDoListApi.Models;
+using ToDoListApi.Repositories;
 using ToDoListApi.Services;
 
 [assembly: ApiController]
@@ -75,6 +76,7 @@ namespace ToDoListApi
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IToDoService, ToDoService>();
             services.AddScoped<ITokenGenerator, TokenGenerator>();
+            services.AddScoped<IToDoRepository, ToDoRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
