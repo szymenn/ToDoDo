@@ -69,7 +69,7 @@ namespace ToDoListApi.Repositories
             }
             
             var user = _userManager.Users.FirstOrDefault(p => p.UserName == userModel.UserName);
-            if (!await _userManager.CheckPasswordAsync(user, userModel.Password))cd
+            if (!await _userManager.CheckPasswordAsync(user, userModel.Password))
             {
                 throw new PasswordValidationException(Constants.IncorrectPassword);
             }
