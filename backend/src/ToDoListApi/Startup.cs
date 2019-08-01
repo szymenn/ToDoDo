@@ -77,6 +77,7 @@ namespace ToDoListApi
             services.AddScoped<IToDoService, ToDoService>();
             services.AddScoped<ITokenGenerator, TokenGenerator>();
             services.AddScoped<IToDoRepository, ToDoRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
