@@ -58,7 +58,6 @@ namespace ToDoListApi.Repositories
             return toDo;
         }
 
-
         private ICollection<ToDo> GetAll(Guid userId)
         {
             return _context.ToDos.Where(p => p.UserId == userId).ToList();
