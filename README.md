@@ -1,2 +1,2 @@
 # ToDoListApp
-Simple Todolist app I'm making
+Todolist app I'm making
