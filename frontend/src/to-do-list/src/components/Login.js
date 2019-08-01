@@ -6,9 +6,7 @@ import { connect } from 'react-redux';
 import {LoginUser } from '../actions';
 
 function mapStateToProps(state) {
-    return {
-        jwt: state.jwt
-    }
+    return state;
 }
 
 class Login extends Component{

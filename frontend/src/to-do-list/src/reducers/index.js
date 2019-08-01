@@ -1,8 +1,7 @@
 import todos from './todos';
-import jwt from './jwt';
+import user from './user';
 import { combineReducers } from 'redux';
 
 export default combineReducers({
-    todos,
-    jwt
+    todos
 })

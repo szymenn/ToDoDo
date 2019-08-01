@@ -3,7 +3,7 @@ import {Navbar, Button, Nav, NavItem} from 'reactstrap';
 import {withRouter} from 'react-router-dom';
 import { connect } from 'react-redux';
 import { JWT_ID } from '../constants/jwt';
-import { Logout } from '../actions';
+import { LogoutUser } from '../actions';
 
 function mapStateToProps(state) {
     return state;
@@ -23,6 +23,7 @@ class Header extends Component{
     }
 
     handleLogout(){
+        this.props.dispatch(LogoutUser())
         this.props.history.push('/')
     }
 
@@ -35,6 +36,7 @@ class Header extends Component{
     }
     render(){
         if(localStorage.getItem(JWT_ID) === null){
+
         return(
             <div>
             <Navbar>ToDoList App
@@ -48,7 +50,6 @@ class Header extends Component{
             </div>
         )
         }
-        else{
         return(
             <div>
                 <Navbar>
@@ -56,13 +57,12 @@ class Header extends Component{
                 <Nav className="ml-auto">
                     <NavItem>
                         <Button color='primary' onClick={this.handleHome}>Home</Button>{' '}
-                        <Button color='primary' onClick={this.props.dispatch(Logout())}>Log out</Button>
+                        <Button color='primary' onClick={this.handleLogout}>Log out</Button>
                     </NavItem>
                 </Nav>
                 </Navbar>
             </div>
         )
-        }
     }
 }
 

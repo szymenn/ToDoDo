@@ -10,8 +10,7 @@ import { JWT_ID } from '../constants/jwt';
 
 function mapStateToProps(state) {
     return {
-    todos: state.todos,
-    jwt: state.jwt
+    todos: state.todos
     }
 }
 
