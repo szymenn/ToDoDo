@@ -37,6 +37,10 @@ function ToDoTable(props){
     function handleAdd(){
         props.history.push('/Add')
     }
+
+    function handleEdit(){
+        props.history.push('/Edit')
+    }
     
     if(localStorage.getItem(JWT_ID) !== null){
         return(

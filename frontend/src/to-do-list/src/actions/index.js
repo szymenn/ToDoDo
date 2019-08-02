@@ -37,6 +37,22 @@ export function DeleteToDo(id){
     }
 }
 
+export function AddToDo(todo){
+    const jwt = localStorage.getItem(JWT_ID)
+    const headers = {
+        Authorization: `Bearer ${jwt}`
+    }
+    return(dispatch) => {
+        return axios.post(`${apiUrl}/todos`, todo, {headers: headers})
+        .then(result => {
+            dispatch(UpdateToDos(result.data))
+        })
+        .catch(error => {
+            throw (error)
+        })
+    }
+}
+
 export function UpdateToDosRequest(){
     const jwt = localStorage.getItem(JWT_ID);
     return (dispatch) => {

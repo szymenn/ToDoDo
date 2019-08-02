@@ -10,11 +10,11 @@ export default function TaskForm(props){
                     <Form onSubmit={e=>props.handleSubmit(e)}>
                         <FormGroup>
                             <Label for="task">Task</Label>
-                            <Input type="text" id="task" placeholder="Task" onChange={e=>props.handleChange(e)}/>
+                            <Input type="text" id="task" placeholder="Task"/>
                         </FormGroup>
                         <FormGroup>
                             <Label for="date">Date</Label>
-                            <Input type="datetime-local" id="date" placeholder="Date" onChange={e=>props.handleChange(e)}/>
+                            <Input type="datetime-local" id="date" placeholder="Date"/>
                         </FormGroup>
                         <FormGroup>
                             <Input type="submit" value="Submit"/>

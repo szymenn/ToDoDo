@@ -1,62 +1,34 @@
-import React, { Component } from 'react';
-import axios from 'axios';
+import React, { useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import TaskForm from './TaskForm';
 import { connect } from 'react-redux';
-import { UpdateToDos } from '../actions';
+import { AddToDo } from '../actions';
 
-function mapStateToProps(state) {
-    return {
-        todos: state.todos,
-        jwt: state.jwt
-    }
-}
-
-class Add extends Component {
-    constructor(props){
-        super(props)
-        this.handleChange = this.handleChange.bind(this)
-        this.handleSubmit = this.handleSubmit.bind(this)
-    }
-    handleChange(e){
-        this.setState({
-            [e.target.name]: e.target.value
-        })
-    }
-
-    componentDidMount(){
+function Add(props){
+    useEffect(()=>{
         if(!localStorage.getItem('id_token')){
             this.props.history.push('/Login')
         }
-    }
+    }, props)
 
-    handleSubmit(e){ 
+    function handleSubmit(e){
         e.preventDefault()
-        const headers = {
-            Authorization: `Bearer ${localStorage.getItem('id_token')}`
-        }
-        
         const inputDate = document.getElementById('date').value
         const date = new Date(inputDate).toJSON()
         const task = document.getElementById('task').value
-        
+
         const todo = {
             task: task,
             date: date
         }
-
-        axios.post('https://localhost:5001/todos', todo, {headers: headers})
-        .then(result => {
-            this.props.dispatch(UpdateToDos(result.data))
-        })
-        this.props.history.push('/')
+        
+        props.dispatch(AddToDo(todo))
+        props.history.push('/')
     }
 
-    render(){
-        return(
-           <TaskForm handleSubmit={this.handleSubmit} handleChange={this.handleChange}/>
-        )
-    }
+    return(
+        <TaskForm handleSubmit={handleSubmit}/>
+    )
 }
 
-export default connect(mapStateToProps)(withRouter(Add))
+export default connect()(withRouter(Add))
