@@ -1,7 +1,7 @@
 import {Button, Table} from 'reactstrap';
 import React from 'react';
 
-export default function ResultTodos(props){
+export default function AuthTable(props){
     const resultTodos = props.todos.map((entry, index) => {
         let date = new Date(entry.date)
         return(
@@ -13,7 +13,7 @@ export default function ResultTodos(props){
                             <Button color="secondary">Edit</Button>
                         </th>
                         <th>
-                            <Button color="danger" onClick={(e)=>{props.handleDelete(entry.id)}}>Delete</Button>
+                            <Button color="danger" onClick={(id)=>{props.handleDelete(entry.id)}}>Delete</Button>
                         </th>
                     </tr>
             </tbody>

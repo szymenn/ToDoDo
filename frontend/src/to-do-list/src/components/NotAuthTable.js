@@ -1,7 +1,7 @@
 import {Jumbotron, Button} from 'reactstrap';
 import React from 'react';
 
-export default function ResultNotAuth(props){
+export default function NotAuthTable(props){
     return(
         <Jumbotron>
             <h1 className="display-3">Welcome to ToDoList App</h1>

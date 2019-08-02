@@ -4,66 +4,35 @@ import {withRouter} from 'react-router-dom';
 import { connect } from 'react-redux';
 import { JWT_ID } from '../constants/jwt';
 import { LogoutUser } from '../actions';
+import AuthHeader from './AuthHeader';
+import NotAuthHeader from './NotAuthHeader';
 
-function mapStateToProps(state) {
-    return state;
+function Header(props) {
+  
+    function handleLogin(){
+        props.history.push('/Login')
+    }
+
+    function handleLogout(){
+        props.dispatch(LogoutUser(props.history.push))
+    }
+
+    function handleRegister(){
+        props.history.push('/Register')
+    }
+
+    function handleHome(){
+        props.history.push('/')
+    }
+    
+    if(localStorage.getItem(JWT_ID) !== null){
+    return(
+        <AuthHeader handleHome={handleHome} handleLogout={handleLogout}/>
+    )
+    }
+    return(
+        <NotAuthHeader handleLogin={handleLogin} handleRegister={handleRegister}/>
+    )
 }
 
-class Header extends Component{
-    constructor(props){
-        super(props)
-        this.handleLogin = this.handleLogin.bind(this)
-        this.handleLogout = this.handleLogout.bind(this)
-        this.handleRegister = this.handleRegister.bind(this)
-        this.handleHome = this.handleHome.bind(this)
-    }
-
-    handleLogin(){
-        this.props.history.push('/Login')
-    }
-
-    handleLogout(){
-        this.props.dispatch(LogoutUser())
-        this.props.history.push('/')
-    }
-
-    handleRegister(){
-        this.props.history.push('/Register')
-    }
-
-    handleHome(){
-        this.props.history.push('/')
-    }
-    render(){
-        if(localStorage.getItem(JWT_ID) === null){
-
-        return(
-            <div>
-            <Navbar>ToDoList App
-            <Nav className="ml-auto" navbar>
-              <NavItem>
-                <Button color='primary' onClick={this.handleLogin}>Log in</Button> {' '}
-                <Button color='success' onClick={this.handleRegister}>Register</Button>
-              </NavItem>
-            </Nav>
-            </Navbar>
-            </div>
-        )
-        }
-        return(
-            <div>
-                <Navbar>
-                    ToDoList App
-                <Nav className="ml-auto">
-                    <NavItem>
-                        <Button color='primary' onClick={this.handleHome}>Home</Button>{' '}
-                        <Button color='primary' onClick={this.handleLogout}>Log out</Button>
-                    </NavItem>
-                </Nav>
-                </Navbar>
-            </div>
-        )
-    }
-}
-
-export default connect(mapStateToProps)(withRouter(Header))
+export default connect()(withRouter(Header))
