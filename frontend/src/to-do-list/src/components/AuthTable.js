@@ -1,22 +1,12 @@
 import {Button, Table} from 'reactstrap';
 import React from 'react';
+import ToDo from './ToDo';
 
 export default function AuthTable(props){
     const resultTodos = props.todos.map((entry, index) => {
         let date = new Date(entry.date)
         return(
-            <tbody key={index}>
-                    <tr>
-                        <td >{entry.task}</td>
-                        <td >{date.toDateString()}</td>
-                        <th>
-                            <Button color="secondary">Edit</Button>
-                        </th>
-                        <th>
-                            <Button color="danger" onClick={(id)=>{props.handleDelete(entry.id)}}>Delete</Button>
-                        </th>
-                    </tr>
-            </tbody>
+            <ToDo index={index} task={entry.task} date={date.toDateString()} handleDelete={props.handleDelete} entry={entry}/>
         )
     })
     return(

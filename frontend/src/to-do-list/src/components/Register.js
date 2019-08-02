@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { RegisterUser } from '../actions';
 
 function Register(props){
+    
     function handleHome(){
         props.history.push('/')
     }
