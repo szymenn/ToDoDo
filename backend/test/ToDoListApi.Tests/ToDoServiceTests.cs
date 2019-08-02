@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using AutoMapper;
 using Moq;
 using ToDoListApi.Entities;
+using ToDoListApi.Exceptions;
 using ToDoListApi.Models;
 using ToDoListApi.Repositories;
 using ToDoListApi.Services;
@@ -81,6 +82,41 @@ namespace ToDoListApi.Tests
             var result = service.UpdateToDo
                 (It.IsAny<ToDoBindingModel>(), It.IsAny<Guid>(), It.IsAny<Guid>());
             Assert.IsType<ToDoViewModel>(result);
+        }
+
+        [Fact]
+        public void DeleteToDo_WhenNotFound_ThrowsResourceNotFoundException()
+        {
+            var toDoRepositoryStub = new Mock<IToDoRepository>();
+            var mapperStub = new Mock<IMapper>();
+            toDoRepositoryStub.Setup(e => e.DeleteToDo(It.IsAny<Guid>(), It.IsAny<Guid>()))
+                .Throws<ResourceNotFoundException>();
+            
+            var service = new ToDoService
+                (toDoRepositoryStub.Object, mapperStub.Object);
+
+            Assert.Throws<ResourceNotFoundException>
+                (() => service.DeleteToDo(It.IsAny<Guid>(), It.IsAny<Guid>()));
+        }
+
+        [Fact]
+        public void UpdateToDo_WhenNotFound_ThrowsResourceNotFoundException()
+        {
+            var toDoRepositoryStub = new Mock<IToDoRepository>();
+            var mapperStub = new Mock<IMapper>();
+            toDoRepositoryStub.Setup
+                (e => e.UpdateToDo
+                    (It.IsAny<ToDo>(), It.IsAny<Guid>(), It.IsAny<Guid>()))
+                .Throws<ResourceNotFoundException>();
+            
+            var service = new ToDoService
+                (toDoRepositoryStub.Object, mapperStub.Object);
+
+            Assert.Throws<ResourceNotFoundException>
+            (() => service.UpdateToDo
+                (It.IsAny<ToDoBindingModel>(), 
+                It.IsAny<Guid>(), 
+                It.IsAny<Guid>()));
         }
     }
 }
