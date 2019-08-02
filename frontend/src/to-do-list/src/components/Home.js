@@ -1,17 +1,15 @@
 import ToDoTable from './ToDoTable';
 import Header from './Header';
-import React, {Component} from 'react';
+import React from 'react';
 import {withRouter} from 'react-router-dom';
 
-class AppInner extends Component{
-    render(){
-        return(
+function Home(props){
+    return(
         <div>
             <Header/>
             <ToDoTable/>
         </div>
-        )
-    }
+    )
 }
 
-export default withRouter(AppInner)
+export default withRouter(Home)
