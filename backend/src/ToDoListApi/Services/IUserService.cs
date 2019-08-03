@@ -8,6 +8,6 @@ namespace ToDoListApi.Services
     {
         Task<string> Login(LoginBindingModel userModel);
         Task<string> Register(RegisterBindingModel userModel);
-        AppUser GetUser(string userId);
+        UserViewModel GetUser(string userId);
     }
 }

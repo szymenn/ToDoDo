@@ -25,7 +25,6 @@ namespace ToDoListApi.Tests
                 .Returns(Task.FromResult(new string(It.IsAny<string>())));
 
             var controller = new UserController(userServiceStub.Object, mapperStub.Object);
-
             var result = await controller.Login(It.IsAny<LoginBindingModel>());
 
             Assert.IsType<OkObjectResult>(result);
@@ -40,7 +39,6 @@ namespace ToDoListApi.Tests
                 .Returns(Task.FromResult<string>(new string(It.IsAny<string>())));
             
             var controller = new UserController(userServiceStub.Object, mapperStub.Object);
-
             var result = await controller.Register(It.IsAny<RegisterBindingModel>());
 
             Assert.IsType<OkObjectResult>(result);
@@ -52,7 +50,7 @@ namespace ToDoListApi.Tests
             var mapperStub = new Mock<IMapper>();
             var userServiceStub = new Mock<IUserService>();
             userServiceStub.Setup(e => e.GetUser(It.IsAny<string>()))
-                .Returns(new AppUser());
+                .Returns(new UserViewModel());
             
             var user = new ClaimsPrincipal(new ClaimsIdentity(new[]
             {
@@ -70,7 +68,6 @@ namespace ToDoListApi.Tests
                         }
                     }
                 };
-
             var result = controller.GetUser();
 
             Assert.IsType<OkObjectResult>(result);
@@ -85,7 +82,6 @@ namespace ToDoListApi.Tests
                 .Throws<ResourceNotFoundException>();
             
             var controller = new UserController(userServiceStub.Object, mapperStub.Object);
-
             var result = controller.Login(It.IsAny<LoginBindingModel>());
 
             await Assert.ThrowsAsync<ResourceNotFoundException>(() => result);
@@ -100,7 +96,6 @@ namespace ToDoListApi.Tests
                 .Throws<PasswordValidationException>();
             
             var controller = new UserController(userServiceStub.Object, mapperStub.Object);
-
             var result = controller.Login(It.IsAny<LoginBindingModel>());
 
             await Assert.ThrowsAsync<PasswordValidationException>(() => result);
@@ -115,7 +110,6 @@ namespace ToDoListApi.Tests
                 .Throws<ResourceAlreadyExistsException>();
             
             var controller = new UserController(userServiceStub.Object, mapperStub.Object);
-
             var result = controller.Register(It.IsAny<RegisterBindingModel>());
 
             await Assert.ThrowsAsync<ResourceAlreadyExistsException>(() => result);
@@ -130,7 +124,6 @@ namespace ToDoListApi.Tests
                 .Throws<RegistrationException>();
             
             var controller = new UserController(userServiceStub.Object, mapperStub.Object);
-
             var result = controller.Register(It.IsAny<RegisterBindingModel>());
 
             await Assert.ThrowsAsync<RegistrationException>(() => result);

@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using AutoMapper;
 using ToDoListApi.Entities;
 using ToDoListApi.Models;
 using ToDoListApi.Repositories;
@@ -7,16 +8,16 @@ namespace ToDoListApi.Services
 {
     public class UserService : IUserService
     {
-        private readonly ITokenGenerator _tokenGenerator;
         private readonly IUserRepository _userRepository;
+        private readonly IMapper _mapper;
 
         public UserService(
-            ITokenGenerator tokenGenerator,
-            IUserRepository userRepository
+            IUserRepository userRepository,
+            IMapper mapper            
         )
         {
-            _tokenGenerator = tokenGenerator;
             _userRepository = userRepository;
+            _mapper = mapper;
         }
 
         public async Task<string> Login(LoginBindingModel userModel)
@@ -29,9 +30,10 @@ namespace ToDoListApi.Services
             return await _userRepository.Register(userModel);
         }
 
-        public AppUser GetUser(string userId)
+        public UserViewModel GetUser(string userId)
         {
-            return _userRepository.GetUser(userId);
+            var userModel = _userRepository.GetUser(userId);
+            return _mapper.Map<UserViewModel>(userModel);
         }
     }
 }

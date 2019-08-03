@@ -13,12 +13,10 @@ namespace ToDoListApi.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
-        private readonly IMapper _mapper;
 
         public UserController(IUserService userService, IMapper mapper)
         {
             _userService = userService;
-            _mapper = mapper;
         }
 
         [HttpPost("login")]
@@ -47,8 +45,7 @@ namespace ToDoListApi.Controllers
         public IActionResult GetUser()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var user = _userService.GetUser(userId);
-            var userModel = _mapper.Map<UserViewModel>(user);
+            var userModel = _userService.GetUser(userId);
             return Ok(userModel);
         }
         
