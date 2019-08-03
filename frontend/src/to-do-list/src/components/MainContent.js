@@ -15,7 +15,7 @@ function mapStateToProps(state) {
 function MainContent(props){
 
     useEffect(() => {
-        if(localStorage.getItem(JWT_ID)!== null){
+        if(localStorage.getItem(JWT_ID)!== null && props.todos.length === 0){
             props.dispatch(UpdateToDosRequest())
         }
     }, props)
