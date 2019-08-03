@@ -1,13 +1,13 @@
-import ToDoTable from './ToDoTable';
 import Header from './Header';
 import React from 'react';
 import {withRouter} from 'react-router-dom';
+import MainContent from './MainContent';
 
 function Home(props){
     return(
         <div>
             <Header/>
-            <ToDoTable/>
+            <MainContent/>
         </div>
     )
 }
