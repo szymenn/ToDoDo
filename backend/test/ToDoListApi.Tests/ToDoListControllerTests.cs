@@ -98,7 +98,7 @@ namespace ToDoListApi.Tests
 
             var result = controller.DeleteToDo(It.IsAny<Guid>());
 
-            Assert.IsType<BadRequestObjectResult>(result);
+            Assert.IsType<OkObjectResult>(result);
         }
 
         [Fact]
