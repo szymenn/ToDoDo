@@ -14,12 +14,12 @@ namespace ToDoListApi.Repositories
     public class UserRepository : IUserRepository
     {
         private readonly UserManager<AppUser> _userManager;
-        private readonly ITokenGenerator _tokenGenerator;
+        private readonly ITokenService _tokenGenerator;
         private readonly IMapper _mapper;
 
         public UserRepository(
             UserManager<AppUser> userManager,
-            ITokenGenerator tokenGenerator,
+            ITokenService tokenGenerator,
             IMapper mapper)
         {
             _userManager = userManager;

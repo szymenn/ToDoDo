@@ -76,7 +76,7 @@ namespace ToDoListApi
           
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IToDoService, ToDoService>();
-            services.AddScoped<ITokenGenerator, TokenGenerator>();
+            services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IToDoRepository, ToDoRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
         }

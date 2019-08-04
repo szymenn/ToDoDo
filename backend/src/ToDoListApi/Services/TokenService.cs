@@ -9,11 +9,11 @@ using ToDoListApi.Options;
 
 namespace ToDoListApi.Services
 {
-    public class TokenGenerator : ITokenGenerator
+    public class TokenService : ITokenService
     {
         private readonly IOptions<JwtSettings> _jwtSettings;
 
-        public TokenGenerator(IOptions<JwtSettings> jwtSettings)
+        public TokenService(IOptions<JwtSettings> jwtSettings)
         {
             _jwtSettings = jwtSettings;
         }
