@@ -4,13 +4,12 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using ToDoListApi.Helpers;
 using ToDoListApi.Models;
 using ToDoListApi.Services;
 
 namespace ToDoListApi.Controllers
 {
-    [Route(ApiRoutes.User)]
+    [Route("user")]
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -20,7 +19,7 @@ namespace ToDoListApi.Controllers
             _userService = userService;
         }
 
-        [HttpPost(ApiRoutes.Login)]
+        [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginBindingModel userModel)
         {
             var token =  await _userService.Login(userModel);
@@ -31,7 +30,7 @@ namespace ToDoListApi.Controllers
             });
         }
         
-        [HttpPost(ApiRoutes.Register)]
+        [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterBindingModel userModel)
         {
             var token =  await _userService.Register(userModel);
