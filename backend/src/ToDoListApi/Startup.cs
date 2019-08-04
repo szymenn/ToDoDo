@@ -13,6 +13,7 @@ using ToDoListApi.Entities;
 using ToDoListApi.Extensions;
 using ToDoListApi.Helpers;
 using ToDoListApi.Models;
+using ToDoListApi.Options;
 using ToDoListApi.Repositories;
 using ToDoListApi.Services;
 
@@ -52,8 +53,8 @@ namespace ToDoListApi
             services.AddIdentityCore<AppUser>()
                 .AddEntityFrameworkStores<UserStoreDbContext>();
             
-            services.Configure<TokenManagement>(Configuration.GetSection(Constants.TokenManagement));
-            var token = Configuration.GetSection(Constants.TokenManagement).Get<TokenManagement>();
+            services.Configure<JwtSettings>(Configuration.GetSection(Constants.JwtSettings));
+            var token = Configuration.GetSection(Constants.JwtSettings).Get<JwtSettings>();
             var secret = Encoding.ASCII.GetBytes(token.Secret);
             services.AddAuthentication(x =>
             {

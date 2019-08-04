@@ -3,7 +3,7 @@ namespace ToDoListApi.Helpers
     public static class Constants
     {
         public const string ToDoDbConnectionString = "ToDoDbConnectionString";
-        public const string TokenManagement = "tokenManagement";
+        public const string JwtSettings = "JwtSettings";
         public const string UserStoreConnectionString = "UserStoreDb";
         public const string NotFound = "Not Found";
         public const string Conflict = "Conflict";

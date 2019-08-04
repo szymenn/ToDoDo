@@ -1,23 +1,23 @@
 using Newtonsoft.Json;
 
-namespace ToDoListApi.Models
+namespace ToDoListApi.Options
 {
-    [JsonObject("tokenManagement")]
-    public class TokenManagement
+    [JsonObject("JwtSettings")]
+    public class JwtSettings
     {
-        [JsonProperty("secret")]
+        [JsonProperty("Secret")]
         public string Secret { get; set; }
         
-        [JsonProperty("issuer")]
+        [JsonProperty("Issuer")]
         public string Issuer { get; set; }
         
-        [JsonProperty("audience")]
+        [JsonProperty("Audience")]
         public string Audience { get; set; }
         
-        [JsonProperty("accessExpiration")]
+        [JsonProperty("AccessExpiration")]
         public int AccessExpiration { get; set; }
         
-        [JsonProperty("refreshExpiration")]
+        [JsonProperty("RefreshExpiration")]
         public int RefreshExpiration { get; set; }
     }
 }

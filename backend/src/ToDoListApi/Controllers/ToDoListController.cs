@@ -2,12 +2,13 @@ using System;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ToDoListApi.Helpers;
 using ToDoListApi.Models;
 using ToDoListApi.Services;
 
 namespace ToDoListApi.Controllers
 {
-    [Route("todos")]
+    [Route(ApiRoutes.ToDos)]
     [Authorize]
     public class ToDoListController : ControllerBase
     {
@@ -34,7 +35,7 @@ namespace ToDoListApi.Controllers
             return Ok(toDosModel);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete(ApiRoutes.Id)]
         public IActionResult DeleteToDo(Guid id)
         {
             var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
@@ -42,7 +43,7 @@ namespace ToDoListApi.Controllers
             return Ok(toDosModel);
         }
         
-        [HttpPut("{id}")]
+        [HttpPut(ApiRoutes.Id)]
         public IActionResult UpdateToDo([FromBody] ToDoBindingModel toDoModel, [FromRoute] Guid id)
         {
             var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));

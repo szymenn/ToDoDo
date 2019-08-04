@@ -5,15 +5,17 @@ using System.Text;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using ToDoListApi.Models;
+using ToDoListApi.Options;
+
 namespace ToDoListApi.Services
 {
     public class TokenGenerator : ITokenGenerator
     {
-        private readonly IOptions<TokenManagement> _tokenManagement;
+        private readonly IOptions<JwtSettings> _jwtSettings;
 
-        public TokenGenerator(IOptions<TokenManagement> tokenManagement)
+        public TokenGenerator(IOptions<JwtSettings> jwtSettings)
         {
-            _tokenManagement = tokenManagement;
+            _jwtSettings = jwtSettings;
         }
         
         public string GenerateToken(string userName, Guid userId)
@@ -24,14 +26,14 @@ namespace ToDoListApi.Services
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(ClaimTypes.NameIdentifier, userId.ToString())
             };
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_tokenManagement.Value.Secret));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Value.Secret));
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
             
             var token = new JwtSecurityToken(
-                _tokenManagement.Value.Issuer,
-                _tokenManagement.Value.Audience,
+                _jwtSettings.Value.Issuer,
+                _jwtSettings.Value.Audience,
                 claim,
-                expires: DateTime.Now.AddMinutes(_tokenManagement.Value.AccessExpiration),
+                expires: DateTime.Now.AddMinutes(_jwtSettings.Value.AccessExpiration),
                 signingCredentials: credentials);
             
             var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
