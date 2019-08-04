@@ -18,12 +18,11 @@ namespace ToDoListApi.Tests
         [Fact]
         public async Task Login_ByDefault_ReturnsOkObjectResult()
         {
-            var mapperStub = new Mock<IMapper>();
             var userServiceStub = new Mock<IUserService>();
             userServiceStub.Setup(e => e.Login(It.IsAny<LoginBindingModel>()))
                 .Returns(Task.FromResult(new string(It.IsAny<string>())));
 
-            var controller = new UserController(userServiceStub.Object, mapperStub.Object);
+            var controller = new UserController(userServiceStub.Object);
             var result = await controller.Login(It.IsAny<LoginBindingModel>());
 
             Assert.IsType<OkObjectResult>(result);
@@ -32,12 +31,11 @@ namespace ToDoListApi.Tests
         [Fact]
         public async Task Register_ByDefault_ReturnsOkObjectResult()
         {
-            var mapperStub = new Mock<IMapper>();
             var userServiceStub = new Mock<IUserService>();
             userServiceStub.Setup(e => e.Register(It.IsAny<RegisterBindingModel>()))
                 .Returns(Task.FromResult(new string(It.IsAny<string>())));
             
-            var controller = new UserController(userServiceStub.Object, mapperStub.Object);
+            var controller = new UserController(userServiceStub.Object);
             var result = await controller.Register(It.IsAny<RegisterBindingModel>());
 
             Assert.IsType<OkObjectResult>(result);
@@ -46,7 +44,6 @@ namespace ToDoListApi.Tests
         [Fact]
         public void GetUser_ByDefault_ReturnsOkObjectResult()
         {
-            var mapperStub = new Mock<IMapper>();
             var userServiceStub = new Mock<IUserService>();
             userServiceStub.Setup(e => e.GetUser(It.IsAny<string>()))
                 .Returns(new UserViewModel());
@@ -57,7 +54,7 @@ namespace ToDoListApi.Tests
             }));
 
             var controller = new UserController
-                (userServiceStub.Object, mapperStub.Object)
+                (userServiceStub.Object)
                 {
                     ControllerContext = new ControllerContext
                     {
@@ -75,12 +72,11 @@ namespace ToDoListApi.Tests
         [Fact]
         public async Task Login_WhenNotFound_ThrowsResourceNotFoundException()
         {
-            var mapperStub = new Mock<IMapper>();
             var userServiceStub = new Mock<IUserService>();
             userServiceStub.Setup(e => e.Login(It.IsAny<LoginBindingModel>()))
                 .Throws<ResourceNotFoundException>();
             
-            var controller = new UserController(userServiceStub.Object, mapperStub.Object);
+            var controller = new UserController(userServiceStub.Object);
             var result = controller.Login(It.IsAny<LoginBindingModel>());
 
             await Assert.ThrowsAsync<ResourceNotFoundException>(() => result);
@@ -89,12 +85,11 @@ namespace ToDoListApi.Tests
         [Fact]
         public async Task Login_WhenIncorrectPassword_ThrowsPasswordValidationException()
         {
-            var mapperStub = new Mock<IMapper>();
             var userServiceStub = new Mock<IUserService>();
             userServiceStub.Setup(e => e.Login(It.IsAny<LoginBindingModel>()))
                 .Throws<PasswordValidationException>();
             
-            var controller = new UserController(userServiceStub.Object, mapperStub.Object);
+            var controller = new UserController(userServiceStub.Object);
             var result = controller.Login(It.IsAny<LoginBindingModel>());
 
             await Assert.ThrowsAsync<PasswordValidationException>(() => result);
@@ -103,12 +98,11 @@ namespace ToDoListApi.Tests
         [Fact]
         public async Task Register_WhenAlreadyExists_ThrowsResourceAlreadyExistsException()
         {
-            var mapperStub = new Mock<IMapper>();
             var userServiceStub = new Mock<IUserService>();
             userServiceStub.Setup(e => e.Register(It.IsAny<RegisterBindingModel>()))
                 .Throws<ResourceAlreadyExistsException>();
             
-            var controller = new UserController(userServiceStub.Object, mapperStub.Object);
+            var controller = new UserController(userServiceStub.Object);
             var result = controller.Register(It.IsAny<RegisterBindingModel>());
 
             await Assert.ThrowsAsync<ResourceAlreadyExistsException>(() => result);
@@ -117,12 +111,11 @@ namespace ToDoListApi.Tests
         [Fact]
         public async Task Register_WhenErrorOccured_ThrowsRegistrationException()
         {
-            var mapperStub = new Mock<IMapper>();
             var userServiceStub = new Mock<IUserService>();
             userServiceStub.Setup(e => e.Register(It.IsAny<RegisterBindingModel>()))
                 .Throws<RegistrationException>();
             
-            var controller = new UserController(userServiceStub.Object, mapperStub.Object);
+            var controller = new UserController(userServiceStub.Object);
             var result = controller.Register(It.IsAny<RegisterBindingModel>());
 
             await Assert.ThrowsAsync<RegistrationException>(() => result);
@@ -131,7 +124,6 @@ namespace ToDoListApi.Tests
         [Fact]
         public void GetUser_WhenUserNotFound_ThrowsResourceNotFoundException()
         {
-            var mapperStub = new Mock<IMapper>();
             var userServiceStub = new Mock<IUserService>();
             userServiceStub.Setup(e => e.GetUser(It.IsAny<string>()))
                 .Throws<ResourceNotFoundException>();
@@ -142,7 +134,7 @@ namespace ToDoListApi.Tests
             }));
 
             var controller = new UserController
-                (userServiceStub.Object, mapperStub.Object)
+                (userServiceStub.Object)
                 {
                     ControllerContext = new ControllerContext
                     {
