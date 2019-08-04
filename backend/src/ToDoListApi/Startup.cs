@@ -12,7 +12,6 @@ using ToDoListApi.Data;
 using ToDoListApi.Entities;
 using ToDoListApi.Extensions;
 using ToDoListApi.Helpers;
-using ToDoListApi.Models;
 using ToDoListApi.Options;
 using ToDoListApi.Repositories;
 using ToDoListApi.Services;

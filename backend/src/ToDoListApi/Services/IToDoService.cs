@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using ToDoListApi.Entities;
 using ToDoListApi.Models;
 
 namespace ToDoListApi.Services

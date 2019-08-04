@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using AutoMapper;
 using Moq;
@@ -36,7 +35,7 @@ namespace ToDoListApi.Tests
             var mapperStub = new Mock<IMapper>();
             userRepositoryStub.Setup(e => e.Register
                     (It.IsAny<RegisterBindingModel>()))
-                .Returns(Task.FromResult<string>(new string(It.IsAny<string>())));
+                .Returns(Task.FromResult(new string(It.IsAny<string>())));
             
             var service = new UserService
                 (userRepositoryStub.Object, mapperStub.Object);

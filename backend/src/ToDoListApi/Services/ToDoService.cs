@@ -1,11 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using AutoMapper;
-using ToDoListApi.Data;
 using ToDoListApi.Entities;
-using ToDoListApi.Exceptions;
-using ToDoListApi.Helpers;
 using ToDoListApi.Models;
 using ToDoListApi.Repositories;
 

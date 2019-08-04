@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using ToDoListApi.Controllers;
-using ToDoListApi.Entities;
 using ToDoListApi.Exceptions;
 using ToDoListApi.Models;
 using ToDoListApi.Services;
@@ -36,7 +35,7 @@ namespace ToDoListApi.Tests
             var mapperStub = new Mock<IMapper>();
             var userServiceStub = new Mock<IUserService>();
             userServiceStub.Setup(e => e.Register(It.IsAny<RegisterBindingModel>()))
-                .Returns(Task.FromResult<string>(new string(It.IsAny<string>())));
+                .Returns(Task.FromResult(new string(It.IsAny<string>())));
             
             var controller = new UserController(userServiceStub.Object, mapperStub.Object);
             var result = await controller.Register(It.IsAny<RegisterBindingModel>());

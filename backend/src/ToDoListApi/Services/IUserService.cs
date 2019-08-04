@@ -1,5 +1,4 @@
 using System.Threading.Tasks;
-using ToDoListApi.Entities;
 using ToDoListApi.Models;
 
 namespace ToDoListApi.Services

@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http;
 
 namespace ToDoListApi.Models
 {

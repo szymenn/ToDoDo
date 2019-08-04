@@ -1,8 +1,5 @@
-using System;
-using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using ToDoListApi.Models;
 using ToDoListApi.Services;
@@ -14,7 +11,7 @@ namespace ToDoListApi.Controllers
     {
         private readonly IUserService _userService;
 
-        public UserController(IUserService userService, IMapper mapper)
+        public UserController(IUserService userService)
         {
             _userService = userService;
         }

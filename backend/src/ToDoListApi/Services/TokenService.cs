@@ -4,7 +4,6 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using ToDoListApi.Models;
 using ToDoListApi.Options;
 
 namespace ToDoListApi.Services

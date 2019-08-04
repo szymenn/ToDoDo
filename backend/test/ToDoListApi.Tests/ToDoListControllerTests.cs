@@ -1,13 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Security.Claims;
-using System.Threading.Tasks;
-using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using ToDoListApi.Controllers;
-using ToDoListApi.Entities;
 using ToDoListApi.Exceptions;
 using ToDoListApi.Models;
 using ToDoListApi.Services;

@@ -1,6 +1,5 @@
 using System;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using ToDoListApi.Helpers;
 
 namespace ToDoListApi.Exceptions

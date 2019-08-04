@@ -1,6 +1,5 @@
 using System.Threading.Tasks;
 using AutoMapper;
-using ToDoListApi.Entities;
 using ToDoListApi.Models;
 using ToDoListApi.Repositories;
 
