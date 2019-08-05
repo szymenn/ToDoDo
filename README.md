@@ -24,5 +24,7 @@ Todo list app implementation I'm making mostly in order to learn frontend web de
 ## Todo
 - Add refresh token to JWT
 - Write more unit tests and add some integration tests
+- Change forms to use redux-form instead of using DOM manipulation 
 - Add some form of material UI 
+
 
