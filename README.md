@@ -21,6 +21,7 @@ Todo list app implementation I'm making mostly in order to learn frontend web de
 ## Features
 - Authentication and Authorization using Json Web Token
 - Creating, editing and deleting tasks
+- Storing tasks in database
 ## Todo
 - Add refresh token to JWT
 - Write more unit tests and add some integration tests
