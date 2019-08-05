@@ -5,7 +5,7 @@ Todo list app implementation I'm making mostly in order to learn frontend web de
 ### CI tools 
 - Azure DevOps
 ### ToDoDo backend
-- C# 7
+- C# 7.3
 - ASP.NET Core 2.2 
 - Entity Framework Core
 - Automapper
