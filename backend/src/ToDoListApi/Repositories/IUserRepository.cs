@@ -6,8 +6,8 @@ namespace ToDoListApi.Repositories
 {
     public interface IUserRepository
     {
-        Task<string> Register(RegisterBindingModel userModel);
-        Task<string> Login(LoginBindingModel userModel);
+        Task<JsonWebToken> Register(RegisterBindingModel userModel);
+        Task<JsonWebToken> Login(LoginBindingModel userModel);
         AppUser GetUser(string userId);
         
     }

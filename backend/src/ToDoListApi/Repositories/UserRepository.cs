@@ -14,20 +14,20 @@ namespace ToDoListApi.Repositories
     public class UserRepository : IUserRepository
     {
         private readonly UserManager<AppUser> _userManager;
-        private readonly ITokenService _tokenGenerator;
+        private readonly ITokenService _tokenService;
         private readonly IMapper _mapper;
 
         public UserRepository(
             UserManager<AppUser> userManager,
-            ITokenService tokenGenerator,
+            ITokenService tokenService,
             IMapper mapper)
         {
             _userManager = userManager;
-            _tokenGenerator = tokenGenerator;
+            _tokenService = tokenService;
             _mapper = mapper;
         }
         
-        public async Task<string> Register(RegisterBindingModel userModel)
+        public async Task<JsonWebToken> Register(RegisterBindingModel userModel)
         {
             if (AlreadyExists(userModel.UserName))
             {
@@ -38,16 +38,16 @@ namespace ToDoListApi.Repositories
             var result = await _userManager.CreateAsync(user, userModel.Password);
             if (result.Succeeded)
             {
-                return _tokenGenerator.GenerateToken(user.UserName, Guid.Parse(user.Id));
+                return _tokenService.CreateAccessToken(user.UserName, Guid.Parse(user.Id));
             }
             throw new RegistrationException(Constants.RegistrationError);
         }
 
-        public async Task<string> Login(LoginBindingModel userModel)
+        public async Task<JsonWebToken> Login(LoginBindingModel userModel)
         {
             var user = await LoginUser(userModel);
             
-            return _tokenGenerator.GenerateToken(user.UserName, Guid.Parse(user.Id));
+            return _tokenService.CreateAccessToken(user.UserName, Guid.Parse(user.Id));
         }
 
         public AppUser GetUser(string userId)

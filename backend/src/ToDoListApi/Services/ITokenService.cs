@@ -1,9 +1,12 @@
 using System;
+using ToDoListApi.Models;
 
 namespace ToDoListApi.Services
 {
     public interface ITokenService
     {
-        string GenerateToken(string userName, Guid userId);
+        JsonWebToken CreateAccessToken(string userName, Guid userId);
+        void RevokeRefreshToken(string token);
+        JsonWebToken RefreshAccessToken(string token);
     }
 }

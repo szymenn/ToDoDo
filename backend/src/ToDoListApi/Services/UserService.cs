@@ -9,22 +9,25 @@ namespace ToDoListApi.Services
     {
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
+        private readonly ITokenService _tokenService;
 
         public UserService(
             IUserRepository userRepository,
-            IMapper mapper            
+            IMapper mapper,
+            ITokenService tokenService
         )
         {
             _userRepository = userRepository;
             _mapper = mapper;
+            _tokenService = tokenService;
         }
 
-        public async Task<string> Login(LoginBindingModel userModel)
+        public async Task<JsonWebToken> Login(LoginBindingModel userModel)
         {
             return await _userRepository.Login(userModel);
         }
 
-        public async Task<string> Register(RegisterBindingModel userModel)
+        public async Task<JsonWebToken> Register(RegisterBindingModel userModel)
         {
             return await _userRepository.Register(userModel);
         }
@@ -33,6 +36,16 @@ namespace ToDoListApi.Services
         {
             var userModel = _userRepository.GetUser(userId);
             return _mapper.Map<UserViewModel>(userModel);
+        }
+
+        public JsonWebToken RefreshAccessToken(string token)
+        {
+            return _tokenService.RefreshAccessToken(token);
+        }
+
+        public void RevokeRefreshToken(string token)
+        {
+            _tokenService.RevokeRefreshToken(token);
         }
     }
 }

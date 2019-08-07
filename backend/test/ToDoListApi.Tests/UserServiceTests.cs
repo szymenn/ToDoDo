@@ -17,15 +17,16 @@ namespace ToDoListApi.Tests
         {
             var userRepositoryStub = new Mock<IUserRepository>();
             var mapperStub = new Mock<IMapper>();
+            var tokenServiceStub = new Mock<ITokenService>();
             userRepositoryStub.Setup(e => e.Login
                     (It.IsAny<LoginBindingModel>()))
-                .Returns(Task.FromResult(new string(It.IsAny<string>())));
+                .Returns(Task.FromResult(new JsonWebToken()));
 
             var service = new UserService
-                (userRepositoryStub.Object, mapperStub.Object);
+                (userRepositoryStub.Object, mapperStub.Object, tokenServiceStub.Object);
             var result = await service.Login(It.IsAny<LoginBindingModel>());
             
-            Assert.IsType<string>(result);
+            Assert.IsType<JsonWebToken>(result);
         }
 
         [Fact]
@@ -33,15 +34,16 @@ namespace ToDoListApi.Tests
         {
             var userRepositoryStub = new Mock<IUserRepository>();
             var mapperStub = new Mock<IMapper>();
+            var tokenServiceStub = new Mock<ITokenService>();
             userRepositoryStub.Setup(e => e.Register
                     (It.IsAny<RegisterBindingModel>()))
-                .Returns(Task.FromResult(new string(It.IsAny<string>())));
+                .Returns(Task.FromResult(new JsonWebToken()));
             
             var service = new UserService
-                (userRepositoryStub.Object, mapperStub.Object);
+                (userRepositoryStub.Object, mapperStub.Object, tokenServiceStub.Object);
             var result = await service.Register(It.IsAny<RegisterBindingModel>());
 
-            Assert.IsType<string>(result);
+            Assert.IsType<JsonWebToken>(result);
         }
 
         [Fact]
@@ -49,12 +51,13 @@ namespace ToDoListApi.Tests
         {
             var userRepositoryStub = new Mock<IUserRepository>();
             var mapperStub = new Mock<IMapper>();
+            var tokenServiceStub = new Mock<ITokenService>();
             userRepositoryStub.Setup(e => e.Register
                     (It.IsAny<RegisterBindingModel>()))
                 .Throws<ResourceAlreadyExistsException>();
             
             var service = new UserService
-                (userRepositoryStub.Object, mapperStub.Object);
+                (userRepositoryStub.Object, mapperStub.Object, tokenServiceStub.Object);
             var result = service.Register(It.IsAny<RegisterBindingModel>());
 
             await Assert.ThrowsAsync<ResourceAlreadyExistsException>
@@ -66,12 +69,13 @@ namespace ToDoListApi.Tests
         {
             var userRepositoryStub = new Mock<IUserRepository>();
             var mapperStub = new Mock<IMapper>();
+            var tokenServiceStub = new Mock<ITokenService>();
             userRepositoryStub.Setup(e => e.Register
                     (It.IsAny<RegisterBindingModel>()))
                 .Throws<RegistrationException>();
             
             var service = new UserService
-                (userRepositoryStub.Object, mapperStub.Object);
+                (userRepositoryStub.Object, mapperStub.Object, tokenServiceStub.Object);
             var result = service.Register(It.IsAny<RegisterBindingModel>());
 
             await Assert.ThrowsAsync<RegistrationException>
@@ -83,13 +87,14 @@ namespace ToDoListApi.Tests
         {
             var userRepositoryStub = new Mock<IUserRepository>();
             var mapperStub = new Mock<IMapper>();
+            var tokenServiceStub = new Mock<ITokenService>();
             userRepositoryStub.Setup(e => e.GetUser(It.IsAny<string>()))
                 .Returns(new AppUser());
             mapperStub.Setup(e => e.Map<UserViewModel>(It.IsAny<AppUser>()))
                 .Returns(new UserViewModel());
             
             var service = new UserService
-                (userRepositoryStub.Object, mapperStub.Object);
+                (userRepositoryStub.Object, mapperStub.Object, tokenServiceStub.Object);
             var result = service.GetUser(It.IsAny<string>());
 
             Assert.IsType<UserViewModel>(result);
@@ -100,11 +105,12 @@ namespace ToDoListApi.Tests
         {
             var userRepositoryStub = new Mock<IUserRepository>();
             var mapperStub = new Mock<IMapper>();
+            var tokenServiceStub = new Mock<ITokenService>();
             userRepositoryStub.Setup(e => e.GetUser(It.IsAny<string>()))
                 .Throws<ResourceNotFoundException>();
             
             var service = new UserService
-                (userRepositoryStub.Object, mapperStub.Object);
+                (userRepositoryStub.Object, mapperStub.Object, tokenServiceStub.Object);
 
             Assert.Throws<ResourceNotFoundException>
                 (() => service.GetUser(It.IsAny<string>()));

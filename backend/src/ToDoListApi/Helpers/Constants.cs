@@ -16,5 +16,6 @@ namespace ToDoListApi.Helpers
         public const string InternalServerError = "Internal Server error";
         public const string InternalServerErrorDetail = "An unexpected error occurred";
         public const string AllowSpecificOrigins = "_allowSpecificOrigins";
+        public const string TokenStoreDb = "TokenStoreDb";
     }
 }

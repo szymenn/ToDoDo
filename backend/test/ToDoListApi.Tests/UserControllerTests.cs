@@ -20,7 +20,7 @@ namespace ToDoListApi.Tests
         {
             var userServiceStub = new Mock<IUserService>();
             userServiceStub.Setup(e => e.Login(It.IsAny<LoginBindingModel>()))
-                .Returns(Task.FromResult(new string(It.IsAny<string>())));
+                .Returns(Task.FromResult(new JsonWebToken()));
 
             var controller = new UserController(userServiceStub.Object);
             var result = await controller.Login(It.IsAny<LoginBindingModel>());
@@ -33,7 +33,7 @@ namespace ToDoListApi.Tests
         {
             var userServiceStub = new Mock<IUserService>();
             userServiceStub.Setup(e => e.Register(It.IsAny<RegisterBindingModel>()))
-                .Returns(Task.FromResult(new string(It.IsAny<string>())));
+                .Returns(Task.FromResult(new JsonWebToken()));
             
             var controller = new UserController(userServiceStub.Object);
             var result = await controller.Register(It.IsAny<RegisterBindingModel>());

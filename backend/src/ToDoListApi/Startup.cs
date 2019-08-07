@@ -35,7 +35,8 @@ namespace ToDoListApi
 
             services.AddDbContext<ToDoDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString(Constants.ToDoDbConnectionString)));
-
+            services.AddDbContext<TokenStoreDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString(Constants.TokenStoreDb)));
 
             var mappingConfig = new MapperConfiguration(config =>
             {
@@ -44,13 +45,13 @@ namespace ToDoListApi
 
             var mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
-
-           
             
             services.AddDbContext<UserStoreDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString(Constants.UserStoreConnectionString)));
             services.AddIdentityCore<AppUser>()
                 .AddEntityFrameworkStores<UserStoreDbContext>();
+   
+            
             
             services.Configure<JwtSettings>(Configuration.GetSection(Constants.JwtSettings));
             var token = Configuration.GetSection(Constants.JwtSettings).Get<JwtSettings>();
@@ -78,6 +79,9 @@ namespace ToDoListApi
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IToDoRepository, ToDoRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ITokenRepository, TokenRepository>();
+            services.AddScoped<IJwtHandler, JwtHandler>();
+            services.AddScoped<IRefreshTokenHandler, RefreshTokenHandler>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -91,7 +95,7 @@ namespace ToDoListApi
                 app.UseHsts();
             }
 
-            app.UseCustomExceptionHandler();
+//            app.UseCustomExceptionHandler();
             app.UseCors(config =>
             {
                 config.AllowAnyHeader()

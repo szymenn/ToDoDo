@@ -5,8 +5,10 @@ namespace ToDoListApi.Services
 {
     public interface IUserService
     {
-        Task<string> Login(LoginBindingModel userModel);
-        Task<string> Register(RegisterBindingModel userModel);
+        Task<JsonWebToken> Login(LoginBindingModel userModel);
+        Task<JsonWebToken> Register(RegisterBindingModel userModel);
         UserViewModel GetUser(string userId);
+        JsonWebToken RefreshAccessToken(string token);
+        void RevokeRefreshToken(string token);
     }
 }
