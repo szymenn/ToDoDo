@@ -1,5 +1,5 @@
 import { SET_USERNAME } from '../constants/actionTypes';
-import { JWT_ID } from '../constants/jwt';
+import { JWT_ID, REFRESH_ID } from '../constants/jwt';
 import axios from 'axios';
 
 const apiUrl = "https://localhost:5001"
@@ -34,7 +34,8 @@ export function LoginUser(user, redirect){
             Password: user.password
         })
         .then(result => {
-            localStorage.setItem(JWT_ID, result.data.token)
+            localStorage.setItem(JWT_ID, result.data.tokenInfo.accessToken)
+            localStorage.setItem(REFRESH_ID, result.data.tokenInfo.refreshToken)
             redirect('/')
         })
         .catch(error => {
@@ -51,7 +52,8 @@ export function RegisterUser(user, redirect){
             ConfirmPassword: user.confirmPassword
         })
         .then(result => {
-            localStorage.setItem(JWT_ID, result.data.token)
+            localStorage.setItem(JWT_ID, result.data.tokenInfo.accessToken)
+            localStorage.setItem(REFRESH_ID, result.data.tokenInfo.refreshToken)
             redirect('/')
         })
         .catch(error => {
@@ -63,6 +65,7 @@ export function RegisterUser(user, redirect){
 export function LogoutUser(redirect) {
     return(dispatch) => {
         localStorage.removeItem(JWT_ID)
+        localStorage.removeItem(REFRESH_ID)
         redirect('/')
     }
 }

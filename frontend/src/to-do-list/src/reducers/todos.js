@@ -5,15 +5,6 @@ const initialState ={
 }
 const todos = (state = initialState, action) => {
     switch (action.type){
-        case ADD_TODO: 
-        return [
-            ...state,
-            {
-                text: action.payload.text,
-                date: action.payload.date,
-                id: action.payload.id
-            }
-        ]
         case UPDATE_TODOS:
             return Object.assign({}, state, {
                 todos: action.payload.todos

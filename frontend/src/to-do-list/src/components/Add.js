@@ -3,11 +3,12 @@ import { withRouter } from 'react-router-dom';
 import TaskForm from './TaskForm';
 import { connect } from 'react-redux';
 import { AddToDo } from '../actions';
+import { JWT_ID } from '../constants/jwt';
 
 function Add(props){
     useEffect(()=>{
-        if(!localStorage.getItem('id_token')){
-            this.props.history.push('/Login')
+        if(!localStorage.getItem(JWT_ID)){
+            props.history.push('/Login')
         }
     }, props)
 

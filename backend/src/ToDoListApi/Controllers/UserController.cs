@@ -23,11 +23,11 @@ namespace ToDoListApi.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] LoginBindingModel userModel)
         {
-            var tokenResponse =  await _userService.Login(userModel);
+            var authResponse =  await _userService.Login(userModel);
 
             return Ok(new
             {
-                Response = tokenResponse
+                TokenInfo = authResponse
             });
         }
         
@@ -35,11 +35,11 @@ namespace ToDoListApi.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Register([FromBody] RegisterBindingModel userModel)
         {
-            var tokenResponse =  await _userService.Register(userModel);
+            var authResponse =  await _userService.Register(userModel);
 
             return Ok(new
             {
-                Response = tokenResponse
+                TokenInfo = authResponse
             });
         }
         
@@ -53,12 +53,12 @@ namespace ToDoListApi.Controllers
 
         [HttpPost("tokens/refresh")]
         [AllowAnonymous]
-        public IActionResult RefreshAccessToken([FromBody] string  token)
+        public IActionResult RefreshAccessToken([FromBody] string token)
         {
-            var tokenResponse = _userService.RefreshAccessToken(token);
+            var authResponse = _userService.RefreshAccessToken(token);
             return Ok(new
             {
-                Response = tokenResponse
+                TokenInfo = authResponse
             });
         }
 

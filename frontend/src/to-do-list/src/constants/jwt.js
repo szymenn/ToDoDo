@@ -1,1 +1,2 @@
-export const JWT_ID = "id_token"
+export const JWT_ID = "access_token"
+export const REFRESH_ID = "refresh_token"
