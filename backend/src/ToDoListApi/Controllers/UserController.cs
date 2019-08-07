@@ -8,7 +8,7 @@ using ToDoListApi.Services;
 
 namespace ToDoListApi.Controllers
 {
-    [Route(ApiRoutes.User)]
+    [Route("user")]
     [Authorize]
     public class UserController : ControllerBase
     {
@@ -19,7 +19,7 @@ namespace ToDoListApi.Controllers
             _userService = userService;
         }
 
-        [HttpPost(ApiRoutes.Login)]
+        [HttpPost("login")]
         [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] LoginBindingModel userModel)
         {
@@ -31,7 +31,7 @@ namespace ToDoListApi.Controllers
             });
         }
         
-        [HttpPost(ApiRoutes.Register)]
+        [HttpPost("register")]
         [AllowAnonymous]
         public async Task<IActionResult> Register([FromBody] RegisterBindingModel userModel)
         {
@@ -62,8 +62,8 @@ namespace ToDoListApi.Controllers
             });
         }
 
-        [HttpPost("tokens/{token}/revoke")]
-        public IActionResult RevokeRefreshToken([FromRoute] string token)
+        [HttpPost("tokens/revoke")]
+        public IActionResult RevokeRefreshToken([FromBody] string token)
         {
             _userService.RevokeRefreshToken(token);
             return NoContent();
