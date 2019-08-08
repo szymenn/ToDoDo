@@ -1,4 +1,5 @@
 [![Build Status](https://dev.azure.com/zalewsks7/ToDo/_apis/build/status/szymenn.ToDoDo?branchName=master)](https://dev.azure.com/zalewsks7/ToDo/_build/latest?definitionId=3&branchName=master)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 # ToDoDo
 Todo list app implementation I'm making mostly in order to learn frontend web development using React.js
 ## Used technologies
@@ -23,8 +24,7 @@ Todo list app implementation I'm making mostly in order to learn frontend web de
 - Creating, editing and deleting tasks
 - Storing tasks in database
 ## Todo
-- Add refresh token to JWT
-- Write more unit tests and add some integration tests
 - Change forms to use redux-form instead of using DOM manipulation 
 - Add some form of material UI 
+- Write more unit tests and add some integration tests
 - Deploy app 
