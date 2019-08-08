@@ -33,7 +33,7 @@ namespace ToDoListApi.Services
                 _jwtSettings.Value.Issuer,
                 _jwtSettings.Value.Audience,
                 claims,
-                expires: DateTime.Now.AddMinutes(_jwtSettings.Value.AccessExpiration),
+                expires: DateTime.Now.AddSeconds(_jwtSettings.Value.AccessExpiration),
                 signingCredentials: credentials);
             
             return new JwtSecurityTokenHandler().WriteToken(token);

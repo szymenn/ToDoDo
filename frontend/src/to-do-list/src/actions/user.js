@@ -1,6 +1,7 @@
 import { SET_USERNAME } from '../constants/actionTypes';
 import { JWT_ID, REFRESH_ID } from '../constants/jwt';
 import axios from 'axios';
+import { resolve } from 'dns';
 
 const apiUrl = "https://localhost:5001"
 
@@ -64,10 +65,40 @@ export function RegisterUser(user, redirect){
 
 export function LogoutUser(redirect) {
     return(dispatch) => {
-        localStorage.removeItem(JWT_ID)
-        localStorage.removeItem(REFRESH_ID)
-        redirect('/')
+        const refreshToken = localStorage.getItem(REFRESH_ID)
+        const jwt = localStorage.getItem(JWT_ID)
+        const headers = {
+            Authorization: `Bearer ${jwt}`,
+            'Content-Type': 'application/json'
+        }
+        return axios.post(`${apiUrl}/user/tokens/revoke`, JSON.stringify(refreshToken), {headers: headers})
+        .then(result => {
+            localStorage.removeItem(JWT_ID)
+            localStorage.removeItem(REFRESH_ID)
+            redirect('/')
+        })
+        .catch(error => {
+            throw (error)
+        })
     }
 }
 
+axios.interceptors.response.use((response) => {
+    return response
+}, error => {
+    if(error.response.status === 401){
+        const refreshToken = localStorage.getItem(REFRESH_ID)
+        const headers = {
+            'Content-Type':'application/json'
+        }
+        return axios.post(`${apiUrl}/user/tokens/refresh`, JSON.stringify(refreshToken), {headers: headers})
+        .then(result => {
+            localStorage.setItem(JWT_ID, result.data.tokenInfo.accessToken)
+            localStorage.setItem(REFRESH_ID, result.data.tokenInfo.refreshToken)
+            error.config.headers.Authorization = `Bearer ${localStorage.getItem(JWT_ID)}`
+            return axios.request(error.config)
+        })
+    }
+    return Promise.reject(error)
+})
 

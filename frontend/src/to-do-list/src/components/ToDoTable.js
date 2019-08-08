@@ -16,7 +16,7 @@ export default function ToDoTable(props){
                         <th>Task</th>
                         <th>Date</th>
                         <th>
-                            <Button color="success" onClick={props.handleAdd}>Add new Task</Button>
+                            <Button color="success" onClick={props.handleAdd}>Add</Button>
                         </th>
                     </tr>
                 </thead>

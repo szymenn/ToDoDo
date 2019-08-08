@@ -73,6 +73,7 @@ namespace ToDoListApi.Repositories
 
             var refreshToken = _context.Tokens.First(p => p.Token == token);
             refreshToken.Token = updateToken;
+            _context.SaveChanges();
             return updateToken;
         }
 
