@@ -14,7 +14,7 @@ Todo list app implementation I'm making mostly in order to learn frontend web de
 - xUnit
 - Moq
 ### ToDoDo frontend
-- Javascript
+- JavaScript
 - React.js 
 - Redux
 - React Router
