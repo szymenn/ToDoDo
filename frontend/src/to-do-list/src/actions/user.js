@@ -1,9 +1,8 @@
 import { SET_USERNAME } from '../constants/actionTypes';
 import { JWT_ID, REFRESH_ID } from '../constants/jwt';
-import axios from 'axios';
-import { resolve } from 'dns';
-
-const apiUrl = "https://localhost:5001"
+import { SetUpError } from './error';
+import axiosInstance from '../axios/config'
+import { apiUrl } from '../constants/urls';
 
 export function SetUsernameSuccess(username){
     return{
@@ -17,7 +16,7 @@ export function SetUsernameSuccess(username){
 export function SetUsername(){
     const jwt = localStorage.getItem(JWT_ID);
     return(dispatch) => {
-        return axios.get(`${apiUrl}/user`, {headers: {
+        return axiosInstance.get(`${apiUrl}/user`, {headers: {
             Authorization: `Bearer ${jwt}`}})
         .then(result => {
             dispatch(SetUsernameSuccess(result.data.userName))
@@ -30,31 +29,32 @@ export function SetUsername(){
 
 export function LoginUser(user, redirect){
     return(dispatch) => {
-        return axios.post(`${apiUrl}/user/login`, {
+        return axiosInstance.post(`${apiUrl}/user/login`, {
             UserName: user.username,
             Password: user.password
         })
         .then(result => {
-            localStorage.setItem(JWT_ID, result.data.tokenInfo.accessToken)
-            localStorage.setItem(REFRESH_ID, result.data.tokenInfo.refreshToken)
+            localStorage.setItem(JWT_ID, result.data.tokens.accessToken)
+            localStorage.setItem(REFRESH_ID, result.data.tokens.refreshToken)
             redirect('/')
         })
         .catch(error => {
-            throw (error)
+            dispatch(SetUpError(error.response.data))
+            redirect('/Error')
         });
     }
 }
 
 export function RegisterUser(user, redirect){
     return(dispatch) => {
-        return axios.post(`${apiUrl}/user/register`, {
+        return axiosInstance.post(`${apiUrl}/user/register`, {
             UserName: user.username,
             Password: user.password,
             ConfirmPassword: user.confirmPassword
         })
         .then(result => {
-            localStorage.setItem(JWT_ID, result.data.tokenInfo.accessToken)
-            localStorage.setItem(REFRESH_ID, result.data.tokenInfo.refreshToken)
+            localStorage.setItem(JWT_ID, result.data.tokens.accessToken)
+            localStorage.setItem(REFRESH_ID, result.data.tokens.refreshToken)
             redirect('/')
         })
         .catch(error => {
@@ -71,7 +71,7 @@ export function LogoutUser(redirect) {
             Authorization: `Bearer ${jwt}`,
             'Content-Type': 'application/json'
         }
-        return axios.post(`${apiUrl}/user/tokens/revoke`, JSON.stringify(refreshToken), {headers: headers})
+        return axiosInstance.post(`${apiUrl}/user/tokens/revoke`, JSON.stringify(refreshToken), {headers: headers})
         .then(result => {
             localStorage.removeItem(JWT_ID)
             localStorage.removeItem(REFRESH_ID)
@@ -83,22 +83,6 @@ export function LogoutUser(redirect) {
     }
 }
 
-axios.interceptors.response.use((response) => {
-    return response
-}, error => {
-    if(error.response.status === 401){
-        const refreshToken = localStorage.getItem(REFRESH_ID)
-        const headers = {
-            'Content-Type':'application/json'
-        }
-        return axios.post(`${apiUrl}/user/tokens/refresh`, JSON.stringify(refreshToken), {headers: headers})
-        .then(result => {
-            localStorage.setItem(JWT_ID, result.data.tokenInfo.accessToken)
-            localStorage.setItem(REFRESH_ID, result.data.tokenInfo.refreshToken)
-            error.config.headers.Authorization = `Bearer ${localStorage.getItem(JWT_ID)}`
-            return axios.request(error.config)
-        })
-    }
-    return Promise.reject(error)
-})
+
+
 

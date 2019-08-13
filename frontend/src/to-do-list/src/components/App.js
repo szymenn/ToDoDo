@@ -5,6 +5,7 @@ import Register from './Register';
 import Add from './Add';
 import Home from './Home';
 import Edit from './Edit';
+import ErrorHandler from './ErrorHandler';
 
 function App(props){
     return(
@@ -14,6 +15,7 @@ function App(props){
                 <Route path='/Register' component={Register}/>
                 <Route path='/Add' component={Add}/>
                 <Route path='/Edit' component={Edit}/>
+                <Route path='/Error' component={ErrorHandler}/>
                 <Route path='/' component={Home}/>
             </Switch>
         </BrowserRouter>

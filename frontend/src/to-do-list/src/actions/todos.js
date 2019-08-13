@@ -1,9 +1,8 @@
 import { UPDATE_TODOS, UPDATE_TODO} from '../constants/actionTypes';
 import { JWT_ID, REFRESH_ID } from '../constants/jwt'; 
-import axios from 'axios';
 import { resolve } from 'url';
-
-const apiUrl = "https://localhost:5001"
+import axiosInstance from '../axios/config';
+import { apiUrl } from '../constants/urls';
 
 export function UpdateToDos(todos){
     return {
@@ -26,7 +25,7 @@ export function UpdateToDo(todo){
 export function DeleteToDo(id){
     const jwt = localStorage.getItem(JWT_ID)
     return(dispatch) => {
-        return axios.delete(`${apiUrl}/todos/${id}`, {headers:{
+        return axiosInstance.delete(`${apiUrl}/todos/${id}`, {headers:{
             Authorization: `Bearer ${jwt}`
         }})
         .then(result => {
@@ -44,7 +43,7 @@ export function AddToDo(todo){
         Authorization: `Bearer ${jwt}`
     }
     return(dispatch) => {
-        return axios.post(`${apiUrl}/todos`, todo, {headers: headers})
+        return axiosInstance.post(`${apiUrl}/todos`, todo, {headers: headers})
         .then(result => {
             dispatch(UpdateToDos(result.data))
         })
@@ -57,7 +56,7 @@ export function AddToDo(todo){
 export function UpdateToDosRequest(){
     const jwt = localStorage.getItem(JWT_ID);
     return (dispatch) => {
-        return axios.get(`${apiUrl}/todos`, {headers: {
+        return axiosInstance.get(`${apiUrl}/todos`, {headers: {
             Authorization: `Bearer ${jwt}`
         }})
         .then(result => {
@@ -75,7 +74,7 @@ export function UpdateToDoRequest(todo, id){
         Authorization: `Bearer ${jwt}`
     }
     return(dispatch) => {
-        return axios.put(`${apiUrl}/todos/${id}`, todo, {headers: headers})
+        return axiosInstance.put(`${apiUrl}/todos/${id}`, todo, {headers: headers})
         .then(result =>{
             dispatch(UpdateToDo(result.data))
         })
