@@ -27,7 +27,7 @@ namespace ToDoListApi.Controllers
 
             return Ok(new
             {
-                TokenInfo = authResponse
+                Tokens = authResponse
             });
         }
         
@@ -39,7 +39,7 @@ namespace ToDoListApi.Controllers
 
             return Ok(new
             {
-                TokenInfo = authResponse
+                Tokens = authResponse
             });
         }
         
@@ -58,7 +58,7 @@ namespace ToDoListApi.Controllers
             var authResponse = _userService.RefreshAccessToken(token);
             return Ok(new
             {
-                TokenInfo = authResponse
+                Tokens = authResponse
             });
         }
 

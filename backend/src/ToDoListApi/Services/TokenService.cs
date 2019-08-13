@@ -42,7 +42,6 @@ namespace ToDoListApi.Services
             {
                 AccessToken = _jwtHandler.CreateAccessToken(claims),
                 RefreshToken = _refreshHandler.CreateRefreshToken(userName, userId),
-                Expires = _jwtSettings.Value.AccessExpiration
             };
         }
 
@@ -56,7 +55,6 @@ namespace ToDoListApi.Services
             {
                 AccessToken = accessToken,
                 RefreshToken = refreshToken,
-                Expires = _jwtSettings.Value.AccessExpiration
             };
         }
 
