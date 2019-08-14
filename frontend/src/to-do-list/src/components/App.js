@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import Login from './Login';
 import {BrowserRouter, Switch, Route, withRouter} from 'react-router-dom';
 import Register from './Register';

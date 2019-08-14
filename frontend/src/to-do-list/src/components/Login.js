@@ -1,8 +1,6 @@
 import React from 'react';
 import {withRouter} from 'react-router-dom';
 import { connect } from 'react-redux';
-import {LoginUser} from '../actions';
-import LoginForm from './LoginForm';
 import EnhancedLoginForm from './EnhancedLoginForm'; 
 
 function Login(props){

@@ -1,4 +1,3 @@
-import React from 'react';
 import { withFormik } from 'formik';
 import { LoginUser } from '../actions';
 import * as Yup from 'yup';

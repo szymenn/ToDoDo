@@ -2,26 +2,27 @@ import React from 'react';
 import {FormGroup, Form, Button, Badge, Label, Input, Container, Navbar} from 'reactstrap';
 
 export default function RegisterForm(props){
+    const { handleHome, handleSubmit, handleChange, values } = props
     return(
         <div>
             <Navbar>
                 ToDoList App
-                <Button color="primary" onClick={props.handleHome}>Home</Button>
+                <Button color="primary" onClick={handleHome}>Home</Button>
             </Navbar>
             <Container>
                 <h1><Badge color="primary">Register page</Badge></h1>
-                <Form onSubmit={e => props.submit(e)}>
+                <Form onSubmit={handleSubmit}>
                     <FormGroup>
                         <Label for="username">Username</Label>
-                        <Input type="username" name="username" id="username" placeholder="Username"/>
+                        <Input type="username" name="username" placeholder="Username" value={values.username} onChange={handleChange}/>
                     </FormGroup>
                     <FormGroup>
                         <Label for="password">Password</Label>
-                        <Input type="password" name="password" id="password" placeholder="Password" onKeyUp={props.check}/>
+                        <Input type="password" name="password"placeholder="Password" value={values.password} onChange={handleChange}/>
                     </FormGroup>
                     <FormGroup>
-                        <Label for="confirm_password">Confirm password</Label>
-                        <Input type="password" name="confirm_password" id="confirm_password" placeholder="Confirm password" onKeyUp={props.check}/>
+                        <Label for="confirmPassword">Confirm password</Label>
+                        <Input type="password" name="confirmPassword" placeholder="Confirm password" value={values.confirmPassword} onChange={handleChange}/>
                         <span id='message'></span>
                     </FormGroup>
                     <FormGroup>
