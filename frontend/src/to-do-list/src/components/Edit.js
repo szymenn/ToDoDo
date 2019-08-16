@@ -1,32 +1,30 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import TaskForm from './TaskForm';
 import { UpdateToDoRequest } from '../actions';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import EnhancedEditForm from './EnhancedEditForm';
+import { JWT_ID } from '../constants/jwt';
 
 function mapStateToProps(state) {
     return {
-        id: state.ids.updateId
+        id: state.ids.updateId,
+        todos: state.todos.todos
     }
 }
 function Edit(props){
-    function handleSubmit(e){
-        e.preventDefault()
-        const inputDate = document.getElementById('date').value
-        const date = new Date(inputDate).toJSON()
-        const task = document.getElementById('task').value
-
-        const todo = {
-            task: task,
-            date: date
+    useEffect(()=>{
+        if(!localStorage.getItem(JWT_ID)){
+            props.history.push('/Login')
         }
-        
-        props.dispatch(UpdateToDoRequest(todo, props.id))
-        props.history.push('/')
-    }
+    }, props)
 
+    const todo = props.todos.find((todo) => {
+        return todo.id === props.id
+    })
+    const date = new Date(todo.date)
     return (
-        <TaskForm handleSubmit={handleSubmit}/>
+        <EnhancedEditForm dispatch={props.dispatch} redirect={props.history.push} id={props.id} task={todo.task} date={todo.date}/>
     )
 }
 

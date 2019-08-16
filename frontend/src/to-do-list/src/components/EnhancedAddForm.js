@@ -4,10 +4,10 @@ import { AddToDo } from '../actions';
 import TaskForm from './TaskForm';
 
 const EnhancedTaskForm = withFormik({
-    mapPropsToValues({task, date}) {
+    mapPropsToValues() {
         return {
-            task: task || '',
-            date: date || ''
+            task: '',
+            date: ''
         }
     },
     handleSubmit(values, { props }) {
@@ -22,8 +22,8 @@ const EnhancedTaskForm = withFormik({
         props.redirect('/')
     },
     validationSchema: Yup.object().shape({
-        task: Yup.string().required(),
-        date: Yup.date().required()
+        task: Yup.string().required("Task is required"),
+        date: Yup.date().required("Date is required")
     })
 })(TaskForm)    
 

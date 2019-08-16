@@ -4,7 +4,7 @@ import TaskForm from './TaskForm';
 import { connect } from 'react-redux';
 import { AddToDo } from '../actions';
 import { JWT_ID } from '../constants/jwt';
-import EnhancedTaskForm from './EnhancedTaskForm';
+import EnhancedAddForm from './EnhancedAddForm'
 
 function Add(props){
     useEffect(()=>{
@@ -13,22 +13,8 @@ function Add(props){
         }
     }, props)
 
-    // function handleSubmit(e){
-    //     const inputDate = document.getElementById('date').value
-    //     const date = new Date(inputDate).toJSON()
-    //     const task = document.getElementById('task').value
-
-    //     const todo = {
-    //         task: task,
-    //         date: date
-    //     }
-        
-    //     props.dispatch(AddToDo(todo))
-    //     props.history.push('/')
-    // }
-
     return(
-        <EnhancedTaskForm dispatch={props.dispatch} redirect={props.history.push}/>
+        <EnhancedAddForm dispatch={props.dispatch} redirect={props.history.push}/>
     )
 }
 

@@ -20,9 +20,9 @@ const EnhancedRegisterForm = withFormik({
         props.dispatch(RegisterUser(user, props.redirect))
     },
     validationSchema: Yup.object().shape({
-        username: Yup.string().required(),
-        password: Yup.string().required(),
-        confirmPassword: Yup.string().required()
+        username: Yup.string().required("Username is required"),
+        password: Yup.string().required("Password is required"),
+        confirmPassword: Yup.string().required("Password confirmation is required").oneOf([Yup.ref('password'), null], "Passwords do not match")
     })
 })(RegisterForm)
 
