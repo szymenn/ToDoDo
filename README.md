@@ -24,7 +24,5 @@ Todo list app implementation I'm making mostly in order to learn frontend web de
 - Creating, editing and deleting tasks
 - Storing tasks in database
 ## Todo
-- Change forms to use redux-form instead of using DOM manipulation 
-- Add some form of material UI 
 - Write more unit tests and add some integration tests
 - Deploy app 
