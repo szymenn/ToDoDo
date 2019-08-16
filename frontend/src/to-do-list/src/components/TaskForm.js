@@ -1,6 +1,6 @@
 import React from 'react';
 import {Form, FormGroup, Input, Container, Label, FormText } from 'reactstrap';
-import Header from './Header';
+import Header from '../containers/Header';
 
 export default function TaskForm(props){
     const { handleSubmit, handleChange, values, errors, touched } = props

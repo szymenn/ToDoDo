@@ -1,7 +1,7 @@
 import { withFormik } from 'formik';
 import { RegisterUser } from '../actions';
 import * as Yup from 'yup';
-import RegisterForm from './RegisterForm';
+import RegisterForm from '../components/RegisterForm';
 
 const EnhancedRegisterForm = withFormik({
     mapPropsToValues() {

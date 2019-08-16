@@ -4,8 +4,8 @@ import {withRouter} from 'react-router-dom';
 import { connect } from 'react-redux';
 import { JWT_ID } from '../constants/jwt';
 import { LogoutUser } from '../actions';
-import AuthHeader from './AuthHeader';
-import NotAuthHeader from './NotAuthHeader';
+import AuthHeader from '../components/AuthHeader';
+import NotAuthHeader from '../components/NotAuthHeader';
 
 function Header(props) {
   

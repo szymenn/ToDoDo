@@ -1,11 +1,11 @@
 import React from 'react';
-import Login from './Login';
+import Login from '../containers/Login';
 import {BrowserRouter, Switch, Route, withRouter} from 'react-router-dom';
-import Register from './Register';
-import Add from './Add';
+import Register from '../containers/Register';
+import Add from '../containers/Add';
 import Home from './Home';
-import Edit from './Edit';
-import ErrorHandler from './ErrorHandler';
+import Edit from '../containers/Edit';
+import ErrorHandler from '../containers/ErrorHandler';
 
 function App(props){
     return(

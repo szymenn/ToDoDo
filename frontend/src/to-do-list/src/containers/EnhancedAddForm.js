@@ -1,7 +1,7 @@
 import { withFormik } from 'formik';
 import * as Yup from 'yup';
 import { AddToDo } from '../actions';
-import TaskForm from './TaskForm';
+import TaskForm from '../components/TaskForm';
 
 const EnhancedTaskForm = withFormik({
     mapPropsToValues() {

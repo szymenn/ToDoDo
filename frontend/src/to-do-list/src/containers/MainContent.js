@@ -3,8 +3,8 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {UpdateToDosRequest, DeleteToDo, SetUpdateId} from '../actions/index';
 import { JWT_ID } from '../constants/jwt';
-import Welcome from './Welcome';
-import ToDoTable from './ToDoTable';
+import Welcome from '../components/Welcome';
+import ToDoTable from '../components/ToDoTable';
 
 function mapStateToProps(state) {
     return {

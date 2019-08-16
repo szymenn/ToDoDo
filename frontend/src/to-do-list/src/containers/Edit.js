@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import TaskForm from './TaskForm';
+import TaskForm from '../components/TaskForm';
 import { UpdateToDoRequest } from '../actions';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';

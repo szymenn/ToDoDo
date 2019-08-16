@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
-import TaskForm from './TaskForm';
+import TaskForm from '../components/TaskForm';
 import { connect } from 'react-redux';
 import { AddToDo } from '../actions';
 import { JWT_ID } from '../constants/jwt';
