@@ -22,7 +22,6 @@ function Edit(props){
     const todo = props.todos.find((todo) => {
         return todo.id === props.id
     })
-    const date = new Date(todo.date)
     return (
         <EnhancedEditForm dispatch={props.dispatch} redirect={props.history.push} id={props.id} task={todo.task} date={todo.date}/>
     )
