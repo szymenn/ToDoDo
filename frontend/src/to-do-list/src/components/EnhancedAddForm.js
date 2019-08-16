@@ -18,7 +18,7 @@ const EnhancedTaskForm = withFormik({
             date: date
         }
 
-        props.dispatch(AddToDo(todo))
+        props.dispatch(AddToDo(todo, props.redirect))
         props.redirect('/')
     },
     validationSchema: Yup.object().shape({

@@ -58,7 +58,8 @@ export function RegisterUser(user, redirect){
             redirect('/')
         })
         .catch(error => {
-            throw (error)
+            dispatch(SetUpError(error.response.data))
+            redirect('/Error')
         })
     }
 }
@@ -78,7 +79,8 @@ export function LogoutUser(redirect) {
             redirect('/')
         })
         .catch(error => {
-            throw (error)
+            dispatch(SetUpError(error.response.data))
+            redirect('/Error')
         })
     }
 }

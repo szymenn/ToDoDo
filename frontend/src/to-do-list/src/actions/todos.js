@@ -3,6 +3,7 @@ import { JWT_ID, REFRESH_ID } from '../constants/jwt';
 import { resolve } from 'url';
 import axiosInstance from '../axios/config';
 import { apiUrl } from '../constants/urls';
+import { SetUpError } from './error';
 
 export function UpdateToDos(todos){
     return {
@@ -22,7 +23,7 @@ export function UpdateToDo(todo){
     }
 }
 
-export function DeleteToDo(id){
+export function DeleteToDo(id, redirect){
     const jwt = localStorage.getItem(JWT_ID)
     return(dispatch) => {
         return axiosInstance.delete(`${apiUrl}/todos/${id}`, {headers:{
@@ -32,12 +33,13 @@ export function DeleteToDo(id){
             dispatch(UpdateToDos(result.data))
         })
         .catch(error => {
-            throw (error)
+            dispatch(SetUpError(error.response.data))
+            redirect('/Error')
         })
     }
 }
 
-export function AddToDo(todo){
+export function AddToDo(todo, redirect){
     const jwt = localStorage.getItem(JWT_ID)
     const headers = {
         Authorization: `Bearer ${jwt}`
@@ -48,12 +50,13 @@ export function AddToDo(todo){
             dispatch(UpdateToDos(result.data))
         })
         .catch(error => {
-            throw (error)
+            dispatch(SetUpError(error.response.data))
+            redirect('/Error')
         })
     }
 }
 
-export function UpdateToDosRequest(){
+export function UpdateToDosRequest(redirect){
     const jwt = localStorage.getItem(JWT_ID);
     return (dispatch) => {
         return axiosInstance.get(`${apiUrl}/todos`, {headers: {
@@ -63,12 +66,13 @@ export function UpdateToDosRequest(){
             dispatch(UpdateToDos(result.data))
         })
         .catch(error =>{
-            throw (error)
+            dispatch(SetUpError(error.response.data))
+            redirect('/Error')
         }) 
     }
 }
 
-export function UpdateToDoRequest(todo, id){
+export function UpdateToDoRequest(todo, id, redirect){
     const jwt = localStorage.getItem(JWT_ID);
     const headers = {
         Authorization: `Bearer ${jwt}`
@@ -79,7 +83,8 @@ export function UpdateToDoRequest(todo, id){
             dispatch(UpdateToDo(result.data))
         })
         .catch(error => {
-            throw (error)
+            dispatch(SetUpError(error.response.data))
+            redirect('/Error')
         })
     }
 }

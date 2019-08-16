@@ -18,7 +18,7 @@ const EnhancedEditForm = withFormik({
             date: date
         }
 
-        props.dispatch(UpdateToDoRequest(todo, props.id))
+        props.dispatch(UpdateToDoRequest(todo, props.id, props.redirect))
         props.redirect('/')
     },
     validationSchema: Yup.object().shape({

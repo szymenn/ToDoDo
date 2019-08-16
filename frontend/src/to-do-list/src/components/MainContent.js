@@ -29,7 +29,7 @@ function MainContent(props){
     } 
 
     function handleDelete(id){
-        props.dispatch(DeleteToDo(id))
+        props.dispatch(DeleteToDo(id), props.history.push)
         props.history.push('/')
     }
 
