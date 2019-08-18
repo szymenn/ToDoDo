@@ -6,6 +6,7 @@ Todo list app implementation I'm making mostly in order to learn frontend web de
 ## Used technologies
 ### CI tools 
 - Azure DevOps
+- SonarQube
 ### ToDoDo backend
 - C# 7.3
 - ASP.NET Core 2.2 
