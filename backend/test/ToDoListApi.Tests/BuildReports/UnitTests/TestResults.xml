@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<assemblies timestamp="08/18/2019 14:21:08">
+  <assembly name="C:\Users\User\RiderProjects\ToDoListApp\backend\test\ToDoListApi.Tests\bin\Debug\netcoreapp2.2\ToDoListApi.Tests.dll" run-date="2019-08-18" run-time="14:21:08" total="40" passed="40" failed="0" skipped="0" time="1.790" errors="0">
+    <errors />
+    <collection total="8" passed="8" failed="0" skipped="0" name="Test collection for ToDoListApi.Tests.CustomExceptionHandlerMiddlewareTests" time="0.077">
+      <test name="ToDoListApi.Tests.CustomExceptionHandlerMiddlewareTests.Invoke_WhenPasswordValidationException_SetsBadRequestStatusCode" type="ToDoListApi.Tests.CustomExceptionHandlerMiddlewareTests" method="Invoke_WhenPasswordValidationException_SetsBadRequestStatusCode" time="0.0490000" result="Pass">
+        <traits />
+      </test>
+      <test name="ToDoListApi.Tests.CustomExceptionHandlerMiddlewareTests.Invoke_WhenResourceNotFoundException_WritesProblemDetails" type="ToDoListApi.Tests.CustomExceptionHandlerMiddlewareTests" method="Invoke_WhenResourceNotFoundException_WritesProblemDetails" time="0.0110000" result="Pass">
+        <traits />
+      </test>
+      <test name="ToDoListApi.Tests.CustomExceptionHandlerMiddlewareTests.Invoke_WhenPasswordValidationException_WritesProblemDetails" type="ToDoListApi.Tests.CustomExceptionHandlerMiddlewareTests" method="Invoke_WhenPasswordValidationException_WritesProblemDetails" time="0.0020000" result="Pass">
+        <traits />
+      </test>
+      <test name="ToDoListApi.Tests.CustomExceptionHandlerMiddlewareTests.Invoke_WhenRegistrationException_WritesProblemDetails" type="ToDoListApi.Tests.CustomExceptionHandlerMiddlewareTests" method="Invoke_WhenRegistrationException_WritesProblemDetails" time="0.0030000" result="Pass">
+        <traits />
+      </test>
+      <test name="ToDoListApi.Tests.CustomExceptionHandlerMiddlewareTests.Invoke_WhenResourceAlreadyExistsException_WritesProblemDetails" type="ToDoListApi.Tests.CustomExceptionHandlerMiddlewareTests" method="Invoke_WhenResourceAlreadyExistsException_WritesProblemDetails" time="0.0020000" result="Pass">
+        <traits />
+      </test>
+      <test name="ToDoListApi.Tests.CustomExceptionHandlerMiddlewareTests.Invoke_WhenResourceNotFoundException_SetsNotFoundStatusCode" type="ToDoListApi.Tests.CustomExceptionHandlerMiddlewareTests" method="Invoke_WhenResourceNotFoundException_SetsNotFoundStatusCode" time="0.0020000" result="Pass">
+        <traits />
+      </test>
+      <test name="ToDoListApi.Tests.CustomExceptionHandlerMiddlewareTests.Invoke_WhenRegistrationException_SetsBadRequestStatusCode" type="ToDoListApi.Tests.CustomExceptionHandlerMiddlewareTests" method="Invoke_WhenRegistrationException_SetsBadRequestStatusCode" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="ToDoListApi.Tests.CustomExceptionHandlerMiddlewareTests.Invoke_WhenResourceAlreadyExistsException_SetsConflictStatusCode" type="ToDoListApi.Tests.CustomExceptionHandlerMiddlewareTests" method="Invoke_WhenResourceAlreadyExistsException_SetsConflictStatusCode" time="0.0070000" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="6" passed="6" failed="0" skipped="0" name="Test collection for ToDoListApi.Tests.ToDoListControllerTests" time="0.259">
+      <test name="ToDoListApi.Tests.ToDoListControllerTests.DeleteToDo_WhenNotFound_ThrowsException" type="ToDoListApi.Tests.ToDoListControllerTests" method="DeleteToDo_WhenNotFound_ThrowsException" time="0.2310000" result="Pass">
+        <traits />
+      </test>
+      <test name="ToDoListApi.Tests.ToDoListControllerTests.UpdateToDo_WhenNotFound_ThrowsException" type="ToDoListApi.Tests.ToDoListControllerTests" method="UpdateToDo_WhenNotFound_ThrowsException" time="0.0200000" result="Pass">
+        <traits />
+      </test>
+      <test name="ToDoListApi.Tests.ToDoListControllerTests.UpdateToDo_ByDefault_ReturnsOkObjectResult" type="ToDoListApi.Tests.ToDoListControllerTests" method="UpdateToDo_ByDefault_ReturnsOkObjectResult" time="0.0020000" result="Pass">
+        <traits />
+      </test>
+      <test name="ToDoListApi.Tests.ToDoListControllerTests.AddToDo_ByDefault_ReturnsOkObjectResult" type="ToDoListApi.Tests.ToDoListControllerTests" method="AddToDo_ByDefault_ReturnsOkObjectResult" time="0.0020000" result="Pass">
+        <traits />
+      </test>
+      <test name="ToDoListApi.Tests.ToDoListControllerTests.DeleteToDo_ByDefault_ReturnsOkObjectResult" type="ToDoListApi.Tests.ToDoListControllerTests" method="DeleteToDo_ByDefault_ReturnsOkObjectResult" time="0.0020000" result="Pass">
+        <traits />
+      </test>
+      <test name="ToDoListApi.Tests.ToDoListControllerTests.GetToDos_ByDefault_ReturnsOkObjectResult" type="ToDoListApi.Tests.ToDoListControllerTests" method="GetToDos_ByDefault_ReturnsOkObjectResult" time="0.0020000" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="6" passed="6" failed="0" skipped="0" name="Test collection for ToDoListApi.Tests.ToDoRepositoryTests" time="0.941">
+      <test name="ToDoListApi.Tests.ToDoRepositoryTests.AddTodo_ByDefault_ReturnsToDosCollection" type="ToDoListApi.Tests.ToDoRepositoryTests" method="AddTodo_ByDefault_ReturnsToDosCollection" time="0.8830000" result="Pass">
+        <traits />
+      </test>
+      <test name="ToDoListApi.Tests.ToDoRepositoryTests.DeleteToDo_ByDefault_ReturnsToDosCollection" type="ToDoListApi.Tests.ToDoRepositoryTests" method="DeleteToDo_ByDefault_ReturnsToDosCollection" time="0.0510000" result="Pass">
+        <traits />
+      </test>
+      <test name="ToDoListApi.Tests.ToDoRepositoryTests.DeleteToDo_WhenToDoNotFound_ThrowsResourceNotFoundException" type="ToDoListApi.Tests.ToDoRepositoryTests" method="DeleteToDo_WhenToDoNotFound_ThrowsResourceNotFoundException" time="0.0030000" result="Pass">
+        <traits />
+      </test>
+      <test name="ToDoListApi.Tests.ToDoRepositoryTests.GetToDos_ByDefault_ReturnsToDosCollection" type="ToDoListApi.Tests.ToDoRepositoryTests" method="GetToDos_ByDefault_ReturnsToDosCollection" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="ToDoListApi.Tests.ToDoRepositoryTests.UpdateToDo_WhenToDoNotFound_ThrowsResourceNotFoundException" type="ToDoListApi.Tests.ToDoRepositoryTests" method="UpdateToDo_WhenToDoNotFound_ThrowsResourceNotFoundException" time="0.0020000" result="Pass">
+        <traits />
+      </test>
+      <test name="ToDoListApi.Tests.ToDoRepositoryTests.UpdateToDo_ByDefault_ReturnsUpdatedToDo" type="ToDoListApi.Tests.ToDoRepositoryTests" method="UpdateToDo_ByDefault_ReturnsUpdatedToDo" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="6" passed="6" failed="0" skipped="0" name="Test collection for ToDoListApi.Tests.ToDoServiceTests" time="0.197">
+      <test name="ToDoListApi.Tests.ToDoServiceTests.DeleteToDo_ByDefault_ReturnsToDoViewModelList" type="ToDoListApi.Tests.ToDoServiceTests" method="DeleteToDo_ByDefault_ReturnsToDoViewModelList" time="0.1660000" result="Pass">
+        <traits />
+      </test>
+      <test name="ToDoListApi.Tests.ToDoServiceTests.UpdateToDo_ByDefault_ReturnsToDoViewModel" type="ToDoListApi.Tests.ToDoServiceTests" method="UpdateToDo_ByDefault_ReturnsToDoViewModel" time="0.0130000" result="Pass">
+        <traits />
+      </test>
+      <test name="ToDoListApi.Tests.ToDoServiceTests.AddToDo_ByDefault_ReturnsToDoViewModelList" type="ToDoListApi.Tests.ToDoServiceTests" method="AddToDo_ByDefault_ReturnsToDoViewModelList" time="0.0110000" result="Pass">
+        <traits />
+      </test>
+      <test name="ToDoListApi.Tests.ToDoServiceTests.DeleteToDo_WhenNotFound_ThrowsResourceNotFoundException" type="ToDoListApi.Tests.ToDoServiceTests" method="DeleteToDo_WhenNotFound_ThrowsResourceNotFoundException" time="0.0020000" result="Pass">
+        <traits />
+      </test>
+      <test name="ToDoListApi.Tests.ToDoServiceTests.UpdateToDo_WhenNotFound_ThrowsResourceNotFoundException" type="ToDoListApi.Tests.ToDoServiceTests" method="UpdateToDo_WhenNotFound_ThrowsResourceNotFoundException" time="0.0020000" result="Pass">
+        <traits />
+      </test>
+      <test name="ToDoListApi.Tests.ToDoServiceTests.GetToDos_ByDefault_ReturnsToDoViewModelList" type="ToDoListApi.Tests.ToDoServiceTests" method="GetToDos_ByDefault_ReturnsToDoViewModelList" time="0.0030000" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="8" passed="8" failed="0" skipped="0" name="Test collection for ToDoListApi.Tests.UserControllerTests" time="0.280">
+      <test name="ToDoListApi.Tests.UserControllerTests.Register_ByDefault_ReturnsOkObjectResult" type="ToDoListApi.Tests.UserControllerTests" method="Register_ByDefault_ReturnsOkObjectResult" time="0.2180000" result="Pass">
+        <traits />
+      </test>
+      <test name="ToDoListApi.Tests.UserControllerTests.Register_WhenAlreadyExists_ThrowsResourceAlreadyExistsException" type="ToDoListApi.Tests.UserControllerTests" method="Register_WhenAlreadyExists_ThrowsResourceAlreadyExistsException" time="0.0150000" result="Pass">
+        <traits />
+      </test>
+      <test name="ToDoListApi.Tests.UserControllerTests.GetUser_WhenUserNotFound_ThrowsResourceNotFoundException" type="ToDoListApi.Tests.UserControllerTests" method="GetUser_WhenUserNotFound_ThrowsResourceNotFoundException" time="0.0180000" result="Pass">
+        <traits />
+      </test>
+      <test name="ToDoListApi.Tests.UserControllerTests.Login_ByDefault_ReturnsOkObjectResult" type="ToDoListApi.Tests.UserControllerTests" method="Login_ByDefault_ReturnsOkObjectResult" time="0.0040000" result="Pass">
+        <traits />
+      </test>
+      <test name="ToDoListApi.Tests.UserControllerTests.Login_WhenIncorrectPassword_ThrowsPasswordValidationException" type="ToDoListApi.Tests.UserControllerTests" method="Login_WhenIncorrectPassword_ThrowsPasswordValidationException" time="0.0030000" result="Pass">
+        <traits />
+      </test>
+      <test name="ToDoListApi.Tests.UserControllerTests.Register_WhenErrorOccured_ThrowsRegistrationException" type="ToDoListApi.Tests.UserControllerTests" method="Register_WhenErrorOccured_ThrowsRegistrationException" time="0.0030000" result="Pass">
+        <traits />
+      </test>
+      <test name="ToDoListApi.Tests.UserControllerTests.GetUser_ByDefault_ReturnsOkObjectResult" type="ToDoListApi.Tests.UserControllerTests" method="GetUser_ByDefault_ReturnsOkObjectResult" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="ToDoListApi.Tests.UserControllerTests.Login_WhenNotFound_ThrowsResourceNotFoundException" type="ToDoListApi.Tests.UserControllerTests" method="Login_WhenNotFound_ThrowsResourceNotFoundException" time="0.0180000" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="6" passed="6" failed="0" skipped="0" name="Test collection for ToDoListApi.Tests.UserServiceTests" time="0.036">
+      <test name="ToDoListApi.Tests.UserServiceTests.Login_ByDefault_ReturnsStringToken" type="ToDoListApi.Tests.UserServiceTests" method="Login_ByDefault_ReturnsStringToken" time="0.0220000" result="Pass">
+        <traits />
+      </test>
+      <test name="ToDoListApi.Tests.UserServiceTests.GetUser_ByDefault_ReturnsAppUser" type="ToDoListApi.Tests.UserServiceTests" method="GetUser_ByDefault_ReturnsAppUser" time="0.0040000" result="Pass">
+        <traits />
+      </test>
+      <test name="ToDoListApi.Tests.UserServiceTests.GetUser_WhenNotFound_ThrowsResourceNotFoundException" type="ToDoListApi.Tests.UserServiceTests" method="GetUser_WhenNotFound_ThrowsResourceNotFoundException" time="0.0020000" result="Pass">
+        <traits />
+      </test>
+      <test name="ToDoListApi.Tests.UserServiceTests.Register_WhenAlreadyExists_ThrowsResourceAlreadyExistsException" type="ToDoListApi.Tests.UserServiceTests" method="Register_WhenAlreadyExists_ThrowsResourceAlreadyExistsException" time="0.0040000" result="Pass">
+        <traits />
+      </test>
+      <test name="ToDoListApi.Tests.UserServiceTests.Register_ByDefault_ReturnsStringToken" type="ToDoListApi.Tests.UserServiceTests" method="Register_ByDefault_ReturnsStringToken" time="0.0020000" result="Pass">
+        <traits />
+      </test>
+      <test name="ToDoListApi.Tests.UserServiceTests.Register_WhenNotSucceeded_ThrowsRegistrationException" type="ToDoListApi.Tests.UserServiceTests" method="Register_WhenNotSucceeded_ThrowsRegistrationException" time="0.0020000" result="Pass">
+        <traits />
+      </test>
+    </collection>
+  </assembly>
+</assemblies>

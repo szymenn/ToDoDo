@@ -9,6 +9,12 @@
 **/.idea/**/tasks.xml
 **/.idea/shelf/*
 **/.idea/dictionaries
+/.BuildReports/
+.BuildReports
+**/.BuildReports/**
+.BuildReports/
+
+
 
 # Sensitive or high-churn files
 **/.idea/**/dataSources/
