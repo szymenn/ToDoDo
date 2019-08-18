@@ -115,5 +115,67 @@ namespace ToDoListApi.Tests
             Assert.Throws<ResourceNotFoundException>
                 (() => service.GetUser(It.IsAny<string>()));
         }
+
+        [Fact]
+        public void RefreshAccessToken_ByDefault_ReturnsJsonWebToken()
+        {
+            var userRepositoryStub = new Mock<IUserRepository>();
+            var mapperStub = new Mock<IMapper>();
+            var tokenServiceStub = new Mock<ITokenService>();
+            tokenServiceStub.Setup(e => e.RefreshAccessToken(It.IsAny<string>()))
+                .Returns(new JsonWebToken());
+            
+            var service = new UserService
+                (userRepositoryStub.Object, mapperStub.Object, tokenServiceStub.Object);
+            var result = service.RefreshAccessToken(It.IsAny<string>());
+
+            Assert.IsType<JsonWebToken>(result);
+        }
+
+        [Fact]
+        public void RefreshAccessToken_WhenTokenNotFound_ThrowsResourceNotFoundException()
+        {
+            var userRepositoryStub = new Mock<IUserRepository>();
+            var mapperStub = new Mock<IMapper>();
+            var tokenServiceStub = new Mock<ITokenService>();
+            tokenServiceStub.Setup(e => e.RefreshAccessToken(It.IsAny<string>()))
+                .Throws<ResourceNotFoundException>();
+            
+            var service = new UserService
+                (userRepositoryStub.Object, mapperStub.Object, tokenServiceStub.Object);
+
+            Assert.Throws<ResourceNotFoundException>
+                (() => service.RefreshAccessToken(It.IsAny<string>()));
+        }
+
+        [Fact]
+        public void RevokeAccessToken_ByDefault_CallsTokenService()
+        {
+            var userRepositoryStub = new Mock<IUserRepository>();
+            var mapperStub = new Mock<IMapper>();
+            var tokenServiceStub = new Mock<ITokenService>();
+            
+            var service = new UserService
+                (userRepositoryStub.Object, mapperStub.Object, tokenServiceStub.Object);
+            service.RevokeRefreshToken(It.IsAny<string>());
+            
+            tokenServiceStub.Verify(e => e.RevokeRefreshToken(It.IsAny<string>()), Times.Once);
+        }
+        
+        [Fact]
+        public void RevokeAccessToken_WhenNotFound_ThrowsResourceNotFoundException()
+        {
+            var userRepositoryStub = new Mock<IUserRepository>();
+            var mapperStub = new Mock<IMapper>();
+            var tokenServiceStub = new Mock<ITokenService>();
+            tokenServiceStub.Setup(e => e.RevokeRefreshToken(It.IsAny<string>()))
+                .Throws<ResourceNotFoundException>();
+            
+            var service = new UserService
+                (userRepositoryStub.Object, mapperStub.Object, tokenServiceStub.Object);
+
+            Assert.Throws<ResourceNotFoundException>
+                (() => service.RevokeRefreshToken(It.IsAny<string>()));
+        }
     }
 }

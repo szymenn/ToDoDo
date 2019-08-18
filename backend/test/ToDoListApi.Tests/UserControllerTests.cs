@@ -148,6 +148,68 @@ namespace ToDoListApi.Tests
             Assert.Throws<ResourceNotFoundException>
                 (() => controller.GetUser());
         }
+
+        [Fact]
+        public void RefreshAccessToken_ByDefault_ReturnsOkObjectResult()
+        {
+            var userServiceStub = new Mock<IUserService>();
+            userServiceStub.Setup(e => e.RefreshAccessToken(It.IsAny<string>()))
+                .Returns(new JsonWebToken());
+            
+            var controller = new UserController(userServiceStub.Object);
+            var result = controller.RefreshAccessToken(It.IsAny<string>());
+
+            Assert.IsType<OkObjectResult>(result);
+        }
+
+        [Fact]
+        public void RefreshAccessToken_WhenTokenNotFound_ThrowsResourceNotFoundException()
+        {
+            var userServiceStub  = new Mock<IUserService>();
+            userServiceStub.Setup(e => e.RefreshAccessToken(It.IsAny<string>()))
+                .Throws<ResourceNotFoundException>();
+            
+            var controller = new UserController(userServiceStub.Object);
+
+            Assert.Throws<ResourceNotFoundException>
+                (() => controller.RefreshAccessToken(It.IsAny<string>()));
+        }
+
+        [Fact]
+        public void RevokeRefreshToken_ByDefault_ReturnsNoContentResult()
+        {
+            var userServiceStub = new Mock<IUserService>();
+            
+            var controller = new UserController(userServiceStub.Object);
+            var result = controller.RevokeRefreshToken(It.IsAny<string>());
+
+            Assert.IsType<NoContentResult>(result);
+        }
+
+        [Fact]
+        public void RevokeRefreshToken_ByDefault_CallsUserService()
+        {
+            var userServiceStub = new Mock<IUserService>();
+            
+            var controller = new UserController(userServiceStub.Object);
+            var result = controller.RevokeRefreshToken(It.IsAny<string>());
+            
+            userServiceStub.Verify(e => e.RevokeRefreshToken(It.IsAny<string>()), Times.Once);
+        }
+
+        [Fact]
+        public void RevokeRefreshToken_WhenTokenNotFound_ThrowsResourceNotFoundException()
+        {
+            var userServiceStub = new Mock<IUserService>();
+            userServiceStub.Setup(e => e.RevokeRefreshToken(It.IsAny<string>()))
+                .Throws<ResourceNotFoundException>();
+            
+            var controller = new UserController(userServiceStub.Object);
+
+            Assert.Throws<ResourceNotFoundException>
+                (() => controller.RevokeRefreshToken(It.IsAny<string>()));
+        }
+        
         
     }
 }

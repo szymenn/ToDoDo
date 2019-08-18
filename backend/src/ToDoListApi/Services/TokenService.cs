@@ -1,29 +1,23 @@
 using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
-using System.Security.Cryptography;
-using System.Text;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
-using ToDoListApi.Entities;
 using ToDoListApi.Models;
-using ToDoListApi.Options;
 using ToDoListApi.Repositories;
 
 namespace ToDoListApi.Services
 {
     public class TokenService : ITokenService
     {
-        private readonly IOptions<JwtSettings> _jwtSettings;
         private readonly IJwtHandler _jwtHandler;
         private readonly IRefreshTokenHandler _refreshHandler;
         private readonly ITokenRepository _tokenRepository;
 
-        public TokenService(IOptions<JwtSettings> jwtSettings, IJwtHandler jwtHandler, IRefreshTokenHandler refreshHandler, ITokenRepository tokenRepository)
+        public TokenService(
+            IJwtHandler jwtHandler, 
+            IRefreshTokenHandler refreshHandler, 
+            ITokenRepository tokenRepository
+            )
         {
-            _jwtSettings = jwtSettings;
             _jwtHandler = jwtHandler;
             _refreshHandler = refreshHandler;
             _tokenRepository = tokenRepository;
