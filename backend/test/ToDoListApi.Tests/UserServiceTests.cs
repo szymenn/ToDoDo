@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using Moq;
+using ToDoListApi.Email;
 using ToDoListApi.Entities;
 using ToDoListApi.Exceptions;
 using ToDoListApi.Models;
@@ -30,20 +31,20 @@ namespace ToDoListApi.Tests
         }
 
         [Fact]
-        public async Task Register_ByDefault_ReturnsStringToken()
+        public async Task Register_ByDefault_ReturnsEmailResponse()
         {
             var userRepositoryStub = new Mock<IUserRepository>();
             var mapperStub = new Mock<IMapper>();
             var tokenServiceStub = new Mock<ITokenService>();
             userRepositoryStub.Setup(e => e.Register
                     (It.IsAny<RegisterBindingModel>()))
-                .Returns(Task.FromResult(new JsonWebToken()));
+                .Returns(Task.FromResult(new EmailResponse()));
             
             var service = new UserService
                 (userRepositoryStub.Object, mapperStub.Object, tokenServiceStub.Object);
             var result = await service.Register(It.IsAny<RegisterBindingModel>());
 
-            Assert.IsType<JsonWebToken>(result);
+            Assert.IsType<EmailResponse>(result);
         }
 
         [Fact]

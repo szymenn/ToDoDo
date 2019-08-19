@@ -49,13 +49,12 @@ export function RegisterUser(user, redirect){
     return(dispatch) => {
         return axiosInstance.post(`${apiUrl}/user/register`, {
             UserName: user.username,
+            Email: user.email,
             Password: user.password,
             ConfirmPassword: user.confirmPassword
         })
-        .then(result => {
-            localStorage.setItem(JWT_ID, result.data.tokens.accessToken)
-            localStorage.setItem(REFRESH_ID, result.data.tokens.refreshToken)
-            redirect('/')
+        .then( () => {
+            redirect('/RegisterSuccess')
         })
         .catch(error => {
             dispatch(SetUpError(error.response.data))

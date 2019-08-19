@@ -6,6 +6,8 @@ import Add from '../containers/Add';
 import Home from './Home';
 import Edit from '../containers/Edit';
 import ErrorHandler from '../containers/ErrorHandler';
+import RegisterSuccess from './RegisterSuccess';
+import VerificationSuccess from './VerificationSuccess';
 
 function App(props){
     return(
@@ -16,6 +18,8 @@ function App(props){
                 <Route path='/Add' component={Add}/>
                 <Route path='/Edit' component={Edit}/>
                 <Route path='/Error' component={ErrorHandler}/>
+                <Route path='/VerificationSuccess' component={VerificationSuccess}/>
+                <Route path='/RegisterSuccess' component={RegisterSuccess}/>
                 <Route path='/' component={Home}/>
             </Switch>
         </BrowserRouter>

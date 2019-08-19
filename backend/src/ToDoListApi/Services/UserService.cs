@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using AutoMapper;
+using ToDoListApi.Email;
 using ToDoListApi.Models;
 using ToDoListApi.Repositories;
 
@@ -27,9 +28,14 @@ namespace ToDoListApi.Services
             return await _userRepository.Login(userModel);
         }
 
-        public async Task<JsonWebToken> Register(RegisterBindingModel userModel)
+        public async Task<EmailResponse> Register(RegisterBindingModel userModel)
         {
             return await _userRepository.Register(userModel);
+        }
+
+        public async Task VerifyEmail(string userId, string emailToken)
+        {
+            await _userRepository.VerifyEmail(userId, emailToken);
         }
 
         public UserViewModel GetUser(string userId)

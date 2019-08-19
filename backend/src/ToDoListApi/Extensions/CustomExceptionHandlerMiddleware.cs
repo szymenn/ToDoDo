@@ -42,11 +42,11 @@ namespace ToDoListApi.Extensions
                 context.Response.StatusCode = problemDetails.Status.Value;
                 context.Response.WriteJson(problemDetails);
             }
-            catch (PasswordValidationException passwordValidException)
+            catch (LoginException loginException)
             {
-                problemDetails.Status = passwordValidException.StatusCode;
-                problemDetails.Title = passwordValidException.ReasonPhrase;
-                problemDetails.Detail = passwordValidException.Message;
+                problemDetails.Status = loginException.StatusCode;
+                problemDetails.Title = loginException.ReasonPhrase;
+                problemDetails.Detail = loginException.Message;
                 context.Response.StatusCode = problemDetails.Status.Value;
                 context.Response.WriteJson(problemDetails);
             }
@@ -55,6 +55,22 @@ namespace ToDoListApi.Extensions
                 problemDetails.Status = registrationException.StatusCode;
                 problemDetails.Title = registrationException.ReasonPhrase;
                 problemDetails.Detail = registrationException.Message;
+                context.Response.StatusCode = problemDetails.Status.Value;
+                context.Response.WriteJson(problemDetails);
+            }
+            catch (EmailVerificationException verificationException)
+            {
+                problemDetails.Status = verificationException.StatusCode;
+                problemDetails.Title = verificationException.ReasonPhrase;
+                problemDetails.Detail = verificationException.Message;
+                context.Response.StatusCode = problemDetails.Status.Value;
+                context.Response.WriteJson(problemDetails);
+            }
+            catch (EmailSenderException senderException)
+            {
+                problemDetails.Status = senderException.StatusCode;
+                problemDetails.Title = senderException.ReasonPhrase;
+                problemDetails.Detail = senderException.Message;
                 context.Response.StatusCode = problemDetails.Status.Value;
                 context.Response.WriteJson(problemDetails);
             }

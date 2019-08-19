@@ -4,25 +4,25 @@ using ToDoListApi.Helpers;
 
 namespace ToDoListApi.Exceptions
 {
-    public class PasswordValidationException : Exception
+    public class LoginException : Exception
     {
         public int StatusCode { get; }
         public string ReasonPhrase { get; }
 
-        public PasswordValidationException()
+        public LoginException()
         {
             StatusCode = StatusCodes.Status400BadRequest;
             ReasonPhrase = Constants.BadRequest;
         }
 
-        public PasswordValidationException(string message)
+        public LoginException(string message)
             : base(message)
         {
             StatusCode = StatusCodes.Status400BadRequest;
             ReasonPhrase = Constants.BadRequest;
         }
 
-        public PasswordValidationException(string message, Exception inner)
+        public LoginException(string message, Exception inner)
             : base(message, inner)
         {
             StatusCode = StatusCodes.Status400BadRequest;

@@ -52,7 +52,7 @@ namespace ToDoListApi.Tests
         public async Task Invoke_WhenPasswordValidationException_SetsBadRequestStatusCode()
         {
             var middleware = new CustomExceptionHandlerMiddleware
-                (context => throw new PasswordValidationException());
+                (context => throw new LoginException());
             
             var httpContext = new DefaultHttpContext();
             await middleware.Invoke(httpContext);
@@ -115,7 +115,7 @@ namespace ToDoListApi.Tests
         public async Task Invoke_WhenPasswordValidationException_WritesProblemDetails()
         {
             var middleware = new CustomExceptionHandlerMiddleware
-                (context => throw new PasswordValidationException());
+                (context => throw new LoginException());
             
             var httpContext = new DefaultHttpContext();
             httpContext.Response.Body = new MemoryStream();

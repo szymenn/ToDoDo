@@ -4,6 +4,7 @@ namespace ToDoListApi.Models
 {
     public class LoginBindingModel
     {
+        
         [Required]
         public string UserName { get; set; }
         

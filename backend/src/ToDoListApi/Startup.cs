@@ -3,12 +3,14 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using ToDoListApi.Data;
+using ToDoListApi.Email;
 using ToDoListApi.Entities;
 using ToDoListApi.Extensions;
 using ToDoListApi.Helpers;
@@ -48,12 +50,18 @@ namespace ToDoListApi
             
             services.AddDbContext<UserStoreDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString(Constants.UserStoreConnectionString)));
-            services.AddIdentityCore<AppUser>()
-                .AddEntityFrameworkStores<UserStoreDbContext>();
+            services.AddIdentity<AppUser, IdentityRole>(options =>
+                {
+                    options.SignIn.RequireConfirmedEmail = true;
+                    options.User.RequireUniqueEmail = true;
+                })
+                .AddEntityFrameworkStores<UserStoreDbContext>()
+                .AddDefaultTokenProviders();
    
             
-            
             services.Configure<JwtSettings>(Configuration.GetSection(Constants.JwtSettings));
+            services.Configure<EmailVerificationSettings>(
+                Configuration.GetSection(Constants.EmailVerificationSettings));
             var token = Configuration.GetSection(Constants.JwtSettings).Get<JwtSettings>();
             var secret = Encoding.ASCII.GetBytes(token.Secret);
             services.AddAuthentication(x =>
@@ -82,6 +90,7 @@ namespace ToDoListApi
             services.AddScoped<ITokenRepository, TokenRepository>();
             services.AddScoped<IJwtHandler, JwtHandler>();
             services.AddScoped<IRefreshTokenHandler, RefreshTokenHandler>();
+            services.AddTransient<IEmailSender, EmailSender>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

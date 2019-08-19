@@ -18,6 +18,11 @@ export default function RegisterForm(props){
                         {errors.username && touched.username &&<FormText color="danger">{errors.username}</FormText>}
                     </FormGroup>
                     <FormGroup>
+                        <Label for="email">Email</Label>
+                        <Input type="email" name="email" placeholder="Email" value={values.email} onChange={handleChange}/>
+                        {errors.email && touched.email &&<FormText color="danger">{errors.email}</FormText>}
+                    </FormGroup>
+                    <FormGroup>
                         <Label for="password">Password</Label>
                         <Input type="password" name="password"placeholder="Password" value={values.password} onChange={handleChange}/>
                         {errors.password && touched.password &&<FormText color="danger">{errors.password}</FormText>}

@@ -10,8 +10,8 @@ using ToDoListApi.Data;
 namespace ToDoListApi.Migrations.UserStoreDb
 {
     [DbContext(typeof(UserStoreDbContext))]
-    [Migration("20190716095658_InitialUserStore")]
-    partial class InitialUserStore
+    [Migration("20190819104727_InitialSchema")]
+    partial class InitialSchema
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -145,10 +145,6 @@ namespace ToDoListApi.Migrations.UserStoreDb
                         .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed");
-
-                    b.Property<string>("FirstName");
-
-                    b.Property<string>("LastName");
 
                     b.Property<bool>("LockoutEnabled");
 

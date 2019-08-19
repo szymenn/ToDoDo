@@ -10,7 +10,7 @@ using ToDoListApi.Data;
 namespace ToDoListApi.Migrations.TokenStoreDb
 {
     [DbContext(typeof(TokenStoreDbContext))]
-    [Migration("20190806164044_InitialSchema")]
+    [Migration("20190819164613_InitialSchema")]
     partial class InitialSchema
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

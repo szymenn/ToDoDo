@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using ToDoListApi.Controllers;
+using ToDoListApi.Email;
 using ToDoListApi.Exceptions;
 using ToDoListApi.Models;
 using ToDoListApi.Services;
@@ -33,7 +34,7 @@ namespace ToDoListApi.Tests
         {
             var userServiceStub = new Mock<IUserService>();
             userServiceStub.Setup(e => e.Register(It.IsAny<RegisterBindingModel>()))
-                .Returns(Task.FromResult(new JsonWebToken()));
+                .Returns(Task.FromResult(new EmailResponse()));
             
             var controller = new UserController(userServiceStub.Object);
             var result = await controller.Register(It.IsAny<RegisterBindingModel>());
@@ -87,12 +88,12 @@ namespace ToDoListApi.Tests
         {
             var userServiceStub = new Mock<IUserService>();
             userServiceStub.Setup(e => e.Login(It.IsAny<LoginBindingModel>()))
-                .Throws<PasswordValidationException>();
+                .Throws<LoginException>();
             
             var controller = new UserController(userServiceStub.Object);
             var result = controller.Login(It.IsAny<LoginBindingModel>());
 
-            await Assert.ThrowsAsync<PasswordValidationException>(() => result);
+            await Assert.ThrowsAsync<LoginException>(() => result);
         }
 
         [Fact]

@@ -35,11 +35,10 @@ namespace ToDoListApi.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Register([FromBody] RegisterBindingModel userModel)
         {
-            var authResponse =  await _userService.Register(userModel);
-
+            var response = await _userService.Register(userModel);
             return Ok(new
             {
-                Tokens = authResponse
+                Response = response
             });
         }
         
@@ -68,6 +67,14 @@ namespace ToDoListApi.Controllers
             _userService.RevokeRefreshToken(token);
             return NoContent();
         }
-            
+
+        [HttpGet("email/verify")]
+        [AllowAnonymous]
+        public async Task<IActionResult> VerifyEmail(string userId, string confirmationToken)
+        {
+            await _userService.VerifyEmail(userId, confirmationToken);
+            return Redirect(Constants.RedirectSuccess);
+        }
+
     }
 }
