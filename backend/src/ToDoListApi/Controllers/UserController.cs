@@ -75,16 +75,6 @@ namespace ToDoListApi.Controllers
             await _userService.VerifyEmail(userId, confirmationToken);
             return Redirect(Constants.RedirectSuccess);
         }
-
-        [HttpGet("test/something")]
-        [AllowAnonymous]
-        public IActionResult GetSomething()
-        {
-            return Ok(new
-            {
-                Something = "eheherreree"
-            });
-        }
-
+        
     }
 }

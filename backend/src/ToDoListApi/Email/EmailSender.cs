@@ -24,7 +24,7 @@ namespace ToDoListApi.Email
             var client = new SendGridClient(_emailSettings.Value.ApiKey);
             var from = new EmailAddress(_emailSettings.Value.FromEmail, _emailSettings.Value.FromName);
             var to = new EmailAddress(user.Email, user.Email);
-            var content = $"<a href=https://localhost:5001/user/email/verify" +
+            var content = $"<a href={Constants.ApiUrl}/user/email/verify" +
                           $"?userId={HttpUtility.UrlEncode(user?.Id)}" +
                           $"&confirmationToken={HttpUtility.UrlEncode(token)}>Verify</a>";
             var msg = MailHelper.CreateSingleEmail(
