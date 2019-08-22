@@ -30,8 +30,8 @@ Live version of the app is accessible [here](https://tododoapp.azurewebsites.net
 - Creating, editing and deleting tasks
 - Storing tasks in database
 ## Screenshots
-![Alt Text](https://github.com/szymenn/ToDoDo/screenshots/ToDoDoHome.jpg)
-![Alt Text](https://github.com/szymenn/ToDoDo/screenshots/ToDoDoRegister.jpg)
-![Alt Text](https://github.com/szymenn/ToDoDo/screenshots/ToDoDoToDos.jpg)
+![Alt Text](https://github.com/szymenn/ToDoDo/blob/master/screenshots/ToDoDoHome.jpg)
+![Alt Text](https://github.com/szymenn/ToDoDo/blob/master/screenshots/ToDoDoRegister.jpg)
+![Alt Text](https://github.com/szymenn/ToDoDo/blob/master/screenshots/ToDoDoToDos.jpg)
 ## Todo
 - Write more unit tests and add some integration tests
