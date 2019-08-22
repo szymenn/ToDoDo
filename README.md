@@ -30,7 +30,7 @@ Live version of the app is accessible [here](https://tododoapp.azurewebsites.net
 - Creating, editing and deleting tasks
 - Storing tasks in database
 ## Screenshots
-![Alt Text](https://github.com/szymenn/ToDoDo/blob/master/screenshots/ToDoDoHome.png =250x250)
+<img src="https://github.com/szymenn/ToDoDo/blob/master/screenshots/ToDoDoRegister.png" width="200" height="400" />
 ![Alt Text](https://github.com/szymenn/ToDoDo/blob/master/screenshots/ToDoDoRegister.png)
 ![Alt Text](https://github.com/szymenn/ToDoDo/blob/master/screenshots/ToDoDoToDos.png)
 ## Todo
