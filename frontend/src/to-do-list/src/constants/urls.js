@@ -1,1 +1,1 @@
-export const apiUrl = 'https://localhost:5001'
+export const apiUrl = 'https://tododoapi.azurewebsites.net'
