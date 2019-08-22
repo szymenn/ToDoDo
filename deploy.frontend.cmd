@@ -86,25 +86,39 @@ goto :EOF
 :: ----------
 
 :Deployment
-echo Handling node.js deployment.
-
-:: 1. KuduSync
-IF /I "%IN_PLACE_DEPLOYMENT%" NEQ "1" (
-  call :ExecuteCmd "%KUDU_SYNC_CMD%" -v 50 -f "%DEPLOYMENT_SOURCE%" -t "%DEPLOYMENT_TARGET%" -n "%NEXT_MANIFEST_PATH%" -p "%PREVIOUS_MANIFEST_PATH%" -i ".git;.hg;.deployment;deploy.cmd"
-  IF !ERRORLEVEL! NEQ 0 goto error
-)
-
-:: 2. Select node version
+echo Handling node.js deployment, running on .cmd .
+:: 1. Select node version
+echo Selecting NodeVersion
 call :SelectNodeVersion
-
-:: 3. Install npm packages
-IF EXIST "%DEPLOYMENT_TARGET%\package.json" (
-  pushd "%DEPLOYMENT_TARGET%"
-  call :ExecuteCmd !NPM_CMD! install --production
-  IF !ERRORLEVEL! NEQ 0 goto error
-  popd
+:: 2. Install npm packages
+echo Installing NPM Packages
+IF EXIST "%DEPLOYMENT_SOURCE%\package.json" (
+pushd "%DEPLOYMENT_SOURCE%"
+call :ExecuteCmd !NPM_CMD! install
+echo Installing NPM Packages Complete
+IF !ERRORLEVEL! NEQ 0 goto error
+popd
 )
-
+:: 3. Build React App
+echo Building React App
+IF EXIST "%DEPLOYMENT_SOURCE%\node_modules" (
+pushd "%DEPLOYMENT_SOURCE%"
+call :ExecuteCmd !NPM_CMD! run build
+echo Building React App Completed
+IF !ERRORLEVEL! NEQ 0 goto error
+popd
+)
+:: 4. KuduSync
+echo Running KuduSync
+IF /I "%IN_PLACE_DEPLOYMENT%" NEQ "1" (
+call :ExecuteCmd "%KUDU_SYNC_CMD%" -v 50 -f "%DEPLOYMENT_SOURCE%\build" -t "%DEPLOYMENT_TARGET%" -n "%NEXT_MANIFEST_PATH%" -p "%PREVIOUS_MANIFEST_PATH%" -i ".git;.hg;.deployment;deploy.cmd"
+IF !ERRORLEVEL! NEQ 0 goto error
+:: Web.config for client side routing
+IF EXIST "%DEPLOYMENT_SOURCE%\web.config" (
+copy "%DEPLOYMENT_SOURCE%\web.config" "%DEPLOYMENT_TARGET%"
+echo Web.config Copied
+)
+)
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 goto end
 
