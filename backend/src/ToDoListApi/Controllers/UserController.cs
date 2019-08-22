@@ -77,6 +77,7 @@ namespace ToDoListApi.Controllers
         }
 
         [HttpGet("test/something")]
+        [AllowAnonymous]
         public IActionResult GetSomething()
         {
             return Ok(new
