@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace ToDoListApi
 {
@@ -12,6 +13,7 @@ namespace ToDoListApi
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .ConfigureLogging((hostingContext, logging) => { logging.AddEventSourceLogger(); })
                 .UseStartup<Startup>();
     }
 }
