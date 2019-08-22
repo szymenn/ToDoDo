@@ -76,5 +76,14 @@ namespace ToDoListApi.Controllers
             return Redirect(Constants.RedirectSuccess);
         }
 
+        [HttpGet("test/something")]
+        public IActionResult GetSomething()
+        {
+            return Ok(new
+            {
+                Something = "eheherreree"
+            });
+        }
+
     }
 }
