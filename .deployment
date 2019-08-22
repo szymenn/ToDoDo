@@ -1,4 +1,2 @@
 [config]
 command = deploy.cmd
-[config]
-project = backend\src\ToDoListApi.csproj

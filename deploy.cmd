@@ -69,7 +69,7 @@ echo Handling .NET Web Application deployment.
 
 :: 1. Restore NuGet packages
 IF /I "backend\ToDoListApp.sln" NEQ "" (
-  call :ExecuteCmd nuget restore "%DEPLOYMENT_SOURCE%\backend\ToDoListApp.sln"
+  call :ExecuteCmd dotnet restore "%DEPLOYMENT_SOURCE%\backend\ToDoListApp.sln"
   IF !ERRORLEVEL! NEQ 0 goto error
 )
 
