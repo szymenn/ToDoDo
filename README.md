@@ -3,10 +3,13 @@
 [![Bugs](http://mysonas.eastus.azurecontainer.io:9000/api/project_badges/measure?project=ToDoDo&metric=bugs)](http://mysonas.eastus.azurecontainer.io:9000/dashboard?id=ToDoDo)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 # ToDoDo
-Todo list app implementation I'm making mostly in order to learn frontend web development using React.js
+Todo list app implementation I made to learn basics of frontend web development using React.js and Redux as well as to practice my backend coding skills 
+## Live
+Live version of the app is accessible [here] (https://tododoapp.azurewebsites.net/). Note that the app is using SendGrid free account plan, which limits account registration to 100 per day. 
 ## Used technologies
-### CI tools 
+### CI/CD, deployment tools 
 - Azure DevOps
+- Azure app services
 - SonarQube
 ### ToDoDo backend
 - C# 7.3
@@ -26,6 +29,9 @@ Todo list app implementation I'm making mostly in order to learn frontend web de
 - Authentication and Authorization using Json Web Token
 - Creating, editing and deleting tasks
 - Storing tasks in database
+## Screenshots
+![Alt Text](https://github.com/szymenn/ToDoDo/screenshots/ToDoDoHome.jpg)
+![Alt Text](https://github.com/szymenn/ToDoDo/screenshots/ToDoDoRegister.jpg)
+![Alt Text](https://github.com/szymenn/ToDoDo/screenshots/ToDoDoToDos.jpg)
 ## Todo
 - Write more unit tests and add some integration tests
-- Deploy app 
