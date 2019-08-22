@@ -1,5 +1,6 @@
 import {Jumbotron, Button} from 'reactstrap';
 import React from 'react';
+import GitHub from '../GitHub.png';
 
 export default function Welcome(props){
     return(
@@ -9,10 +10,17 @@ export default function Welcome(props){
             <hr className="my-2" />
             <p className="lead">               
                 <Button color="primary" onClick={props.handleLogIn}>Log in</Button>
+
             </p>
             <p className="lead">               
                 <Button color="success" onClick={props.handleRegister}>Register</Button>
+
             </p>
+            <p className="lead">
+                <img src={GitHub}></img>{' '}
+                <Button size="sm" href="https://github.com/szymenn/ToDoDo">View source</Button>
+            </p>
+    
         </Jumbotron>
     )
 }
