@@ -32,7 +32,7 @@ Live version of the app is accessible [here](https://tododoapp.azurewebsites.net
 ## Todo
 - Write more unit tests and add some integration tests
 ## Screenshots
-<img src="https://github.com/szymenn/ToDoDo/blob/master/screenshots/ToDoDoHome.png" width="400" height="700" />
-<img src="https://github.com/szymenn/ToDoDo/blob/master/screenshots/ToDoDoRegister.png" width="400" height="700" />
-<img src="https://github.com/szymenn/ToDoDo/blob/master/screenshots/ToDoDoToDos.png" width="400" height="700" />
+<img src="https://github.com/szymenn/ToDoDo/blob/master/screenshots/ToDoDoHome.png" width="500" height="700" />
+<img src="https://github.com/szymenn/ToDoDo/blob/master/screenshots/ToDoDoRegister.png" width="500" height="700" />
+<img src="https://github.com/szymenn/ToDoDo/blob/master/screenshots/ToDoDoToDos.png" width="500" height="700" />
 
