@@ -5,7 +5,7 @@
 # ToDoDo
 Todo list app implementation I made to learn basics of frontend web development using React.js and Redux as well as to practice my backend coding skills 
 ## Live
-Live version of the app is accessible [here](https://tododoapp.azurewebsites.net/). Note that the app is using SendGrid free account plan, which limits account registration to 100 per day. 
+Live version of the app is accessible [here](https://tododoapp.azurewebsites.net/). Note that the app is using [SendGrid](https://sendgrid.com/pricing/) free account plan, which limits account registration to 100 per day. 
 ## Used technologies
 ### CI/CD, deployment tools 
 - Azure DevOps
