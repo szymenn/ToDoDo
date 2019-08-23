@@ -33,6 +33,6 @@ Live version of the app is accessible [here](https://tododoapp.azurewebsites.net
 - Write more unit tests and add some integration tests
 ## Screenshots
 <img src="https://github.com/szymenn/ToDoDo/blob/master/screenshots/ToDoDoHome.png" />
-<img src="https://github.com/szymenn/ToDoDo/blob/master/screenshots/ToDoDoRegister.png" width="480" height="640" />
-<img src="https://github.com/szymenn/ToDoDo/blob/master/screenshots/ToDoDoToDos.png" width="480" height="640" />
+<img src="https://github.com/szymenn/ToDoDo/blob/master/screenshots/ToDoDoRegister.png" />
+<img src="https://github.com/szymenn/ToDoDo/blob/master/screenshots/ToDoDoToDos.png" />
 
