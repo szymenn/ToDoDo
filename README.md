@@ -11,7 +11,7 @@ Live version of the app is accessible [here](https://tododoapp.azurewebsites.net
 - Azure DevOps
 - Azure app services
 - SonarQube
-### ToDoDo backend
+### backend
 - C# 7.3
 - ASP.NET Core 2.2 
 - Entity Framework Core
@@ -19,7 +19,7 @@ Live version of the app is accessible [here](https://tododoapp.azurewebsites.net
 - SqlServer
 - xUnit
 - Moq
-### ToDoDo frontend
+### frontend
 - JavaScript
 - React.js 
 - Redux
