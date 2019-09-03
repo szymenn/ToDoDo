@@ -7,10 +7,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ToDoListApi.Data;
 
-namespace ToDoListApi.Migrations
+namespace ToDoListApi.Migrations.ToDoDb
 {
     [DbContext(typeof(ToDoDbContext))]
-    [Migration("20190822153650_InitialAzureDb")]
+    [Migration("20190903155809_InitialAzureDb")]
     partial class InitialAzureDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

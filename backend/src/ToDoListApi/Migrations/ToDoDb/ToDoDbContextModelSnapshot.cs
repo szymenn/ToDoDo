@@ -3,17 +3,15 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ToDoListApi.Data;
 
-namespace ToDoListApi.Migrations.TokenStoreDb
+namespace ToDoListApi.Migrations.ToDoDb
 {
-    [DbContext(typeof(TokenStoreDbContext))]
-    [Migration("20190822150725_InitialAzureSchema")]
-    partial class InitialAzureSchema
+    [DbContext(typeof(ToDoDbContext))]
+    partial class ToDoDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,22 +19,20 @@ namespace ToDoListApi.Migrations.TokenStoreDb
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("ToDoListApi.Entities.RefreshToken", b =>
+            modelBuilder.Entity("ToDoListApi.Entities.ToDo", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<bool>("Revoked");
+                    b.Property<DateTime>("Date");
 
-                    b.Property<string>("Token");
+                    b.Property<string>("Task");
 
                     b.Property<Guid>("UserId");
 
-                    b.Property<string>("UserName");
-
                     b.HasKey("Id");
 
-                    b.ToTable("Tokens");
+                    b.ToTable("ToDos");
                 });
 #pragma warning restore 612, 618
         }
