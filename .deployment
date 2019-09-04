@@ -1,2 +1,4 @@
 [config]
 project = PROJECT
+[config]
+command = COMMAND
