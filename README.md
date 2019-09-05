@@ -1,6 +1,6 @@
 [![Build Status](https://dev.azure.com/ilikedzimi/ToDoDo/_apis/build/status/szymenn.ToDoDo?branchName=master)](https://dev.azure.com/ilikedzimi/ToDoDo/_build/latest?definitionId=1&branchName=master)
-[![Coverage](http://mysonas.eastus.azurecontainer.io:9000/api/project_badges/measure?project=ToDoDo&metric=coverage)](http://mysonas.eastus.azurecontainer.io:9000/dashboard?id=ToDoDo)
-[![Bugs](http://mysonas.eastus.azurecontainer.io:9000/api/project_badges/measure?project=ToDoDo&metric=bugs)](http://mysonas.eastus.azurecontainer.io:9000/dashboard?id=ToDoDo)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=ToDoDo&metric=coverage)](https://sonarcloud.io/dashboard?id=ToDoDo)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=ToDoDo&metric=bugs)](https://sonarcloud.io/dashboard?id=ToDoDo)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 # ToDoDo
 Todo list app implementation I made to learn basics of frontend web development using React.js and Redux as well as to practice my backend coding skills 
