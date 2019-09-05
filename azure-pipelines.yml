@@ -7,6 +7,13 @@
 trigger:
 - master
 
+- task: SonarQubePrepare@4
+  inputs:
+    SonarQube: 'SonarQubeConnection'
+    scannerMode: 'MSBuild'
+    projectKey: 'ToDoDo'
+    projectName: 'ToDoDo'
+
 pool:
   vmImage: 'windows-latest'
 
@@ -42,3 +49,4 @@ steps:
     projects: '**/*Tests/*.csproj'
     arguments: '--configuration $(buildConfiguration) --collect "Code coverage"'
 
+- task: SonarQubeAnalyze@4
