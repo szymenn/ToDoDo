@@ -7,12 +7,6 @@
 trigger:
 - master
 
-- task: SonarQubePrepare@4
-  inputs:
-    SonarQube: 'SonarQubeConnection'
-    scannerMode: 'MSBuild'
-    projectKey: 'ToDoDo'
-    projectName: 'ToDoDo'
 
 pool:
   vmImage: 'windows-latest'
@@ -28,6 +22,13 @@ steps:
 - task: NuGetCommand@2
   inputs:
     restoreSolution: '$(solution)'
+
+- task: SonarQubePrepare@4
+  inputs:
+    SonarQube: 'SonarQubeConnection'
+    scannerMode: 'MSBuild'
+    projectKey: 'ToDoDo'
+    projectName: 'ToDoDo'
 
 - task: VSBuild@1
   inputs:
