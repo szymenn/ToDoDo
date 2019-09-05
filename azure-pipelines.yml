@@ -25,11 +25,9 @@ steps:
 
 - task: SonarQubePrepare@4
   inputs:
-    SonarQube: 'SonarQubeConnection'
+    SonarQube: '743bc83ff1e902dc20d9e91414b12c9ae037cf0b'
     scannerMode: 'MSBuild'
     projectKey: 'ToDoDo'
-    projectName: 'ToDoDo'
-
 - task: VSBuild@1
   inputs:
     solution: '$(solution)'
