@@ -22,10 +22,10 @@ steps:
 - task: NuGetCommand@2
   inputs:
     restoreSolution: '$(solution)'
-
-- task: SonarQubePrepare@4
+- task: SonarCloudPrepare@1
   inputs:
-    SonarQube: '743bc83ff1e902dc20d9e91414b12c9ae037cf0b'
+    SonarCloud: 'SonarCloudConnection'
+    organization: 'szymenn'
     scannerMode: 'MSBuild'
     projectKey: 'ToDoDo'
 - task: VSBuild@1
@@ -48,4 +48,4 @@ steps:
     projects: '**/*Tests/*.csproj'
     arguments: '--configuration $(buildConfiguration) --collect "Code coverage"'
 
-- task: SonarQubeAnalyze@4
+- task: SonarCloudAnalyze@1
