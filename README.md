@@ -10,7 +10,7 @@ Live version of the app is accessible [here](https://tododoapp.azurewebsites.net
 ### CI/CD, deployment tools 
 - Azure DevOps
 - Azure app services
-- SonarQube
+- SonarCloud
 ### backend
 - C# 7.3
 - ASP.NET Core 2.2 
