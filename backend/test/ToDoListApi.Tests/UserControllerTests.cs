@@ -1,7 +1,6 @@
 using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
@@ -16,15 +15,38 @@ namespace ToDoListApi.Tests
 {
     public class UserControllerTests
     {
+        private readonly UserController _controller;
+        private readonly Mock<IUserService> _userServiceMock;
+
+        public UserControllerTests()
+        {
+            _userServiceMock = new Mock<IUserService>();
+            
+            var user = new ClaimsPrincipal(new ClaimsIdentity(new[]
+            {
+                new Claim(ClaimTypes.NameIdentifier, Guid.NewGuid().ToString()),
+            }));
+            _controller = new UserController
+                (_userServiceMock.Object)
+                {
+                    ControllerContext = new ControllerContext
+                    {
+                        HttpContext = new DefaultHttpContext
+                        {
+                            User = user
+                        }
+                    }
+                };
+            
+        }
+        
         [Fact]
         public async Task Login_ByDefault_ReturnsOkObjectResult()
         {
-            var userServiceStub = new Mock<IUserService>();
-            userServiceStub.Setup(e => e.Login(It.IsAny<LoginBindingModel>()))
+            _userServiceMock.Setup(e => e.Login(It.IsAny<LoginBindingModel>()))
                 .Returns(Task.FromResult(new JsonWebToken()));
 
-            var controller = new UserController(userServiceStub.Object);
-            var result = await controller.Login(It.IsAny<LoginBindingModel>());
+            var result = await _controller.Login(It.IsAny<LoginBindingModel>());
 
             Assert.IsType<OkObjectResult>(result);
         }
@@ -32,12 +54,10 @@ namespace ToDoListApi.Tests
         [Fact]
         public async Task Register_ByDefault_ReturnsOkObjectResult()
         {
-            var userServiceStub = new Mock<IUserService>();
-            userServiceStub.Setup(e => e.Register(It.IsAny<RegisterBindingModel>()))
+            _userServiceMock.Setup(e => e.Register(It.IsAny<RegisterBindingModel>()))
                 .Returns(Task.FromResult(new EmailResponse()));
             
-            var controller = new UserController(userServiceStub.Object);
-            var result = await controller.Register(It.IsAny<RegisterBindingModel>());
+            var result = await _controller.Register(It.IsAny<RegisterBindingModel>());
 
             Assert.IsType<OkObjectResult>(result);
         }
@@ -45,27 +65,10 @@ namespace ToDoListApi.Tests
         [Fact]
         public void GetUser_ByDefault_ReturnsOkObjectResult()
         {
-            var userServiceStub = new Mock<IUserService>();
-            userServiceStub.Setup(e => e.GetUser(It.IsAny<string>()))
+            _userServiceMock.Setup(e => e.GetUser(It.IsAny<string>()))
                 .Returns(new UserViewModel());
             
-            var user = new ClaimsPrincipal(new ClaimsIdentity(new[]
-            {
-                new Claim(ClaimTypes.NameIdentifier, Guid.NewGuid().ToString()),
-            }));
-
-            var controller = new UserController
-                (userServiceStub.Object)
-                {
-                    ControllerContext = new ControllerContext
-                    {
-                        HttpContext = new DefaultHttpContext
-                        {
-                            User = user
-                        }
-                    }
-                };
-            var result = controller.GetUser();
+            var result = _controller.GetUser();
 
             Assert.IsType<OkObjectResult>(result);
         }
@@ -73,12 +76,10 @@ namespace ToDoListApi.Tests
         [Fact]
         public async Task Login_WhenNotFound_ThrowsResourceNotFoundException()
         {
-            var userServiceStub = new Mock<IUserService>();
-            userServiceStub.Setup(e => e.Login(It.IsAny<LoginBindingModel>()))
+            _userServiceMock.Setup(e => e.Login(It.IsAny<LoginBindingModel>()))
                 .Throws<ResourceNotFoundException>();
             
-            var controller = new UserController(userServiceStub.Object);
-            var result = controller.Login(It.IsAny<LoginBindingModel>());
+            var result = _controller.Login(It.IsAny<LoginBindingModel>());
 
             await Assert.ThrowsAsync<ResourceNotFoundException>(() => result);
         }
@@ -86,12 +87,10 @@ namespace ToDoListApi.Tests
         [Fact]
         public async Task Login_WhenIncorrectPassword_ThrowsPasswordValidationException()
         {
-            var userServiceStub = new Mock<IUserService>();
-            userServiceStub.Setup(e => e.Login(It.IsAny<LoginBindingModel>()))
+            _userServiceMock.Setup(e => e.Login(It.IsAny<LoginBindingModel>()))
                 .Throws<LoginException>();
             
-            var controller = new UserController(userServiceStub.Object);
-            var result = controller.Login(It.IsAny<LoginBindingModel>());
+            var result = _controller.Login(It.IsAny<LoginBindingModel>());
 
             await Assert.ThrowsAsync<LoginException>(() => result);
         }
@@ -99,12 +98,10 @@ namespace ToDoListApi.Tests
         [Fact]
         public async Task Register_WhenAlreadyExists_ThrowsResourceAlreadyExistsException()
         {
-            var userServiceStub = new Mock<IUserService>();
-            userServiceStub.Setup(e => e.Register(It.IsAny<RegisterBindingModel>()))
+            _userServiceMock.Setup(e => e.Register(It.IsAny<RegisterBindingModel>()))
                 .Throws<ResourceAlreadyExistsException>();
             
-            var controller = new UserController(userServiceStub.Object);
-            var result = controller.Register(It.IsAny<RegisterBindingModel>());
+            var result = _controller.Register(It.IsAny<RegisterBindingModel>());
 
             await Assert.ThrowsAsync<ResourceAlreadyExistsException>(() => result);
         }
@@ -112,12 +109,10 @@ namespace ToDoListApi.Tests
         [Fact]
         public async Task Register_WhenErrorOccured_ThrowsRegistrationException()
         {
-            var userServiceStub = new Mock<IUserService>();
-            userServiceStub.Setup(e => e.Register(It.IsAny<RegisterBindingModel>()))
+            _userServiceMock.Setup(e => e.Register(It.IsAny<RegisterBindingModel>()))
                 .Throws<RegistrationException>();
             
-            var controller = new UserController(userServiceStub.Object);
-            var result = controller.Register(It.IsAny<RegisterBindingModel>());
+            var result = _controller.Register(It.IsAny<RegisterBindingModel>());
 
             await Assert.ThrowsAsync<RegistrationException>(() => result);
         }
@@ -125,40 +120,20 @@ namespace ToDoListApi.Tests
         [Fact]
         public void GetUser_WhenUserNotFound_ThrowsResourceNotFoundException()
         {
-            var userServiceStub = new Mock<IUserService>();
-            userServiceStub.Setup(e => e.GetUser(It.IsAny<string>()))
+            _userServiceMock.Setup(e => e.GetUser(It.IsAny<string>()))
                 .Throws<ResourceNotFoundException>();
-            
-            var user = new ClaimsPrincipal(new ClaimsIdentity(new[]
-            {
-                new Claim(ClaimTypes.NameIdentifier, Guid.NewGuid().ToString()),
-            }));
-
-            var controller = new UserController
-                (userServiceStub.Object)
-                {
-                    ControllerContext = new ControllerContext
-                    {
-                        HttpContext = new DefaultHttpContext
-                        {
-                            User = user
-                        }
-                    }
-                };
 
             Assert.Throws<ResourceNotFoundException>
-                (() => controller.GetUser());
+                (() => _controller.GetUser());
         }
 
         [Fact]
         public void RefreshAccessToken_ByDefault_ReturnsOkObjectResult()
         {
-            var userServiceStub = new Mock<IUserService>();
-            userServiceStub.Setup(e => e.RefreshAccessToken(It.IsAny<string>()))
+            _userServiceMock.Setup(e => e.RefreshAccessToken(It.IsAny<string>()))
                 .Returns(new JsonWebToken());
             
-            var controller = new UserController(userServiceStub.Object);
-            var result = controller.RefreshAccessToken(It.IsAny<string>());
+            var result = _controller.RefreshAccessToken(It.IsAny<string>());
 
             Assert.IsType<OkObjectResult>(result);
         }
@@ -166,23 +141,17 @@ namespace ToDoListApi.Tests
         [Fact]
         public void RefreshAccessToken_WhenTokenNotFound_ThrowsResourceNotFoundException()
         {
-            var userServiceStub  = new Mock<IUserService>();
-            userServiceStub.Setup(e => e.RefreshAccessToken(It.IsAny<string>()))
+            _userServiceMock.Setup(e => e.RefreshAccessToken(It.IsAny<string>()))
                 .Throws<ResourceNotFoundException>();
             
-            var controller = new UserController(userServiceStub.Object);
-
             Assert.Throws<ResourceNotFoundException>
-                (() => controller.RefreshAccessToken(It.IsAny<string>()));
+                (() => _controller.RefreshAccessToken(It.IsAny<string>()));
         }
 
         [Fact]
         public void RevokeRefreshToken_ByDefault_ReturnsNoContentResult()
         {
-            var userServiceStub = new Mock<IUserService>();
-            
-            var controller = new UserController(userServiceStub.Object);
-            var result = controller.RevokeRefreshToken(It.IsAny<string>());
+            var result = _controller.RevokeRefreshToken(It.IsAny<string>());
 
             Assert.IsType<NoContentResult>(result);
         }
@@ -190,27 +159,60 @@ namespace ToDoListApi.Tests
         [Fact]
         public void RevokeRefreshToken_ByDefault_CallsUserService()
         {
-            var userServiceStub = new Mock<IUserService>();
+            var result = _controller.RevokeRefreshToken(It.IsAny<string>());
             
-            var controller = new UserController(userServiceStub.Object);
-            var result = controller.RevokeRefreshToken(It.IsAny<string>());
-            
-            userServiceStub.Verify(e => e.RevokeRefreshToken(It.IsAny<string>()), Times.Once);
+            _userServiceMock.Verify(e => e.RevokeRefreshToken(It.IsAny<string>()), Times.Once);
         }
 
         [Fact]
         public void RevokeRefreshToken_WhenTokenNotFound_ThrowsResourceNotFoundException()
         {
-            var userServiceStub = new Mock<IUserService>();
-            userServiceStub.Setup(e => e.RevokeRefreshToken(It.IsAny<string>()))
+            _userServiceMock.Setup(e => e.RevokeRefreshToken(It.IsAny<string>()))
                 .Throws<ResourceNotFoundException>();
             
-            var controller = new UserController(userServiceStub.Object);
-
             Assert.Throws<ResourceNotFoundException>
-                (() => controller.RevokeRefreshToken(It.IsAny<string>()));
+                (() => _controller.RevokeRefreshToken(It.IsAny<string>()));
         }
-        
-        
+
+        [Fact]
+        public async Task Login_ByDefault_CallsUserService()
+        {
+            var result = await _controller.Login(It.IsAny<LoginBindingModel>());
+
+            _userServiceMock.Verify(e => e.Login(It.IsAny<LoginBindingModel>()), Times.Once);
+        }
+
+        [Fact]
+        public async Task Register_ByDefault_CallsUserService()
+        {
+            var result = await _controller.Register(It.IsAny<RegisterBindingModel>());
+            
+            _userServiceMock.Verify(e => e.Register(It.IsAny<RegisterBindingModel>()));
+        }
+
+        [Fact]
+        public void GetUser_ByDefault_CallsUserService()
+        {
+            var result = _controller.GetUser();
+            
+            _userServiceMock.Verify(e => e.GetUser(It.IsAny<string>()), Times.Once);
+        }
+
+        [Fact]
+        public void RefreshAccessToken_ByDefault_CallsUserService()
+        {
+            var result = _controller.RefreshAccessToken(It.IsAny<string>());
+            
+            _userServiceMock.Verify(e => e.RefreshAccessToken(It.IsAny<string>()), Times.Once);
+        }
+
+        [Fact]
+        public void VerifyEmail_ByDefault_CallsUserService()
+        {
+            var result = _controller.VerifyEmail(It.IsAny<string>(), It.IsAny<string>());
+
+            _userServiceMock.Verify
+                (e => e.VerifyEmail(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
+        }
     }
 }
