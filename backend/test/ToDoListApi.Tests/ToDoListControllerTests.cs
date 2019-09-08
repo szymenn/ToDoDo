@@ -14,20 +14,19 @@ namespace ToDoListApi.Tests
 {
     public class ToDoListControllerTests
     {
-        [Fact]
-        public void GetToDos_ByDefault_ReturnsOkObjectResult()
+        private readonly ToDoListController _controller;
+        private readonly Mock<IToDoService> _toDoServiceMock;
+        public ToDoListControllerTests()
         {
-            var toDoServiceStub = new Mock<IToDoService>();
-            toDoServiceStub.Setup(e => e.GetToDos(It.IsAny<Guid>()))
-                .Returns(new List<ToDoViewModel>());
-
+            _toDoServiceMock = new Mock<IToDoService>();
+            
             var user = new ClaimsPrincipal(new ClaimsIdentity(new[]
             {
                 new Claim(ClaimTypes.NameIdentifier, Guid.NewGuid().ToString()),
             }));
-
-            var controller = new ToDoListController
-                (toDoServiceStub.Object)
+            
+            _controller = new ToDoListController
+                (_toDoServiceMock.Object)
                 {
                     ControllerContext = new ControllerContext
                     {
@@ -37,8 +36,15 @@ namespace ToDoListApi.Tests
                         }
                     }
                 };
+        }
+        
+        [Fact]
+        public void GetToDos_ByDefault_ReturnsOkObjectResult()
+        {
+            _toDoServiceMock.Setup(e => e.GetToDos(It.IsAny<Guid>()))
+                .Returns(new List<ToDoViewModel>());
 
-            var result = controller.GetToDos();   
+            var result = _controller.GetToDos();   
             
             Assert.IsType<OkObjectResult>(result);
         }
@@ -46,28 +52,10 @@ namespace ToDoListApi.Tests
         [Fact]
         public void AddToDo_ByDefault_ReturnsOkObjectResult()
         {
-            var toDoServiceStub = new Mock<IToDoService>();
-            toDoServiceStub.Setup(e => e.AddToDo(It.IsAny<ToDoBindingModel>(), It.IsAny<Guid>()))
+            _toDoServiceMock.Setup(e => e.AddToDo(It.IsAny<ToDoBindingModel>(), It.IsAny<Guid>()))
                 .Returns(new List<ToDoViewModel>());
             
-            var user = new ClaimsPrincipal(new ClaimsIdentity(new[]
-            {
-                new Claim(ClaimTypes.NameIdentifier, Guid.NewGuid().ToString()),
-            }));
-
-            var controller = new ToDoListController
-                (toDoServiceStub.Object)
-                {
-                    ControllerContext = new ControllerContext
-                    {
-                        HttpContext = new DefaultHttpContext
-                        {
-                            User = user
-                        }
-                    }
-                };
-
-            var result = controller.AddToDo(It.IsAny<ToDoBindingModel>());
+            var result = _controller.AddToDo(It.IsAny<ToDoBindingModel>());
 
             Assert.IsType<OkObjectResult>(result);
         }
@@ -75,28 +63,10 @@ namespace ToDoListApi.Tests
         [Fact]
         public void DeleteToDo_ByDefault_ReturnsOkObjectResult()
         {
-            var toDoServiceStub = new Mock<IToDoService>();
-            toDoServiceStub.Setup(e => e.DeleteToDo(It.IsAny<Guid>(), It.IsAny<Guid>()))
+            _toDoServiceMock.Setup(e => e.DeleteToDo(It.IsAny<Guid>(), It.IsAny<Guid>()))
                 .Returns(new List<ToDoViewModel>());
             
-            var user = new ClaimsPrincipal(new ClaimsIdentity(new[]
-            {
-                new Claim(ClaimTypes.NameIdentifier, Guid.NewGuid().ToString()),
-            }));
-
-            var controller = new ToDoListController
-                (toDoServiceStub.Object)
-                {
-                    ControllerContext = new ControllerContext
-                    {
-                        HttpContext = new DefaultHttpContext
-                        {
-                            User = user
-                        }
-                    }
-                };
-
-            var result = controller.DeleteToDo(It.IsAny<Guid>());
+            var result = _controller.DeleteToDo(It.IsAny<Guid>());
 
             Assert.IsType<OkObjectResult>(result);
         }
@@ -104,32 +74,14 @@ namespace ToDoListApi.Tests
         [Fact]
         public void UpdateToDo_ByDefault_ReturnsOkObjectResult()
         {
-            var toDoServiceStub = new Mock<IToDoService>();
-            toDoServiceStub.Setup(e => e.UpdateToDo
+            _toDoServiceMock.Setup(e => e.UpdateToDo
                 (It.IsAny<ToDoBindingModel>(),
                     It.IsAny<Guid>(),
                     It.IsAny<Guid>()))
                 .Returns(new ToDoViewModel());
             
-            
-            var user = new ClaimsPrincipal(new ClaimsIdentity(new[]
-            {
-                new Claim(ClaimTypes.NameIdentifier, Guid.NewGuid().ToString()),
-            }));
 
-            var controller = new ToDoListController
-                (toDoServiceStub.Object)
-                {
-                    ControllerContext = new ControllerContext
-                    {
-                        HttpContext = new DefaultHttpContext
-                        {
-                            User = user
-                        }
-                    }
-                };
-
-            var result = controller.UpdateToDo(It.IsAny<ToDoBindingModel>(), It.IsAny<Guid>());
+            var result = _controller.UpdateToDo(It.IsAny<ToDoBindingModel>(), It.IsAny<Guid>());
 
             Assert.IsType<OkObjectResult>(result);
         }
@@ -137,57 +89,58 @@ namespace ToDoListApi.Tests
         [Fact]
         public void DeleteToDo_WhenNotFound_ThrowsException()
         {
-            var toDoServiceStub = new Mock<IToDoService>();
-            toDoServiceStub.Setup(e => e.DeleteToDo(It.IsAny<Guid>(), It.IsAny<Guid>()))
+            _toDoServiceMock.Setup(e => e.DeleteToDo(It.IsAny<Guid>(), It.IsAny<Guid>()))
                 .Throws<ResourceNotFoundException>();
             
-            var user = new ClaimsPrincipal(new ClaimsIdentity(new[]
-            {
-                new Claim(ClaimTypes.NameIdentifier, Guid.NewGuid().ToString()),
-            }));
-
-            var controller = new ToDoListController
-                (toDoServiceStub.Object)
-                {
-                    ControllerContext = new ControllerContext
-                    {
-                        HttpContext = new DefaultHttpContext
-                        {
-                            User = user
-                        }
-                    }
-                };
-
-            Assert.Throws<ResourceNotFoundException>(() => controller.DeleteToDo(It.IsAny<Guid>()));
+            Assert.Throws<ResourceNotFoundException>(() => _controller.DeleteToDo(It.IsAny<Guid>()));
         }
 
         [Fact]
         public void UpdateToDo_WhenNotFound_ThrowsException()
         {
-            var toDoServiceStub = new Mock<IToDoService>();
-            toDoServiceStub.Setup(e => e.UpdateToDo
+            _toDoServiceMock.Setup(e => e.UpdateToDo
                     (It.IsAny<ToDoBindingModel>(), It.IsAny<Guid>(), It.IsAny<Guid>()))
                 .Throws<ResourceNotFoundException>();
             
-            var user = new ClaimsPrincipal(new ClaimsIdentity(new[]
-            {
-                new Claim(ClaimTypes.NameIdentifier, Guid.NewGuid().ToString()),
-            }));
-
-            var controller = new ToDoListController
-                (toDoServiceStub.Object)
-                {
-                    ControllerContext = new ControllerContext
-                    {
-                        HttpContext = new DefaultHttpContext
-                        {
-                            User = user
-                        }
-                    }
-                };
-
             Assert.Throws<ResourceNotFoundException>
-                (() => controller.UpdateToDo(It.IsAny<ToDoBindingModel>(), It.IsAny<Guid>()));
+                (() => _controller.UpdateToDo(It.IsAny<ToDoBindingModel>(), It.IsAny<Guid>()));
+        }
+
+        [Fact]
+        public void GetToDos_ByDefault_CallsToDoService()
+        {
+            var result = _controller.GetToDos();
+            
+            _toDoServiceMock.Verify(e => e.GetToDos(It.IsAny<Guid>()), Times.Once);
+        }
+
+        [Fact]
+        public void AddToDo_ByDefault_CallsToDoService()
+        {
+            var result = _controller.AddToDo(It.IsAny<ToDoBindingModel>());
+            
+            _toDoServiceMock.Verify(e => e.AddToDo(It.IsAny<ToDoBindingModel>(), It.IsAny<Guid>()));
+        }
+
+        [Fact]
+        public void DeleteToDo_ByDefault_CallsToDoService()
+        {
+            var result = _controller.DeleteToDo(It.IsAny<Guid>());
+            
+            _toDoServiceMock.Verify
+                (e => e.DeleteToDo(It.IsAny<Guid>(), It.IsAny<Guid>()), Times.Once);
+        }
+
+        [Fact]
+        public void UpdateToDo_ByDefault_CallsToDoService()
+        {
+            var result = _controller.UpdateToDo(It.IsAny<ToDoBindingModel>(), It.IsAny<Guid>());
+
+            _toDoServiceMock.Verify(e =>
+                e.UpdateToDo
+                (It.IsAny<ToDoBindingModel>(),
+                    It.IsAny<Guid>(),
+                    It.IsAny<Guid>()), Times.Once);
         }
     }    
 }
