@@ -7,6 +7,7 @@
 trigger:
 - master
 
+
 pool:
   vmImage: 'windows-latest'
 
@@ -21,7 +22,12 @@ steps:
 - task: NuGetCommand@2
   inputs:
     restoreSolution: '$(solution)'
-
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'SonarCloudConnection'
+    organization: 'szymenn'
+    scannerMode: 'MSBuild'
+    projectKey: 'ToDoDo'
 - task: VSBuild@1
   inputs:
     solution: '$(solution)'
@@ -42,3 +48,4 @@ steps:
     projects: '**/*Tests/*.csproj'
     arguments: '--configuration $(buildConfiguration) --collect "Code coverage"'
 
+- task: SonarCloudAnalyze@1
