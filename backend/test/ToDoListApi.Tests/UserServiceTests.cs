@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using AutoMapper;
 using Moq;
@@ -13,36 +14,60 @@ namespace ToDoListApi.Tests
 {
     public class UserServiceTests
     {
-        [Fact]
-        public async Task Login_ByDefault_ReturnsStringToken()
+        private readonly Mock<IUserRepository> _userRepositoryMock;
+        private readonly Mock<IMapper> _mapperMock;
+        private readonly Mock<ITokenService> _tokenServiceMock;
+        private readonly UserService _service;
+        public UserServiceTests()
         {
-            var userRepositoryStub = new Mock<IUserRepository>();
-            var mapperStub = new Mock<IMapper>();
-            var tokenServiceStub = new Mock<ITokenService>();
-            userRepositoryStub.Setup(e => e.Login
+            _userRepositoryMock = new Mock<IUserRepository>();
+            _mapperMock = new Mock<IMapper>();
+            _tokenServiceMock = new Mock<ITokenService>();
+            
+            _service = new UserService
+                (_userRepositoryMock.Object, _mapperMock.Object, _tokenServiceMock.Object);
+        }
+        
+        [Fact]
+        public async Task Login_ByDefault_ReturnsJsonWebToken()
+        {
+            _userRepositoryMock.Setup(e => e.Login
                     (It.IsAny<LoginBindingModel>()))
                 .Returns(Task.FromResult(new JsonWebToken()));
 
-            var service = new UserService
-                (userRepositoryStub.Object, mapperStub.Object, tokenServiceStub.Object);
-            var result = await service.Login(It.IsAny<LoginBindingModel>());
+            var result = await _service.Login(It.IsAny<LoginBindingModel>());
             
             Assert.IsType<JsonWebToken>(result);
         }
 
         [Fact]
+        public async Task Login_WhenUserNotFound_ThrowsResourceNotFoundException()
+        {
+            _userRepositoryMock.Setup(e => e.Login(It.IsAny<LoginBindingModel>()))
+                .Throws<ResourceNotFoundException>();
+
+            await Assert.ThrowsAsync<ResourceNotFoundException>
+                (() => _service.Login(It.IsAny<LoginBindingModel>()));
+        }
+
+        [Fact]
+        public async Task Login_WhenLoginFailed_ThrowsLoginException()
+        {
+            _userRepositoryMock.Setup(e => e.Login(It.IsAny<LoginBindingModel>()))
+                .Throws<LoginException>();
+
+            await Assert.ThrowsAsync<LoginException>
+                (() => _service.Login(It.IsAny<LoginBindingModel>()));
+        }
+
+        [Fact]
         public async Task Register_ByDefault_ReturnsEmailResponse()
         {
-            var userRepositoryStub = new Mock<IUserRepository>();
-            var mapperStub = new Mock<IMapper>();
-            var tokenServiceStub = new Mock<ITokenService>();
-            userRepositoryStub.Setup(e => e.Register
+            _userRepositoryMock.Setup(e => e.Register
                     (It.IsAny<RegisterBindingModel>()))
                 .Returns(Task.FromResult(new EmailResponse()));
             
-            var service = new UserService
-                (userRepositoryStub.Object, mapperStub.Object, tokenServiceStub.Object);
-            var result = await service.Register(It.IsAny<RegisterBindingModel>());
+            var result = await _service.Register(It.IsAny<RegisterBindingModel>());
 
             Assert.IsType<EmailResponse>(result);
         }
@@ -50,16 +75,11 @@ namespace ToDoListApi.Tests
         [Fact]
         public async Task Register_WhenAlreadyExists_ThrowsResourceAlreadyExistsException()
         {
-            var userRepositoryStub = new Mock<IUserRepository>();
-            var mapperStub = new Mock<IMapper>();
-            var tokenServiceStub = new Mock<ITokenService>();
-            userRepositoryStub.Setup(e => e.Register
+            _userRepositoryMock.Setup(e => e.Register
                     (It.IsAny<RegisterBindingModel>()))
                 .Throws<ResourceAlreadyExistsException>();
             
-            var service = new UserService
-                (userRepositoryStub.Object, mapperStub.Object, tokenServiceStub.Object);
-            var result = service.Register(It.IsAny<RegisterBindingModel>());
+            var result = _service.Register(It.IsAny<RegisterBindingModel>());
 
             await Assert.ThrowsAsync<ResourceAlreadyExistsException>
                 (() => result);
@@ -68,16 +88,11 @@ namespace ToDoListApi.Tests
         [Fact]
         public async Task Register_WhenNotSucceeded_ThrowsRegistrationException()
         {
-            var userRepositoryStub = new Mock<IUserRepository>();
-            var mapperStub = new Mock<IMapper>();
-            var tokenServiceStub = new Mock<ITokenService>();
-            userRepositoryStub.Setup(e => e.Register
+            _userRepositoryMock.Setup(e => e.Register
                     (It.IsAny<RegisterBindingModel>()))
                 .Throws<RegistrationException>();
             
-            var service = new UserService
-                (userRepositoryStub.Object, mapperStub.Object, tokenServiceStub.Object);
-            var result = service.Register(It.IsAny<RegisterBindingModel>());
+            var result = _service.Register(It.IsAny<RegisterBindingModel>());
 
             await Assert.ThrowsAsync<RegistrationException>
                 (() => result);
@@ -86,17 +101,12 @@ namespace ToDoListApi.Tests
         [Fact]
         public void GetUser_ByDefault_ReturnsAppUser()
         {
-            var userRepositoryStub = new Mock<IUserRepository>();
-            var mapperStub = new Mock<IMapper>();
-            var tokenServiceStub = new Mock<ITokenService>();
-            userRepositoryStub.Setup(e => e.GetUser(It.IsAny<string>()))
+            _userRepositoryMock.Setup(e => e.GetUser(It.IsAny<string>()))
                 .Returns(new AppUser());
-            mapperStub.Setup(e => e.Map<UserViewModel>(It.IsAny<AppUser>()))
+            _mapperMock.Setup(e => e.Map<UserViewModel>(It.IsAny<AppUser>()))
                 .Returns(new UserViewModel());
             
-            var service = new UserService
-                (userRepositoryStub.Object, mapperStub.Object, tokenServiceStub.Object);
-            var result = service.GetUser(It.IsAny<string>());
+            var result = _service.GetUser(It.IsAny<string>());
 
             Assert.IsType<UserViewModel>(result);
         }
@@ -104,31 +114,20 @@ namespace ToDoListApi.Tests
         [Fact]
         public void GetUser_WhenNotFound_ThrowsResourceNotFoundException()
         {
-            var userRepositoryStub = new Mock<IUserRepository>();
-            var mapperStub = new Mock<IMapper>();
-            var tokenServiceStub = new Mock<ITokenService>();
-            userRepositoryStub.Setup(e => e.GetUser(It.IsAny<string>()))
+            _userRepositoryMock.Setup(e => e.GetUser(It.IsAny<string>()))
                 .Throws<ResourceNotFoundException>();
             
-            var service = new UserService
-                (userRepositoryStub.Object, mapperStub.Object, tokenServiceStub.Object);
-
             Assert.Throws<ResourceNotFoundException>
-                (() => service.GetUser(It.IsAny<string>()));
+                (() => _service.GetUser(It.IsAny<string>()));
         }
 
         [Fact]
         public void RefreshAccessToken_ByDefault_ReturnsJsonWebToken()
         {
-            var userRepositoryStub = new Mock<IUserRepository>();
-            var mapperStub = new Mock<IMapper>();
-            var tokenServiceStub = new Mock<ITokenService>();
-            tokenServiceStub.Setup(e => e.RefreshAccessToken(It.IsAny<string>()))
+            _tokenServiceMock.Setup(e => e.RefreshAccessToken(It.IsAny<string>()))
                 .Returns(new JsonWebToken());
             
-            var service = new UserService
-                (userRepositoryStub.Object, mapperStub.Object, tokenServiceStub.Object);
-            var result = service.RefreshAccessToken(It.IsAny<string>());
+            var result = _service.RefreshAccessToken(It.IsAny<string>());
 
             Assert.IsType<JsonWebToken>(result);
         }
@@ -136,47 +135,104 @@ namespace ToDoListApi.Tests
         [Fact]
         public void RefreshAccessToken_WhenTokenNotFound_ThrowsResourceNotFoundException()
         {
-            var userRepositoryStub = new Mock<IUserRepository>();
-            var mapperStub = new Mock<IMapper>();
-            var tokenServiceStub = new Mock<ITokenService>();
-            tokenServiceStub.Setup(e => e.RefreshAccessToken(It.IsAny<string>()))
+            _tokenServiceMock.Setup(e => e.RefreshAccessToken(It.IsAny<string>()))
                 .Throws<ResourceNotFoundException>();
             
-            var service = new UserService
-                (userRepositoryStub.Object, mapperStub.Object, tokenServiceStub.Object);
-
             Assert.Throws<ResourceNotFoundException>
-                (() => service.RefreshAccessToken(It.IsAny<string>()));
+                (() => _service.RefreshAccessToken(It.IsAny<string>()));
         }
 
         [Fact]
         public void RevokeAccessToken_ByDefault_CallsTokenService()
         {
-            var userRepositoryStub = new Mock<IUserRepository>();
-            var mapperStub = new Mock<IMapper>();
-            var tokenServiceStub = new Mock<ITokenService>();
+            _service.RevokeRefreshToken(It.IsAny<string>());
             
-            var service = new UserService
-                (userRepositoryStub.Object, mapperStub.Object, tokenServiceStub.Object);
-            service.RevokeRefreshToken(It.IsAny<string>());
-            
-            tokenServiceStub.Verify(e => e.RevokeRefreshToken(It.IsAny<string>()), Times.Once);
+            _tokenServiceMock.Verify(e => e.RevokeRefreshToken(It.IsAny<string>()), Times.Once);
         }
         
         [Fact]
         public void RevokeAccessToken_WhenNotFound_ThrowsResourceNotFoundException()
         {
-            var userRepositoryStub = new Mock<IUserRepository>();
-            var mapperStub = new Mock<IMapper>();
-            var tokenServiceStub = new Mock<ITokenService>();
-            tokenServiceStub.Setup(e => e.RevokeRefreshToken(It.IsAny<string>()))
+            _tokenServiceMock.Setup(e => e.RevokeRefreshToken(It.IsAny<string>()))
                 .Throws<ResourceNotFoundException>();
             
-            var service = new UserService
-                (userRepositoryStub.Object, mapperStub.Object, tokenServiceStub.Object);
-
             Assert.Throws<ResourceNotFoundException>
-                (() => service.RevokeRefreshToken(It.IsAny<string>()));
+                (() => _service.RevokeRefreshToken(It.IsAny<string>()));
         }
+
+        [Fact]
+        public async Task Login_ByDefault_CallsUserRepository()
+        {
+            var result = await _service.Login(It.IsAny<LoginBindingModel>());
+            
+            _userRepositoryMock.Verify(e => e.Login(It.IsAny<LoginBindingModel>()), Times.Once);
+        }
+
+        [Fact]
+        public async Task Register_ByDefault_CallsUserRepository()
+        {
+            var result = await _service.Register(It.IsAny<RegisterBindingModel>());
+            
+            _userRepositoryMock.Verify
+                (e => e.Register(It.IsAny<RegisterBindingModel>()), Times.Once);
+        }
+
+        [Fact]
+        public async Task VerifyEmail_ByDefault_CallsUserRepository()
+        {
+            await _service.VerifyEmail(It.IsAny<string>(), It.IsAny<string>());
+            
+            _userRepositoryMock.Verify
+                (e => e.VerifyEmail
+                (It.IsAny<string>(), It.IsAny<string>()), Times.Once);
+        }
+
+        [Fact]
+        public async Task VerifyEmail_WhenUserNotFound_ThrowsResourceNotFoundException()
+        {
+            _userRepositoryMock.Setup
+                    (e => e.VerifyEmail(It.IsAny<string>(), It.IsAny<string>()))
+                .Throws<ResourceNotFoundException>();
+            
+            await Assert.ThrowsAsync<ResourceNotFoundException>
+                (() => _service.VerifyEmail(It.IsAny<string>(), It.IsAny<string>()));
+        }
+
+        [Fact]
+        public async Task VerifyEmail_WhenVerificationFail_ThrowsEmailVerificationException()
+        {
+            _userRepositoryMock.Setup
+                    (e => e.VerifyEmail(It.IsAny<string>(), It.IsAny<string>()))
+                .Throws<EmailVerificationException>();
+
+            await Assert.ThrowsAsync<EmailVerificationException>
+                (() => _service.VerifyEmail(It.IsAny<string>(), It.IsAny<string>()));
+        }
+
+        [Fact]
+        public void GetUser_ByDefault_CallsUserRepository()
+        {
+            var result = _service.GetUser(It.IsAny<string>());
+            
+            _userRepositoryMock.Verify(e => e.GetUser(It.IsAny<string>()), Times.Once);
+        }
+
+        [Fact]
+        public void GetUser_ByDefault_CallsMapper()
+        {
+            var result = _service.GetUser(It.IsAny<string>());
+            
+            _mapperMock.Verify(e => e.Map<UserViewModel>(It.IsAny<AppUser>()));
+        }
+
+        [Fact]
+        public void RefreshAccessToken_ByDefault_CallsTokenService()
+        {
+            var result = _service.RefreshAccessToken(It.IsAny<string>());
+            
+            _tokenServiceMock.Verify(e => e.RefreshAccessToken(It.IsAny<string>()));
+        }
+        
     }
+    
 }
