@@ -10,12 +10,17 @@ namespace ToDoListApi.Tests
 {
     public class ToDoRepositoryTests : ToDoRepositoryTestBase
     {
+        private readonly ToDoRepository _toDoRepository;
+
+        public ToDoRepositoryTests()
+        {
+            _toDoRepository = new ToDoRepository(Context);
+        }
+        
         [Fact]
         public void GetToDos_ByDefault_ReturnsToDosCollection()
         {
-            var toDoRepository = new ToDoRepository(Context);
-
-            var result = toDoRepository.GetToDos(Guid.Parse("12f97655-1c02-4724-ae34-96db34561310"));
+            var result = _toDoRepository.GetToDos(Guid.Parse("12f97655-1c02-4724-ae34-96db34561310"));
 
             Assert.IsAssignableFrom<ICollection<ToDo>>(result);
         }
@@ -23,14 +28,13 @@ namespace ToDoListApi.Tests
         [Fact]
         public void AddTodo_ByDefault_ReturnsToDosCollection()
         {
-            var toDoRepository = new ToDoRepository(Context);
             var toDo = new ToDo
             {
                 Date = It.IsAny<DateTime>(),
                 Task = It.IsAny<string>()
             };
 
-            var result = toDoRepository.AddToDo
+            var result = _toDoRepository.AddToDo
                 (toDo, Guid.Parse("12f97655-1c02-4724-ae34-96db34561310"));
 
             Assert.IsAssignableFrom<ICollection<ToDo>>(result);
@@ -39,9 +43,7 @@ namespace ToDoListApi.Tests
         [Fact]
         public void DeleteToDo_ByDefault_ReturnsToDosCollection()
         {
-            var toDoRepository = new ToDoRepository(Context);
-
-            var result = toDoRepository.DeleteToDo
+            var result = _toDoRepository.DeleteToDo
             (Guid.Parse("b27ab8f1-255a-4379-a1cc-523299f4d133"),
                 Guid.Parse("86aedc42-a100-4f69-8807-c117e8af039c"));
 
@@ -51,14 +53,13 @@ namespace ToDoListApi.Tests
         [Fact]
         public void UpdateToDo_ByDefault_ReturnsUpdatedToDo()
         {
-            var toDoRepository = new ToDoRepository(Context);
             var toDo = new ToDo
             {
                 Task = It.IsAny<string>(),
                 Date = It.IsAny<DateTime>()
             };
 
-            var result = toDoRepository.UpdateToDo
+            var result = _toDoRepository.UpdateToDo
             (toDo, Guid.Parse("b27ab8f1-255a-4379-a1cc-523299f4d133"),
                 Guid.Parse("86aedc42-a100-4f69-8807-c117e8af039c"));
 
@@ -68,10 +69,8 @@ namespace ToDoListApi.Tests
         [Fact]
         public void DeleteToDo_WhenToDoNotFound_ThrowsResourceNotFoundException()
         {
-            var toDoRepository = new ToDoRepository(Context);
-
             Assert.Throws<ResourceNotFoundException>(
-                () => toDoRepository.DeleteToDo
+                () => _toDoRepository.DeleteToDo
                 (It.Is<Guid>(m => m != Guid.Parse("b27ab8f1-255a-4379-a1cc-523299f4d133")),
                     It.Is<Guid>(m => m != Guid.Parse("86aedc42-a100-4f69-8807-c117e8af039c"))));
         }
@@ -79,10 +78,8 @@ namespace ToDoListApi.Tests
         [Fact]
         public void UpdateToDo_WhenToDoNotFound_ThrowsResourceNotFoundException()
         {
-            var toDoRepository = new ToDoRepository(Context);
-
             Assert.Throws<ResourceNotFoundException>(
-                () => toDoRepository.UpdateToDo(It.IsAny<ToDo>(),
+                () => _toDoRepository.UpdateToDo(It.IsAny<ToDo>(),
                     It.Is<Guid>(m => m != Guid.Parse("b27ab8f1-255a-4379-a1cc-523299f4d133")),
                     It.Is<Guid>(m => m != Guid.Parse("86aedc42-a100-4f69-8807-c117e8af039c"))));
         }
