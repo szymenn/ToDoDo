@@ -40,8 +40,8 @@ namespace ToDoListApi.Services
 
         public UserViewModel GetUser(string userId)
         {
-            var userModel = _userRepository.GetUser(userId);
-            return _mapper.Map<UserViewModel>(userModel);
+            var user = _userRepository.GetUser(userId);
+            return _mapper.Map<UserViewModel>(user);
         }
 
         public JsonWebToken RefreshAccessToken(string token)
