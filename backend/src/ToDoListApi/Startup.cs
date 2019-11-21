@@ -97,12 +97,13 @@ namespace ToDoListApi
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
             }
             else
             {
                 app.UseHsts();
             }
+
+            app.UseDeveloperExceptionPage();
 
             app.UseCustomExceptionHandler();
             app.UseCors(config =>
