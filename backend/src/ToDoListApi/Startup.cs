@@ -105,7 +105,7 @@ namespace ToDoListApi
 
             app.UseDeveloperExceptionPage();
 
-            app.UseCustomExceptionHandler();
+            // app.UseCustomExceptionHandler();
             app.UseCors(config =>
             {
                 config.AllowAnyHeader()
