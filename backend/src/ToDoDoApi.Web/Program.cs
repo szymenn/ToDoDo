@@ -1,9 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace ToDoListApi
+namespace ToDoDoApi.Web
 {
     public class Program
     {
@@ -14,8 +19,6 @@ namespace ToDoListApi
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .ConfigureLogging((hostingContext, logging) => { logging.AddEventSourceLogger(); })
-                .UseStartup<Startup>()
-                .UseUrls("http://*:"+Environment.GetEnvironmentVariable("PORT"));
+                .UseStartup<Startup>();
     }
 }

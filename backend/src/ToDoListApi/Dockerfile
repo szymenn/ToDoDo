@@ -15,4 +15,4 @@ EXPOSE 5432
 FROM mcr.microsoft.com/dotnet/core/aspnet:2.2
 WORKDIR /app
 COPY --from=build-env /app/out .
-CMD ["dotnet", "ToDoListApi.dll", "ASPNETCORE_URLS", "http://*:$PORT"]
+CMD ["dotnet", "ToDoListApi.dll"]
