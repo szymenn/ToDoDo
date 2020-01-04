@@ -4,12 +4,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoListApi", "src\ToDoList
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoListApi.Tests", "test\ToDoListApi.Tests\ToDoListApi.Tests.csproj", "{7943F821-C801-4406-8E72-176249C5E860}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoDoApi.Core", "src\ToDoDoApi.Core\ToDoDoApi.Core.csproj", "{9A1B404A-1529-4D77-9035-2B700FDA232A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoDoApi.Infrastructure", "src\ToDoDoApi.Infrastructure\ToDoDoApi.Infrastructure.csproj", "{898A9AA0-783A-4A26-87F6-D313962557FD}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoDoApi.Web", "src\ToDoDoApi.Web\ToDoDoApi.Web.csproj", "{DB8DF2EF-5027-47A3-BECD-851602B72814}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,17 +18,5 @@ Global
 		{7943F821-C801-4406-8E72-176249C5E860}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7943F821-C801-4406-8E72-176249C5E860}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7943F821-C801-4406-8E72-176249C5E860}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9A1B404A-1529-4D77-9035-2B700FDA232A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9A1B404A-1529-4D77-9035-2B700FDA232A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9A1B404A-1529-4D77-9035-2B700FDA232A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9A1B404A-1529-4D77-9035-2B700FDA232A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{898A9AA0-783A-4A26-87F6-D313962557FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{898A9AA0-783A-4A26-87F6-D313962557FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{898A9AA0-783A-4A26-87F6-D313962557FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{898A9AA0-783A-4A26-87F6-D313962557FD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DB8DF2EF-5027-47A3-BECD-851602B72814}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DB8DF2EF-5027-47A3-BECD-851602B72814}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DB8DF2EF-5027-47A3-BECD-851602B72814}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DB8DF2EF-5027-47A3-BECD-851602B72814}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

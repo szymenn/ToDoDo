@@ -15,14 +15,15 @@ services:
     ports:
       - "8000:80"
     environment:
-      ToDoDbConnectionString: "host=host.docker.internal;port=5432;database=ToDoDoDb;username=postgres;password=123hehe"
-      UserStoreDb: "host=host.docker.internal;port=5432;database=UserStore;username=postgres;password=123hehe"
-      TokenStoreDb: "host=host.docker.internal;port=5432;database=TokenStoreDb;username=postgres;password=123hehe"
+      ToDoDbConnectionString: "host=postgres_image;port=5432;database=ToDoDoDb;username=postgres;password=123hehe"
+      UserStoreDb: "host=postgres_image;port=5432;database=UserStore;username=postgres;password=123hehe"
+      TokenStoreDb: "host=postgres_image;port=5432;database=TokenStoreDb;username=postgres;password=123hehe"
     networks:
       - todolistapi-dev
-
   postgres_image:
     image: postgres:latest
+    ports:
+      - "5432"
     restart: always
     environment:
       POSTGRES_USER: "postgres"
