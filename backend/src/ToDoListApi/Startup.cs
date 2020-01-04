@@ -36,9 +36,9 @@ namespace ToDoListApi
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddDbContext<ToDoDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString(Constants.ToDoDbConnectionString)));
+                options.UseNpgsql(Configuration.GetConnectionString(Constants.ToDoDbConnectionString)));
             services.AddDbContext<TokenStoreDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString(Constants.TokenStoreDb)));
+                options.UseNpgsql(Configuration.GetConnectionString(Constants.TokenStoreDb)));
 
             var mappingConfig = new MapperConfiguration(config =>
             {
@@ -49,7 +49,7 @@ namespace ToDoListApi
             services.AddSingleton(mapper);
             
             services.AddDbContext<UserStoreDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString(Constants.UserStoreConnectionString)));
+                options.UseNpgsql(Configuration.GetConnectionString(Constants.UserStoreConnectionString)));
             services.AddIdentity<AppUser, IdentityRole>(options =>
                 {
                     options.SignIn.RequireConfirmedEmail = true;
@@ -102,10 +102,10 @@ namespace ToDoListApi
             else
             {
                 app.UseHsts();
+                app.UseCustomExceptionHandler();
+
             }
-
-            app.UseCustomExceptionHandler();
-
+            
             app.UseCors(config =>
             {
                 config.AllowAnyHeader()

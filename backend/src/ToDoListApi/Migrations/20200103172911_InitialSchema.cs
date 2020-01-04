@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace ToDoListApi.Migrations.ToDoDb
+namespace ToDoListApi.Migrations
 {
-    public partial class InitialAzureDb : Migration
+    public partial class InitialSchema : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

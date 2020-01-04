@@ -1,0 +1,37 @@
+version: '3.4'
+
+networks:
+  todolistapi-dev:
+    driver: bridge
+
+services:
+  todolistapi:
+    image: todolistapi:latest
+    depends_on:
+      - "postgres_image"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:80"
+    environment:
+      ToDoDbConnectionString: "host=host.docker.internal;port=5432;database=ToDoDoDb;username=postgres;password=123hehe"
+      UserStoreDb: "host=host.docker.internal;port=5432;database=UserStore;username=postgres;password=123hehe"
+      TokenStoreDb: "host=host.docker.internal;port=5432;database=TokenStoreDb;username=postgres;password=123hehe"
+    networks:
+      - todolistapi-dev
+
+  postgres_image:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "123hehe"
+      POSTGRES_DB: "postgres_image"
+    networks:
+      - todolistapi-dev
+volumes:
+  db_volume:
+         
+    
+     
