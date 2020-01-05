@@ -5,7 +5,7 @@ namespace ToDoListApi.Helpers
         public const string ToDoDbConnectionString = "ToDoDbConnectionString";
         public const string JwtSettings = "JwtSettings";
         public const string EmailVerificationSettings = "EmailVerificationSettings";
-        public const string UserStoreConnectionString = "DATABASE_URL";
+        public const string UserStoreConnectionString = "UserStoreDb";
         public const string NotFound = "Not Found";
         public const string Conflict = "Conflict";
         public const string BadRequest = "Bad Request";
