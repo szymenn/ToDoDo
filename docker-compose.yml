@@ -10,8 +10,8 @@ services:
     depends_on:
       - "postgres_image"
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: ./backend/src/ToDoListApi
+      dockerfile: ./backend/src/ToDoListApi/Dockerfile
     ports:
       - "8000:80"
     environment:
@@ -20,6 +20,17 @@ services:
       TokenStoreDb: "host=postgres_image;port=5432;database=TokenStoreDb;username=postgres;password=123hehe"
     networks:
       - todolistapi-dev
+  todolistfronend:
+    build: 
+      context: ./frontend/src/to-do-list
+      dockerfile: C:\Users\User\RiderProjects\ToDoListApp\frontend\src\to-do-list\Dockerfile
+    volumes:
+        - ./frontend/src/to-do-list:/app
+        - ./app/node_modules
+    ports: 
+        - '3001:3000'
+    environment:
+      - NODE_ENV=development
   postgres_image:
     image: postgres:latest
     ports:

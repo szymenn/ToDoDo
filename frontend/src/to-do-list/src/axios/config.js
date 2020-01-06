@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { JWT_ID, REFRESH_ID } from '../constants/jwt';
 
-const apiUrl = 'https://localhost:5001'
+const apiUrl = 'http://localhost:8000'
 const axiosInstance = axios.create()
 
 axiosInstance.interceptors.response.use((response) => {
