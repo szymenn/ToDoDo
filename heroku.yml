@@ -1,3 +1,4 @@
 build:
   docker:
     web: backend/src/ToDoListApi/Dockerfile
+    frontend: frontend/src/to-do-list/Dockerfile
