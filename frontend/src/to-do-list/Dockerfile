@@ -6,6 +6,7 @@ WORKDIR /app
 
 # add `/app/node_modules/.bin` to $PATH
 ENV PATH /app/node_modules/.bin:$PATH
+ENV npm_config_unsafe_perm=true
 
 # install and cache app dependencies
 COPY package.json /app/package.json
