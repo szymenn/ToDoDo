@@ -9,7 +9,7 @@ namespace ToDoListApi.Data
         public UserStoreDbContext(DbContextOptions options)
             : base(options)
         {
-            
+            Database.Migrate();
         }
     }
 }

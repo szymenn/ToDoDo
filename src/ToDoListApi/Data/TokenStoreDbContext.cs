@@ -8,7 +8,7 @@ namespace ToDoListApi.Data
         public TokenStoreDbContext(DbContextOptions<TokenStoreDbContext> options)
             : base(options)
         {
-            
+            Database.Migrate();
         }
         
         public DbSet<RefreshToken> Tokens { get; set; }
