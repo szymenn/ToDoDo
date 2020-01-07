@@ -2,10 +2,10 @@ namespace ToDoListApi.Helpers
 {
     public static class Constants
     {
-        public const string ToDoDbConnectionString = "HEROKU_POSTGRESQL_ONYX_URL";
+        public const string ToDoDbConnectionString = "ToDoDbConnectionString";
         public const string JwtSettings = "JwtSettings";
         public const string EmailVerificationSettings = "EmailVerificationSettings";
-        public const string UserStoreConnectionString = "DATABASE_URL";
+        public const string UserStoreConnectionString = "UserStoreDb";
         public const string NotFound = "Not Found";
         public const string Conflict = "Conflict";
         public const string BadRequest = "Bad Request";
@@ -18,7 +18,7 @@ namespace ToDoListApi.Helpers
         public const string InternalServerError = "Internal Server error";
         public const string InternalServerErrorDetail = "An unexpected error occurred";
         public const string AllowSpecificOrigins = "_allowSpecificOrigins";
-        public const string TokenStoreDb = "HEROKU_POSTGRESQL_MAUVE_URL";
+        public const string TokenStoreDb = "TokenStoreDb";
         public const string RedirectSuccess = "http://localhost:3001";
         public const string EmailVerificationException = "Unable to verify email";
         public const string LoginFailed =
