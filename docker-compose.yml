@@ -10,8 +10,8 @@ services:
     depends_on:
       - "postgres_image"
     build:
-      context: ./backend/src/ToDoListApi
-      dockerfile: C:\Users\User\RiderProjects\ToDoListApp\backend\src\ToDoListApi\Dockerfile
+      context: ./src/ToDoListApi
+      dockerfile: .
     ports:
       - "8000:80"
     environment:
@@ -22,10 +22,10 @@ services:
       - todolistapi-dev
   todolistfronend:
     build: 
-      context: ./frontend/src/to-do-list
-      dockerfile: C:\Users\User\RiderProjects\ToDoListApp\frontend\src\to-do-list\Dockerfile
+      context: C:\Users\User\RiderProjects\ToDoListAppFrontend/src/to-do-list
+      dockerfile: C:\Users\User\RiderProjects\ToDoListAppFrontend\Dockerfile
     volumes:
-        - ./frontend/src/to-do-list:/app
+        - C:\Users\User\RiderProjects\ToDoListAppFrontend/src/to-do-list:/app
         - ./app/node_modules
     ports: 
         - '3001:3000'
