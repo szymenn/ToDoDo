@@ -19,12 +19,12 @@ namespace ToDoListApi.Helpers
         public const string InternalServerErrorDetail = "An unexpected error occurred";
         public const string AllowSpecificOrigins = "_allowSpecificOrigins";
         public const string TokenStoreDb = "TokenStoreDb";
-        public const string RedirectSuccess = "http://localhost:8000/";
+        public const string RedirectSuccess = "http://localhost:3001";
         public const string EmailVerificationException = "Unable to verify email";
         public const string LoginFailed =
             "Login Failed, please make sure your email is verified and provided password is correct";
 
-        public const string ApiUrl = "http://localhost:8000/";
+        public const string ApiUrl = "http://localhost:8000";
         public const string EmailSenderException =
             "An error occured while sending confirmation email, please try again";
     }

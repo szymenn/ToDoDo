@@ -11,7 +11,7 @@ services:
       - "postgres_image"
     build:
       context: ./backend/src/ToDoListApi
-      dockerfile: ./backend/src/ToDoListApi/Dockerfile
+      dockerfile: C:\Users\User\RiderProjects\ToDoListApp\backend\src\ToDoListApi\Dockerfile
     ports:
       - "8000:80"
     environment:
