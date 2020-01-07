@@ -10,9 +10,6 @@ COPY . ./
 RUN dotnet publish -c Release -o out
 
 RUN dotnet tool install --global dotnet-ef --version 2.2.0
-RUN dotnet ef database update --context UserStoreDbContext
-RUN dotnet ef database update --ToDoDbContext
-RUN dotnet ef database update --context TokenStoreDbContext
 
 EXPOSE 5432
 
