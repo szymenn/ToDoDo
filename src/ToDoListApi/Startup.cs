@@ -102,7 +102,9 @@ namespace ToDoListApi
             else
             {
                 app.UseHsts();
-                app.UseCustomExceptionHandler();
+                app.UseDeveloperExceptionPage();
+
+//                app.UseCustomExceptionHandler();
 
             }
             
