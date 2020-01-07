@@ -48,7 +48,7 @@ namespace ToDoListApi
 
             var mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
-
+        
             services.AddDbContext<UserStoreDbContext>(options =>
                 options.UseNpgsql(Environment.GetEnvironmentVariable(Constants.UserStoreConnectionString)));
             services.AddIdentity<AppUser, IdentityRole>(options =>
@@ -59,7 +59,7 @@ namespace ToDoListApi
                 .AddEntityFrameworkStores<UserStoreDbContext>()
                 .AddDefaultTokenProviders();
    
-            
+                        
             services.Configure<JwtSettings>(Configuration.GetSection(Constants.JwtSettings));
             services.Configure<EmailVerificationSettings>(
                 Configuration.GetSection(Constants.EmailVerificationSettings));

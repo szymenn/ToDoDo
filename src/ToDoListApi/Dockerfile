@@ -9,8 +9,6 @@ RUN dotnet restore
 COPY . ./
 RUN dotnet publish -c Release -o out
 
-RUN dotnet tool install --global dotnet-ef --version 2.2.0
-
 EXPOSE 5432
 
 # Build runtime image

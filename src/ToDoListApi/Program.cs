@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Logging;
+using ToDoListApi.Extensions;
 
 namespace ToDoListApi
 {
@@ -9,7 +10,7 @@ namespace ToDoListApi
     {
         public static void Main(string[] args)
         {
-            CreateWebHostBuilder(args).Build().Run();
+            CreateWebHostBuilder(args).Build().MigrateDatabase().Run();
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
