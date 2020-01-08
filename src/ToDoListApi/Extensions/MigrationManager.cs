@@ -9,7 +9,7 @@ namespace ToDoListApi.Extensions
 {
     public static class MigrationManager
     {
-        public static IWebHost MigrateDatabase(this IWebHost host)
+        public static IWebHost MigrateDatabases(this IWebHost host)
         {
             using (var scope = host.Services.CreateScope())
             {

@@ -37,9 +37,9 @@ namespace ToDoListApi
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddDbContext<ToDoDbContext>(options =>
-                options.UseNpgsql(Environment.GetEnvironmentVariable(Constants.ToDoDbConnectionString)));
+                options.UseNpgsql(Environment.GetEnvironmentVariable(Constants.ToDoDbConnectionString) ?? throw new ApplicationException("ToDoDbContext string is null")));
             services.AddDbContext<TokenStoreDbContext>(options =>
-                options.UseNpgsql(Environment.GetEnvironmentVariable(Constants.TokenStoreDb)));
+                options.UseNpgsql(Environment.GetEnvironmentVariable(Constants.TokenStoreDb) ?? throw new ApplicationException("TokenStoreDbContext string is null")));
 
             var mappingConfig = new MapperConfiguration(config =>
             {
@@ -50,7 +50,7 @@ namespace ToDoListApi
             services.AddSingleton(mapper);
             
             services.AddDbContext<UserStoreDbContext>(options =>
-                options.UseNpgsql(Environment.GetEnvironmentVariable(Constants.UserStoreConnectionString)));
+                options.UseNpgsql(Environment.GetEnvironmentVariable(Constants.UserStoreConnectionString) ?? throw new ApplicationException("UserStoreDbContext STRING IS NULL")));
             services.AddIdentity<AppUser, IdentityRole>(options =>
                 {
                     options.SignIn.RequireConfirmedEmail = true;

@@ -10,7 +10,7 @@ namespace ToDoListApi
     {
         public static void Main(string[] args)
         {
-            CreateWebHostBuilder(args).Build().MigrateDatabase().Run();
+            CreateWebHostBuilder(args).Build().MigrateDatabases().Run();
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
