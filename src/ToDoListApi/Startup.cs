@@ -26,7 +26,9 @@ namespace ToDoListApi
     {
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            var builder = new ConfigurationBuilder().AddEnvironmentVariables();
+
+            Configuration = builder.AddConfiguration(configuration).Build();
         }
 
         public IConfiguration Configuration { get; }
