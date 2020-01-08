@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -36,9 +37,9 @@ namespace ToDoListApi
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddDbContext<ToDoDbContext>(options =>
-                options.UseNpgsql(Configuration.GetConnectionString(Constants.ToDoDbConnectionString)));
+                options.UseNpgsql(Environment.GetEnvironmentVariable(Constants.ToDoDbConnectionString)));
             services.AddDbContext<TokenStoreDbContext>(options =>
-                options.UseNpgsql(Configuration.GetConnectionString(Constants.TokenStoreDb)));
+                options.UseNpgsql(Environment.GetEnvironmentVariable(Constants.TokenStoreDb)));
 
             var mappingConfig = new MapperConfiguration(config =>
             {
@@ -49,7 +50,7 @@ namespace ToDoListApi
             services.AddSingleton(mapper);
             
             services.AddDbContext<UserStoreDbContext>(options =>
-                options.UseNpgsql(Configuration.GetConnectionString(Constants.UserStoreConnectionString)));
+                options.UseNpgsql(Environment.GetEnvironmentVariable(Constants.UserStoreConnectionString)));
             services.AddIdentity<AppUser, IdentityRole>(options =>
                 {
                     options.SignIn.RequireConfirmedEmail = true;
