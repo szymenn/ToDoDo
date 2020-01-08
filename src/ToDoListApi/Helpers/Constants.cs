@@ -24,7 +24,7 @@ namespace ToDoListApi.Helpers
         public const string LoginFailed =
             "Login Failed, please make sure your email is verified and provided password is correct";
 
-        public const string ApiUrl = "https://to-do-do.herokuapp.com/";
+        public const string ApiUrl = "https://to-do-do.herokuapp.com";
         public const string EmailSenderException =
             "An error occured while sending confirmation email, please try again";
     }
