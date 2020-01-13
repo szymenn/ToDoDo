@@ -43,9 +43,15 @@ jobs:
             name: Build App 
             command: 
               dotnet build
+        - run: 
+            name: update
+            command: apt-get update
+        - run:
+            name: upgrade
+            command: apt-get upgrade
         - run:
             name: Add unzip command
-            command: apt-get install libzip-dev
+            command: apt-get install unzip
         - sonarcloud/scan
         
 workflows:
