@@ -37,15 +37,15 @@ jobs:
       steps: 
         - checkout
         - run: 
-            name: Restore packages 
+            name: "Restore packages" 
             command: 
               dotnet restore
         - run:
-            name: Build App 
+            name: "Build App" 
             command: 
               dotnet build
         - run:
-            name: Add unzip
+            name: "Add unzip"
             command: apt-get install libzip-dev
         - sonarcloud/scan
         
