@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ToDoListApi.Data;
+using ToDoListApi.Helpers;
 
 namespace ToDoListApi.Extensions
 {
@@ -15,19 +16,27 @@ namespace ToDoListApi.Extensions
             {
                 using (var appContext = scope.ServiceProvider.GetRequiredService<UserStoreDbContext>() )
                 {
-                    appContext.Database.Migrate();
+                    Migrate(appContext);
                 }
                 using (var appContext = scope.ServiceProvider.GetRequiredService<ToDoDbContext>() )
                 {
-                    appContext.Database.Migrate();
+                    Migrate(appContext);
                 }
                 using (var appContext = scope.ServiceProvider.GetRequiredService<TokenStoreDbContext>() )
                 {
-                    appContext.Database.Migrate();
+                    Migrate(appContext);
                 }
             }
  
             return host;
-        } 
+        }
+
+        private static void Migrate(DbContext appContext)
+        {
+            if (appContext.Database.ProviderName != Constants.InMemoryProvider)
+            {
+                appContext.Database.Migrate();
+            }
+        }
     }
 }

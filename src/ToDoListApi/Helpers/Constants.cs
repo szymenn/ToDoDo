@@ -27,5 +27,7 @@ namespace ToDoListApi.Helpers
         public const string ApiUrl = "https://to-do-do.herokuapp.com";
         public const string EmailSenderException =
             "An error occured while sending confirmation email, please try again";
+
+        public const string InMemoryProvider = "Microsoft.EntityFrameworkCore.InMemory";
     }
 }

@@ -8,7 +8,6 @@ namespace ToDoListApi.Data
         public ToDoDbContext(DbContextOptions<ToDoDbContext> options)
             : base(options)
         {
-            Database.Migrate();
         }
         
         public DbSet<ToDo> ToDos { get; set; }
