@@ -44,9 +44,13 @@ jobs:
             command: 
               dotnet build
         - run:
-            name: Get unzip
+            name: Get sudo
             command:
-              apt-get install wget unzip
+              apt-get install sudo
+        - run: 
+            name: Get unzip
+            command: 
+              sudo apt-get install unzip
         - sonarcloud/scan
         
 workflows:
