@@ -55,8 +55,7 @@ jobs:
         - run:
             name: Add unzip command
             command: apt-get install unzip
-        - sonarcloud/scan
-        
+        - sonarcloud/scan 
 workflows:
   test_and_build:
     jobs:
