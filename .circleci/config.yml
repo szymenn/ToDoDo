@@ -43,9 +43,10 @@ jobs:
             name: Build App 
             command: 
               dotnet build
-        - run: 
+        - run:
             name: Get unzip
-            command: sudo pip install --user unzip
+            command:
+              apt-get install wget unzip
         - sonarcloud/scan
         
 workflows:
