@@ -49,6 +49,9 @@ jobs:
         - run:
             name: upgrade
             command: apt-get upgrade
+        - run: 
+            name: Add java
+            command: apt-get install --yes --force-yes openjdk-8-jre
         - run:
             name: Add unzip command
             command: apt-get install unzip
