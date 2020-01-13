@@ -27,6 +27,7 @@ jobs:
       - run:
           name: "Print Working Directory"
           command: pwd
+      - run:
       - store_artifacts:
           path: C:\Users\circleci\project\test_coverage
       
@@ -43,6 +44,9 @@ jobs:
             name: Build App 
             command: 
               dotnet build
+        - run:
+            name: Add unzip
+            command: apt-get install libzip-dev
         - sonarcloud/scan
         
 workflows:
