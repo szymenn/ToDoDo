@@ -1,6 +1,7 @@
 [![CircleCI](https://circleci.com/gh/szymenn/ToDoDo-backend.svg?style=svg)](https://circleci.com/gh/szymenn/ToDoDo-backend)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=ToDoDo&metric=coverage)](https://sonarcloud.io/dashboard?id=ToDoDo)
-[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=ToDoDo&metric=bugs)](https://sonarcloud.io/dashboard?id=ToDoDo)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=ToDoDo-backend&metric=alert_status)](https://sonarcloud.io/dashboard?id=ToDoDo-backend)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=ToDoDo-backend&metric=coverage)](https://sonarcloud.io/dashboard?id=ToDoDo-backend)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=ToDoDo-backend&metric=bugs)](https://sonarcloud.io/dashboard?id=ToDoDo-backend)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 # ToDoDo-backend
 ASP.NET Core 2.2 Web API for todo list app I made, frontend code is available [here](https://github.com/szymenn/ToDoDo-frontend)
