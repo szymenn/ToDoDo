@@ -2,8 +2,6 @@ version: 2.1
 
 orbs:
   windows: circleci/windows@2.2.0
-  sonarcloud: sonarsource/sonarcloud@1.0.1
-
 jobs:
   test:
     description: Setup and run application tests
@@ -55,7 +53,6 @@ jobs:
         - run:
             name: Add unzip command
             command: apt-get install unzip
-        - sonarcloud/scan 
   deploy:
       docker:
         - image: buildpack-deps:trusty
@@ -70,7 +67,6 @@ workflows:
     jobs:
       - test
       - build:
-          context: SonarCloud 
           requires: 
             - test
       - deploy:
