@@ -3,7 +3,7 @@
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=ToDoDo&metric=bugs)](https://sonarcloud.io/dashboard?id=ToDoDo)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 # ToDoDo-backend
-ASP.NET Core 2.2 Web API for todo list app implementation I made, frontend code is available [here](https://github.com/szymenn/ToDoDo-frontend)
+ASP.NET Core 2.2 Web API for todo list app I made, frontend code is available [here](https://github.com/szymenn/ToDoDo-frontend)
 ## Live
 Live version of the app is accessible [here](https://szymenn.github.io/ToDoDo-frontend/). Note that the app is using [SendGrid](https://sendgrid.com/pricing/) free account plan, which limits account registration to 100 per day. 
 ## Used technologies
