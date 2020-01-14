@@ -27,7 +27,7 @@ steps:
     SonarCloud: 'SonarCloudConnection'
     organization: 'szymenn'
     scannerMode: 'MSBuild'
-    projectKey: 'ToDoDo'
+    projectKey: 'ToDoDo-backend'
 - task: VSBuild@1
   inputs:
     solution: '$(solution)'
