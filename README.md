@@ -3,15 +3,16 @@
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=ToDoDo&metric=bugs)](https://sonarcloud.io/dashboard?id=ToDoDo)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 # ToDoDo-backend
-Todo list app implementation I made to learn basics of frontend web development using React.js and Redux as well as to practice my backend coding skills 
+ASP.NET Core 2.2 Web API for todo list app implementation I made, code of frontend is available [here](https://github.com/szymenn/ToDoDo-frontend)
 ## Live
-Live version of the app is accessible [here](https://todododo.azurewebsites.net/). Note that the app is using [SendGrid](https://sendgrid.com/pricing/) free account plan, which limits account registration to 100 per day. 
+Live version of the app is accessible [here](https://szymenn.github.io/ToDoDo-frontend/). Note that the app is using [SendGrid](https://sendgrid.com/pricing/) free account plan, which limits account registration to 100 per day. 
 ## Used technologies
 ### CI/CD, deployment tools 
-- Azure DevOps
-- Azure app services
+- CircleCI
+- Heroku 
+- Docker
 - SonarCloud
-### backend
+### API
 - C# 7.3
 - ASP.NET Core 2.2 
 - Entity Framework Core
@@ -19,12 +20,6 @@ Live version of the app is accessible [here](https://todododo.azurewebsites.net/
 - SqlServer
 - xUnit
 - Moq
-### frontend
-- JavaScript
-- React.js 
-- Redux
-- React Router
-- Reactstrap
 ## Features
 - Authentication and Authorization using Json Web Token
 - Creating, editing and deleting tasks
