@@ -1,5 +1,4 @@
 [![CircleCI](https://circleci.com/gh/szymenn/ToDoDo-backend.svg?style=svg)](https://circleci.com/gh/szymenn/ToDoDo-backend)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=ToDoDo-backend&metric=alert_status)](https://sonarcloud.io/dashboard?id=ToDoDo-backend)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=ToDoDo-backend&metric=coverage)](https://sonarcloud.io/dashboard?id=ToDoDo-backend)
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=ToDoDo-backend&metric=bugs)](https://sonarcloud.io/dashboard?id=ToDoDo-backend)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
